@@ -232,10 +232,10 @@ figure.floatcenter, .align-center {
     display: none;
 }
 
-.hr { 
+hr { 
     display: none !important;
 }
 
-footer.container { 
+footer {
     display: none !important;
 }
