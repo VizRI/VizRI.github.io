@@ -2,7 +2,7 @@
 <html lang="en"
 >
 <head>
-    <title>Rhode Island Payroll FY2017 - I Viz RI</title>
+    <title>I Viz RI</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,12 +11,15 @@
 
     <link href="https://ivizri.com/images/favicon.png" rel="icon">
 
-<link rel="canonical" href="https://ivizri.com/posts/2017/10/ri-payroll/">
-
+<link rel="canonical" href="https://ivizri.com">
         <meta name="author" content="SmirkyGraphs" />
-        <meta name="keywords" content="State,Financial,Payroll" />
-        <meta name="description" content="Curious about who has the largest salaries or which department has the most employees? Perhaps you were wondering which department had the most terminations or hired the most in 2017. This is a breakdown of how I went about visualizing the RI payroll information for FY2017." />
 
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="I Viz RI" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="I Viz RI"/>
+        <meta property="og:url" content="https://ivizri.com"/>
+        <meta property="og:description" content="I Viz RI"/>
 
 
     <!-- Bootstrap -->
@@ -45,8 +48,11 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li >
                             <a href="https://ivizri.com/category/blog">Blog</a>
+                        </li>
+                        <li >
+                            <a href="https://ivizri.com/category/map">Map</a>
                         </li>
                         <li >
                             <a href="https://ivizri.com/category/notebooks">Notebooks</a>
@@ -68,71 +74,42 @@
     <div class="row">
         <div class="col-sm-9">
 
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1 class="article-title">
-                    <a href="https://ivizri.com/posts/2017/10/ri-payroll/"
-                       rel="bookmark"
-                       title="Permalink to Rhode Island Payroll FY2017">
-                        Rhode Island Payroll FY2017
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
+            <article>
+                <h2 class="post-title"><a href="https://ivizri.com/posts/2017/09/ri-2016-donations/">RI 2016 Presidential Election Donations</a></h2>
+                    <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-20T03:11:00-04:00"> Fri 20 October 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-09-03T18:14:00-04:00"> Sun 03 September 2017</time>
     </span>
 
         <span class="label label-default">Category</span>
-        <a href="https://ivizri.com/category/blog">Blog</a>
+        <a href="https://ivizri.com/category/notebooks">Notebooks</a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="https://ivizri.com/tag/state/">State</a>
+	<a href="https://ivizri.com/tag/politics/">Politics</a>
         /
-	<a href="https://ivizri.com/tag/financial/">Financial</a>
-        /
-	<a href="https://ivizri.com/tag/payroll/">Payroll</a>
+	<a href="https://ivizri.com/tag/python/">Python</a>
     
 </footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>A look at donations for the 2016 Presidential Election</p>
+                    <a class="btn btn-default btn-xs" href="https://ivizri.com/posts/2017/09/ri-2016-donations/">more ...</a>
                 </div>
-                <hr>
-<p><center><h3>Getting the Data</h3></center></p>
-<p>Looking into the states payroll was quite the adventure, you can download the full data 2011-2018 (up to Oct 6th) over at <a href="http://www.transparency.ri.gov/payroll/">RI's Transparency Portal</a>. It contains 137,998 records from 49 different departments and 3,849 unique job titles. The data consists of 5 payment columns these are regular, overtime, total, other and annual pay. Records prior to 2016 don't contain annual salary amounts.</p>
-<p>Viewing the titles, it doesn't take long to notice they're a disaster (with a 30 char limit). 7,343 records are missing a title, most state college employees are listed as "non classified", some titles prior to 2016 bleed into their own cell shifting all the values right 1 or 2 extra cells, multiple different abbreviations for the same title, some titles tagging the department on the end, a few misspelled and the changing of formats throughout different years. However after some time spent cleaning the data in excel I got it down to 2,489 titles and 2,246 broad titles. For an example of the issues here is the same title "Chf Strategic Plan Mont &amp; Eval" 7 different ways.</p>
-<p><center><img src="https://i.imgur.com/lRhel3v.png" </img></center></p>
-<p><center><h3>Cleaning the Data</h3></center></p>
-<p>One thing I was interested in was how employees pay changed over time and the progression of their careers. Having the annual salary only for 2016+ that's the furthest back I can go. This was pretty difficult because the only identifying information is first name, last name and middle initial. 31,852 have no middle initial and 56 of those... have numbers for the middle initial. I created a id column by combining year,first,last,mi example (2017 HURLEY DANIEL S) which works for the most part only resulting in 361 duplicates which I dealt with manually. A lot of the duplicates end up being really small payments usually under $1,000. I then used vlookup to join 2016 and 2017 data for people with the same id, so if 2 people had the same first, last and mi it may have cause some errors in the raise and title change raises sections of the viz.</p>
-<p><center><h3>Results</h3></center></p>
-<p><strong>As far as pay goes:</strong></p>
-<ul>
-<li>8,071(46%) made over $50,000</li>
-<li>2,258(13%) made over $100,000</li>
-<li>15(0.09%) made over  $250,000</li>
-<li>1(0.006%) made over  $400,000</li>
-</ul>
-<p>As with most states, the top earner was a coach. In RI's case it was Daniel Hurley of URI who made $870,000 in 2017. The viz is the 1st Tableau story I've made with 8 exploratory dashboards they are.</p>
-<ul>
-<li>Graph of changes from 2011-2017</li>
-<li>Average/Median pay by title/department</li>
-<li>Number of employees by title/department</li>
-<li>Raises of people who kept the same job title 2016-2017</li>
-<li>Raises of people who got promoted/changed job titles</li>
-<li>Overtime pay by department/person</li>
-<li>Those who made more then double their regular pay in overtime/other</li>
-<li>Salary grouped with a search at the bottom for all 2017 employees</li>
-</ul>
-<p><center><h3><a href="https://smirkygraphs.github.io/portfolio/viz/ri-payroll">You can click here for a link to the viz I created of Rhode Island's Payroll</a></h3></center></p>
-            </div>
-            <!-- /.entry-content -->
-        </article>
-    </section>
+            </article>
+            <hr/>
 
+        <ul class="pagination">
+                <li class="prev"><a href="https://ivizri.com/index2.html">&laquo;</a>
+                </li>
+                    <li class=""><a
+                            href="https://ivizri.com/index.html">1</a></li>
+                    <li class=""><a
+                            href="https://ivizri.com/index2.html">2</a></li>
+                    <li class="active"><a
+                            href="https://ivizri.com/index3.html">3</a></li>
+                <li class="next disabled"><a href="#">&raquo;</a></li>
+        </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -150,28 +127,28 @@
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
-                        <a href="https://ivizri.com/posts/2018/01/expenditure-turnover/">
-                            Out with the Old in with the New
+                        <a href="https://ivizri.com/posts/2018/03/transformation-of-ri/">
+                            Transformation of RI 1962-2018
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="https://ivizri.com/posts/2017/12/pvd-locations/">
-                            PVD Service Locations
+                        <a href="https://ivizri.com/posts/2018/03/ri-chronic-absence-graduation/">
+                            RI Chronic Absence and Timely Graduation
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="https://ivizri.com/posts/2017/12/gina-q3/">
-                            Gina Donation Q3 2017
+                        <a href="https://ivizri.com/posts/2018/02/ri-murders/">
+                            RI Murders 1976-2016
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="https://ivizri.com/posts/2017/11/why-ri/">
-                            Why Rhode Island?
+                        <a href="https://ivizri.com/posts/2018/02/ri-ranked-by-crime-rate/">
+                            RI Ranked by Crime Rate
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="https://ivizri.com/posts/2017/10/ri-payroll-viz/">
-                            FY2017 Payroll Viz
+                        <a href="https://ivizri.com/posts/2018/01/rilot-instant-games/">
+                            RILOT Instant Games
                         </a>
                     </li>
                 </ul>
