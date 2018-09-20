@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>Health Inspections Analysis - I Viz RI</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="../../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href="../../../../posts/2018/09/health-inspections-analysis/">
+
+        <meta name="author" content="SmirkyGraphs" />
+        <meta name="keywords" content="Health" />
+        <meta name="description" content="My first time using the health inspections data I created a exploratory dashboard people could use to easily navigate and search violations of specific restaurants. Re visiting the info I was able to pull more information such as the times, duration, purpose and city/state using BeautifulSoup4. I also used the yelp api which had information on roughly ~2000 of the facilities to classify them by price/rating/cuisine." />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../theme/css/style.css" type="text/css"/>
+        <link href="../../../../theme/css/custom.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../" class="navbar-brand">
+<img src="../../../../images/logo.png" width="32"/> I Viz RI            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="../../../../category/blog/index">Blog</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/notebooks/index">Notebooks</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/viz/index">Viz</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1 class="article-title">
+                    <a href="../../../../posts/2018/09/health-inspections-analysis/"
+                       rel="bookmark"
+                       title="Permalink to Health Inspections Analysis">
+                        Health Inspections Analysis
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-09-20T09:41:00-04:00"> Thu 20 September 2018</time>
+    </span>
+
+        <span class="label label-default">Category</span>
+        <a href="../../../../category/blog/index">Blog</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../tag/health/">Health</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <hr>
+<p>My first time using the health inspections data I created a exploratory dashboard people could use to easily navigate and search violations of specific restaurants. Re visiting the info I was able to pull more information such as the times, duration, purpose and city/state using BeautifulSoup4. I also used the yelp api which had information on roughly ~2000 of the facilities to classify them by price/rating/cuisine. </p>
+<p>This time I focused on 3 main topics Violations, Inspections and Chains. Violations focuses on which are the most common, different types of violations and how many places received no violations. Inspections the goal is to find out when inspections occur, how often inspections are and how long they last. Lastly, Chains focuses on popular restaurants and how they stack up against each other and finally I used yelpAPI to categorize places and some python experimentation to find restaurants that keep getting the same violations.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/1.png"></center></p>
+<p>Starting off violations are separated into 2 categories "good retail practice" and "foodborne illness". Foodborne illness focuses around handling of food and proper temps while retail practices can be anything from a clean bathroom to no paper towels. Here you can see the top 10 Violations for each category.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/2.png"></center></p>
+<p>Moving on you can see that 59% of violations are "Good retail practice" and 35% from "foodborne illness" violations. Interestingly when you look at the top 9 facilities for having no violations all are Mobile Food / Catering Licenses. These inspections are different from typical restaurants and appear to be much more frequent.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/3.png"></center></p>
+<p>Charlie O's Tavern tops the total violations chart with 143 violations in their 12 inspections. In the 2nd graph the most notable is probably Hope Street Pizza, which has an average of 15 violations per inspection across 5 inspections.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/4.png"></center></p>
+<p>This was interesting when looking at day of the week Monday &amp; Friday are both noticeably down during the week and of course very few inspections on the weekend. Because inspections are un announced and random, these are probably mostly places only open on the weekend or events.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/5.png"></center></p>
+<p>roughly 75% of facilities were inspected within the last year though some have gone even a whopping 1,000 days with no inspection. </p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/6.png"></center></p>
+<p>I decided to look specifically at 1 year's worth of data which shows 86% of facilities inspected are inspected once during the year. Schools makeup ~60% that have had 2 routine inspections a year.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/7.png"></center></p>
+<p>66% of inspections are routine inspections with only 5% coming from complaints. With most Risk Categories being advanced prep and Cook / Serve.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/8.png"></center></p>
+<p>I was able to pull time in/out using python here you can see most inspections start between 9-11 am and end 10am-12pm with a big spike ending at 3pm as well, I suppose even health inspectors need a lunch break. Most inspections last around an hour with 85% under 2 hours. There were a few errors of 0 duration and any times that rolled into the early AM ex) 1am 2am 3am, resulted in large differenced that I excluded.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/9.png"></center></p>
+<p>This takes every routine inspection and measures how many days between them for each unique facility. The average day between routine inspections is 323 days and the longest was for "Local Hero INC" at 1,059 days.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/10.png"></center></p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/11.png"></center></p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/12.png"></center></p>
+<p>Dealing with chains was a bit challenging, as some would name their stores "McDonalds no. 3431" etc. Luckily dealing with this in tableau is fairly simple, just tedious using tableaus grouping feature to join them all together. Keeping in mind the average violation for all inspections is about 3.6 this would mean only Moes is above the average very slightly. Overall most chains are under the average number of violations.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/13.png"></center></p>
+<p>These are the categories that yelp returned for the location. The top is the most common categories and the bottom are the categories with more then 2 resturuants that have the highest violations average. The yelpapi returned a lot of niche categories of cuisine that only fit 1 restaurant. </p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/14.png"></center></p>
+<p>I decided to look into when inspections resulting in no violation occurred and saw that though Saturday makes up a very small number of inspections. 70% of them ended up with no violation and 58% on Sunday.</p>
+<p><center><img alt="Compare" src="../../../../images/2018/health-inspections/15.png"></center></p>
+<p>Lastly, I wanted to see how often restaurants were getting the same violation in a row. The way this works is, if a facility had the same violation 2 inspections in a row it will increase by 1. For example, the line at the top "Charlie O's Tavern" had violation 53 (physical facilities installed, maintained &amp; clean) in 11 out of 12 inspections.</p>
+<hr>
+
+<p><a href="https://ri.healthinspections.us/ri/">Source</a></p>
+<p><a href="https://public.tableau.com/profile/smirkygraphs#!/vizhome/RhodeIslandHealthInspectionsAnalysis/Story1">Link to interactive graphs</a></p>
+<p><a href="https://ivizri.com/posts/2018/06/rhode-island-health-inspections/">Previous dashboard</a></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/SmirkyGraphs"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/Smirkygraphs"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://smirkygraphs.github.io"><i class="fa fa-globe fa-lg" aria-hidden="true"></i> Website</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2018/09/health-inspections-analysis/">
+                            Health Inspections Analysis
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2018/09/roads-island/">
+                            Roads Island
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2018/08/rhode-island-schools-performance-over-time/">
+                            Rhode Island Schools Performance Over Time
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2018/08/rhode-island-schools-performance-comparison/">
+                            Rhode Island Schools Performance Comparison
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2018/07/does-spending-impact-performance/">
+                            Does Spending Impact Performance?
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="../../../../tags"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2018 SmirkyGraphs
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+</body>
+</html>
