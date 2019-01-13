@@ -223,3 +223,7 @@ figure.floatcenter, .align-center {
 #toolbar-container {
     visibility: hidden !important;
 }
+
+#main-content {
+    border: 1px solid #f6f6f6 !important;
+}
