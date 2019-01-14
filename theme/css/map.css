@@ -1,5 +1,5 @@
 body {
-    padding-top: 70px;
+    padding-top: 0px !important;
     overflow-x: hidden !important;
     overflow-y: hidden !important;
 }
@@ -14,11 +14,7 @@ iframe {
     position: relative !important;
     padding-top: 60px;
     padding-right: 90px;
-    padding-bottom: 10px;
-}
-
-#main {
-    padding-top: 90px;
+    padding-bottom: 20px;
 }
 
 #sidebar .list-group, #sidebar .list-group-item {
