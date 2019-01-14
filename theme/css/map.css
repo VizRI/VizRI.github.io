@@ -12,8 +12,9 @@ iframe {
     width: 100vw !important;
     height: 100vh !important;
     position: relative !important;
-    padding-top: 70px;
+    padding-top: 60px;
     padding-right: 90px;
+    padding-bottom: 10px;
 }
 
 #main {
