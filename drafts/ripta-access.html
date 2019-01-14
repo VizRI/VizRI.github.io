@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>RIPTA Access - I Viz RI</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="../images/favicon.png" rel="icon">
+
+<link rel="canonical" href="../drafts/ripta-access.html">
+
+        <meta name="author" content="SmirkyGraphs" />
+        <meta name="keywords" content="Transportation" />
+        <meta name="description" content="a webmap test" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../theme/css/custom.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand">
+<img src="../images/logo.png" width="32"/> I Viz RI            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="../category/blog/index">Blog</a>
+                        </li>
+                        <li >
+                            <a href="../category/notebooks/index">Notebooks</a>
+                        </li>
+                        <li >
+                            <a href="../category/viz/index">Viz</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1 class="article-title">
+                    <a href="../drafts/ripta-access.html"
+                       rel="bookmark"
+                       title="Permalink to RIPTA Access">
+                        RIPTA Access
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-01-11T06:19:00-05:00"> Fri 11 January 2019</time>
+    </span>
+
+        <span class="label label-default">Category</span>
+        <a href="../category/map/index">Map</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="../tag/transportation/">Transportation</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><link href="https://ivizri.com/theme/css/viz.css" rel="stylesheet" type="text/css"></p>
+<hr>
+<iframe>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+            <meta name="mobile-web-app-capable" content="yes">
+            <meta name="apple-mobile-web-app-capable" content="yes">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+            <link rel="stylesheet" href="http://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
+            <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+            <link rel="stylesheet" href="css/leaflet-measure.css">
+            <link rel="stylesheet" href="css/my-style.css">
+            <style>
+            html, body, #map {
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            </style>
+            <title>Access to RIPTA Bus Services</title>
+        </head>
+        <body>
+
+            <div class="leaflet-top leaflet-left title-background">
+                    <div class="title-box">
+                        <div class="map-title">Access to RIPTA Bus Services</div>
+                    </div>
+            </div>
+
+            <div id="infoPanel" class="leaflet-bottom leaflet-right">
+                    <h2><center>Info</center></h2>
+                    <p class="text-center hidden-xs">This shows how much of a Census Block Group is withing 1/4th a mile of a RIPTA bus stop.</p>
+                    <p class="text-center hidden-xs">Hover over a Census Block to see the exact percentage of land thats near a stop.</p>
+                    <p class="text-center hidden-xs">Source: RIGIS</p>
+            </div>
+
+            <div id="map">
+            </div>
+            <script src="js/qgis2web_expressions.js"></script>
+            <script src="http://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+            <script src="js/leaflet.rotatedMarker.js"></script>
+            <script src="js/leaflet.pattern.js"></script>
+            <script src="js/leaflet-hash.js"></script>
+            <script src="js/Autolinker.min.js"></script>
+            <script src="js/rbush.min.js"></script>
+            <script src="js/labelgun.min.js"></script>
+            <script src="js/labels.js"></script>
+            <script src="js/leaflet-measure.js"></script>
+            <script src="data/temp_1.js"></script>
+
+            <script>
+            var map = L.map('map', {
+                attributionControl: false,
+                zoomControl:true, maxZoom:28, minZoom:1
+            }).fitBounds([[41.62725504299344,-71.70772345325715],[41.918731230698384,-70.9929990396566]]);
+            var hash = new L.Hash(map);
+            var bounds_group = new L.featureGroup([]);
+            function setBounds() {
+            }
+            var overlay_OSMBW_0 = L.tileLayer('http://a.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+                opacity: 1.0
+            });
+            overlay_OSMBW_0.addTo(map);
+            map.addLayer(overlay_OSMBW_0);
+            function pop_temp_1(feature, layer) {
+                var popupContent = '<table>\
+                        <tr>\
+                            <th scope="row">Percent:</th>\
+                            <td>' + (feature.properties['percent'] !== null ? Autolinker.link(String(Math.round(feature.properties['percent']*100)) + "%") : '') + '</td>\
+                        </tr>\
+                    </table>';
+                layer.bindPopup(popupContent, {maxHeight: 400});
+            }
+
+            function style_temp_1_0(feature) {
+                if (feature.properties['percent'] >= 0.000000 && feature.properties['percent'] <= 0.100000 ) {
+                    return {
+                    pane: 'pane_temp_1',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 2.0, 
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(252,251,253,0.5019607843137255)',
+                }
+                }
+                if (feature.properties['percent'] >= 0.100000 && feature.properties['percent'] <= 0.200000 ) {
+                    return {
+                    pane: 'pane_temp_1',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 2.0, 
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(241,239,247,0.5019607843137255)',
+                }
+                }
+                if (feature.properties['percent'] >= 0.200000 && feature.properties['percent'] <= 0.300000 ) {
+                    return {
+                    pane: 'pane_temp_1',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 2.0, 
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(224,224,238,0.5019607843137255)',
+                }
+                }
+                if (feature.properties['percent'] >= 0.300000 && feature.properties['percent'] <= 0.400000 ) {
+                    return {
+                    pane: 'pane_temp_1',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 2.0, 
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(201,202,227,0.5019607843137255)',
+                }
+                }
+                if (feature.properties['percent'] >= 0.400000 && feature.properties['percent'] <= 0.500000 ) {
+                    return {
+                    pane: 'pane_temp_1',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 2.0, 
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(176,175,212,0.5019607843137255)',
+                }
+                }
+                if (feature.properties['percent'] >= 0.500000 && feature.properties['percent'] <= 0.600000 ) {
+                    return {
+                    pane: 'pane_temp_1',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 2.0, 
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(150,146,196,0.5019607843137255)',
+                }
+                }
+                if (feature.properties['percent'] >= 0.600000 && feature.properties['percent'] <= 0.700000 ) {
+                    return {
+                    pane: 'pane_temp_1',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 2.0, 
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(124,118,182,0.5019607843137255)',
+                }
+                }
+                if (feature.properties['percent'] >= 0.700000 && feature.properties['percent'] <= 0.800000 ) {
+                    return {
+                    pane: 'pane_temp_1',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 2.0, 
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(102,73,159,0.5019607843137255)',
+                }
+                }
+                if (feature.properties['percent'] >= 0.800000 && feature.properties['percent'] <= 0.900000 ) {
+                    return {
+                    pane: 'pane_temp_1',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 2.0, 
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(85,42,145,0.5019607843137255)',
+                }
+                }
+                if (feature.properties['percent'] >= 0.900000 && feature.properties['percent'] <= 1.000000 ) {
+                    return {
+                    pane: 'pane_temp_1',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 2.0, 
+                    fill: true,
+                    fillOpacity: 1,
+                    fillColor: 'rgba(63,0,125,0.5019607843137255)',
+                }
+                }
+            }
+            map.createPane('pane_temp_1');
+            map.getPane('pane_temp_1').style.zIndex = 401;
+            map.getPane('pane_temp_1').style['mix-blend-mode'] = 'normal';
+            var layer_temp_1 = new L.geoJson(json_temp_1, {
+                pane: 'pane_temp_1',
+                onEachFeature: pop_temp_1,
+                style: style_temp_1_0,
+            });
+            bounds_group.addLayer(layer_temp_1);
+            map.addLayer(layer_temp_1);
+            var baseMaps = {};
+
+            L.control.attribution({position: 'bottomleft'}).addTo(map);
+            map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+
+            L.control.layers(baseMaps,{'Backround<br /><table><tr><td style="text-align: center;"><img src="legend/temp_1_0000100.png" /></td><td>  0 - 10% </td></tr><tr><td style="text-align: center;"><img src="legend/temp_1_0100201.png" /></td><td> 10 - 20% </td></tr><tr><td style="text-align: center;"><img src="legend/temp_1_0200302.png" /></td><td> 20 - 30% </td></tr><tr><td style="text-align: center;"><img src="legend/temp_1_0300403.png" /></td><td> 30 - 40% </td></tr><tr><td style="text-align: center;"><img src="legend/temp_1_0400504.png" /></td><td> 40 - 50% </td></tr><tr><td style="text-align: center;"><img src="legend/temp_1_0500605.png" /></td><td> 50 - 60% </td></tr><tr><td style="text-align: center;"><img src="legend/temp_1_0600706.png" /></td><td> 60 - 70% </td></tr><tr><td style="text-align: center;"><img src="legend/temp_1_0700807.png" /></td><td> 70 - 80% </td></tr><tr><td style="text-align: center;"><img src="legend/temp_1_0800908.png" /></td><td> 80 - 90% </td></tr><tr><td style="text-align: center;"><img src="legend/temp_1_0901009.png" /></td><td> 90 - 100% </td></tr></table>': overlay_OSMBW_0,},{collapsed:false}).addTo(map);
+            setBounds();
+            </script>
+        </body>
+    </html>
+</iframe>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/SmirkyGraphs"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/Smirkygraphs"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://smirkygraphs.github.io"><i class="fa fa-globe fa-lg" aria-hidden="true"></i> Website</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="../posts/2018/12/providence-building-permits/">
+                            Providence Building Permits
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../posts/2018/12/ri-schools-attendance/">
+                            RI Schools Attendance
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../posts/2018/12/nursing-home-staffing-pbj/">
+                            Nursing Home Staffing (PBJ)
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../posts/2018/11/rhode-island-general-assembly-election-results/">
+                            Rhode Island General Assembly Election Results
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../posts/2018/11/ri-voter-turnout-viz/">
+                            RI Voter Turnout
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="../tags"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2018 SmirkyGraphs
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+</body>
+</html>
