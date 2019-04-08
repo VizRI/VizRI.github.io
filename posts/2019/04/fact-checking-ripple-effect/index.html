@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>Fact-checking The Ripple Effect - I Viz RI</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="../../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href="../../../../posts/2019/04/fact-checking-ripple-effect/">
+
+        <meta name="author" content="SmirkyGraphs" />
+        <meta name="keywords" content="Saftey,Python" />
+        <meta name="description" content="&#34;The Ripple Effect&#34; is a campaign by RIDOT to highlight the damages caused not only to a drunk driver, but the effects on others due to the poor choices made by a drunk driver. This looks at a few of the metrics stated in the web graphic and checks them against the FARS dataset." />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../theme/css/style.css" type="text/css"/>
+        <link href="../../../../theme/css/custom.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../" class="navbar-brand">
+<img src="../../../../images/logo.png" width="32"/> I Viz RI            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="../../../../category/blog/index">Blog</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/map/index">Map</a>
+                        </li>
+                        <li class="active">
+                            <a href="../../../../category/notebooks/index">Notebooks</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/viz/index">Viz</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1 class="article-title">
+                    <a href="../../../../posts/2019/04/fact-checking-ripple-effect/"
+                       rel="bookmark"
+                       title="Permalink to Fact-checking The Ripple Effect">
+                        Fact-checking The Ripple Effect
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-04-08T07:25:00-04:00"> Mon 08 April 2019</time>
+    </span>
+
+        <span class="label label-default">Category</span>
+        <a href="../../../../category/notebooks/index">Notebooks</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../tag/saftey/">Saftey</a>
+        /
+	<a href="../../../../tag/python/">Python</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><link href="https://ivizri.com/theme/css/notebook.css" rel="stylesheet" type="text/css"></p>
+<hr>
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>ripple-effect</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+
+<p><body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container"></p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Created by: <a href="http://smirkygraphs.github.io/">SmirkyGraphs</a>. Code: <a href="https://github.com/SmirkyGraphs/Python-Notebooks">GitHub</a>. Source: <a href="https://bit.ly/2F3RnPl">NHTSA</a>.</p>
+<hr>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Fact-checking-The-Ripple-Effect-Statistics">Fact-checking The Ripple Effect Statistics<a class="anchor-link" href="#Fact-checking-The-Ripple-Effect-Statistics">&#182;</a></h1><p>"The Ripple Effect" is a campaign by RIDOT to highlight the damages caused not only to a drunk driver, but the effects on others due to the poor choices made by a drunk driver. The campaign has a website with statistics inside the poorly named "Beyond the Statistics" section located <a href="https://rippleeffectri.com/beyond-the-statistics#1516371201827-9d200192-b3de">here</a>. Some of these stats can be answered with the FARS dataset and are cited at the bottom of the page.</p>
+<p>Here is a list of stats we can check with information from the FARS dataset.</p>
+<ul>
+<li>In Rhode Island in 2016, 26% of drunk driving deaths involved a driver with a BAC of .15 or higher. </li>
+<li>Between 2011-2015 39% of roadway fatalities in Rhode Island involved alcohol.</li>
+<li>From 2016 to 2017, Rhode Island saw a 61% increase in fatalities from alcohol-related crashes.</li>
+<li>Between 2011-2015, 27% of impaired driving fatal crashes in Rhode Island involed a driver age 25-34 years old.</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">acc_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/clean/accidents_clean.csv&#39;</span><span class="p">)</span>
+<span class="n">veh_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/clean/vehicles_clean.csv&#39;</span><span class="p">)</span>
+<span class="n">per_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/clean/persons_clean.csv&#39;</span><span class="p">)</span>
+<span class="n">imp_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../files/impaired_drivers.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="1.-In-Rhode-Island-in-2016,-26%-of-drunk-driving-deaths-involved-a-driver-with-a-BAC-of-.15-or-higher.">1. In Rhode Island in 2016, 26% of drunk driving deaths involved a driver with a BAC of .15 or higher.<a class="anchor-link" href="#1.-In-Rhode-Island-in-2016,-26%-of-drunk-driving-deaths-involved-a-driver-with-a-BAC-of-.15-or-higher.">&#182;</a></h4>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">total_deaths</span> <span class="o">=</span> <span class="n">acc_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2016&#39;</span><span class="p">)[</span><span class="s1">&#39;FATALS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">dd_over_15</span> <span class="o">=</span> <span class="n">per_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2016 and PER_TYP == &quot;Driver&quot; and ALC_RES &gt;= 15&#39;</span><span class="p">)[</span><span class="s1">&#39;ST_CASE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">dd_over_15</span> <span class="o">=</span> <span class="n">acc_df</span><span class="p">[</span><span class="n">acc_df</span><span class="p">[</span><span class="s1">&#39;ST_CASE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">dd_over_15</span><span class="p">)][</span><span class="s1">&#39;FATALS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">dd_over_15</span><span class="o">/</span><span class="n">total_deaths</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span> <span class="o">+</span> <span class="s1">&#39; of drunk driving deaths involved a driver with a BAC of .15 or higher.&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>22% of drunk driving deaths involved a driver with a BAC of .15 or higher.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.-Between-2011-2015-39%-of-roadway-fatalities-in-Rhode-Island-involved-alcohol.">2. Between 2011-2015 39% of roadway fatalities in Rhode Island involved alcohol.<a class="anchor-link" href="#2.-Between-2011-2015-39%-of-roadway-fatalities-in-Rhode-Island-involved-alcohol.">&#182;</a></h4>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">total_deaths</span> <span class="o">=</span> <span class="n">acc_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt; 2010 and year &lt; 2016&#39;</span><span class="p">)[</span><span class="s1">&#39;FATALS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">alc_related</span> <span class="o">=</span> <span class="n">acc_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt; 2010 and year &lt; 2016 and DRUNK_DR &gt; 0&#39;</span><span class="p">)[</span><span class="s1">&#39;FATALS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">alc_related</span><span class="o">/</span><span class="n">total_deaths</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span> <span class="o">+</span> <span class="s1">&#39; of roadway fatalities in Rhode Island involved alcohol.&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>40% of roadway fatalities in Rhode Island involved alcohol.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3.-From-2016-to-2017,-Rhode-Island-saw-a-61%-increase-in-fatalities-from-alcohol-related-crashes.">3. From 2016 to 2017, Rhode Island saw a 61% increase in fatalities from alcohol-related crashes.<a class="anchor-link" href="#3.-From-2016-to-2017,-Rhode-Island-saw-a-61%-increase-in-fatalities-from-alcohol-related-crashes.">&#182;</a></h4>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_2016</span> <span class="o">=</span> <span class="n">acc_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2016 and DRUNK_DR &gt; 0&#39;</span><span class="p">)[</span><span class="s1">&#39;FATALS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">df_2017</span> <span class="o">=</span> <span class="n">acc_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2017 and DRUNK_DR &gt; 0&#39;</span><span class="p">)[</span><span class="s1">&#39;FATALS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(((</span><span class="n">df_2017</span> <span class="o">-</span> <span class="n">df_2016</span><span class="p">)</span> <span class="o">/</span> <span class="n">df_2016</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span> <span class="o">+</span> <span class="s1">&#39; increase in fatalities from alcohol-related crashes.&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>53% increase in fatalities from alcohol-related crashes.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="4.-Between-2011-2015,-27%-of-impaired-driving-fatal-crashes-in-Rhode-Island-involed-a-driver-age-25-34-years-old.">4. Between 2011-2015, 27% of impaired driving fatal crashes in Rhode Island involed a driver age 25-34 years old.<a class="anchor-link" href="#4.-Between-2011-2015,-27%-of-impaired-driving-fatal-crashes-in-Rhode-Island-involed-a-driver-age-25-34-years-old.">&#182;</a></h4>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">total_accidents</span> <span class="o">=</span> <span class="n">acc_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt; 2010 and year &lt; 2016&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># list of all impaired drivers</span>
+<span class="n">not_imp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">99</span><span class="p">]</span>
+<span class="n">imp_df</span> <span class="o">=</span> <span class="n">imp_df</span><span class="p">[</span><span class="o">~</span><span class="n">imp_df</span><span class="p">[</span><span class="s1">&#39;DRIMPAIR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">not_imp</span><span class="p">)]</span>
+
+<span class="c1"># list of all drivers aged 25-34</span>
+<span class="n">year</span> <span class="o">=</span> <span class="s1">&#39;year &gt; 2010 and year &lt; 2016&#39;</span>
+<span class="n">impaired</span> <span class="o">=</span> <span class="n">per_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">year</span> <span class="o">+</span> <span class="s1">&#39; and PER_TYP == &quot;Driver&quot; and AGE &gt; 24 and AGE &lt; 35&#39;</span><span class="p">)[</span><span class="s1">&#39;ST_CASE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">impaired</span> <span class="o">=</span> <span class="n">imp_df</span><span class="p">[</span><span class="n">imp_df</span><span class="p">[</span><span class="s1">&#39;ST_CASE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">impaired</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">impaired</span> <span class="o">/</span> <span class="n">total_accidents</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span> <span class="o">+</span> <span class="s1">&#39; of impaired driving fatal crashes in Rhode Island involed a driver age 25-34 years old.&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>13% of impaired driving fatal crashes in Rhode Island involed a driver age 25-34 years old.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="highlight"><pre><span></span>&lt;/div&gt;
+</pre></div>
+
+
+<p></div>
+</body></p>
+<p></html></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/SmirkyGraphs"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/Smirkygraphs"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://smirkygraphs.github.io"><i class="fa fa-globe fa-lg" aria-hidden="true"></i> Website</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/04/fact-checking-ripple-effect/">
+                            Fact-checking The Ripple Effect
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/03/fatal-ri-accidents-since-1980/">
+                            RI Vehicle Related Fatalities 1980-2017
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/03/irish-population-of-ri/">
+                            Irish Ancestry Population of Rhode Island
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/02/dunkin-locations/">
+                            America Runs On... Dunkin'?
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/02/married-rhode-islanders/">
+                            Married Rhode Islanders
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="../../../../tags"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2019 SmirkyGraphs
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+</body>
+</html>
