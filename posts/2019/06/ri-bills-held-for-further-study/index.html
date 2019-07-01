@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>RI Bills Held for Further Study - I Viz RI</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="../../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href="../../../../posts/2019/06/ri-bills-held-for-further-study/">
+
+        <meta name="author" content="SmirkyGraphs" />
+        <meta name="keywords" content="Politics,Python" />
+        <meta name="description" content="Bills in Rhode Island face a big hurdle, making it out of committee and not being &#34;Held for Further Study&#34;. Once a bill is introduced and sent to committee, the first vote it recieves is whether or not it should be &#34;Held for Further Study&#34;. A bill held for further study is indefinitely postpone, however can be considered again by the committee." />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../theme/css/style.css" type="text/css"/>
+        <link href="../../../../theme/css/custom.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../" class="navbar-brand">
+<img src="../../../../images/logo.png" width="32"/> I Viz RI            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="../../../../category/blog/index">Blog</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/map/index">Map</a>
+                        </li>
+                        <li class="active">
+                            <a href="../../../../category/notebooks/index">Notebooks</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/viz/index">Viz</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1 class="article-title">
+                    <a href="../../../../posts/2019/06/ri-bills-held-for-further-study/"
+                       rel="bookmark"
+                       title="Permalink to RI Bills Held for Further Study">
+                        RI Bills Held for Further Study
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-06-30T09:00:00-04:00"> Sun 30 June 2019</time>
+    </span>
+
+        <span class="label label-default">Category</span>
+        <a href="../../../../category/notebooks/index">Notebooks</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../tag/politics/">Politics</a>
+        /
+	<a href="../../../../tag/python/">Python</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><link href="https://ivizri.com/theme/css/notebook.css" rel="stylesheet" type="text/css"></p>
+<hr>
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>held-for-study</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+
+<p><body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container"></p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Created by: <a href="https://smirkygraphs.github.io/">SmirkyGraphs</a>. Code: <a href="https://github.com/SmirkyGraphs/Python-Notebooks">Github</a>. Source: <a href="http://www.rilin.state.ri.us/pages/legislation.aspx">RI Legislature Site</a>.</p>
+<hr>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Held-for-Further-Study:-Where-Bills-Go-to-Die">Held for Further Study: Where Bills Go to Die<a class="anchor-link" href="#Held-for-Further-Study:-Where-Bills-Go-to-Die">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Bills in Rhode Island face a big hurdle, making it out of committee and not being <strong>"Held for Further Study"</strong>. Once a bill is introduced and sent to committee, the first vote it recieves is whether or not it should be "Held for Further Study". A bill held for further study is indefinitely postpone, however can be considered again by the committee. Despite the naming, no study actually takes place, and if reintroduced, no study is prestended.</p>
+<p>This notebook will take a look at how many bills end up "held for further study" and which chamber they were started in from 2007-2019.</p>
+<hr>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/clean/bill_actions.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># removes resolutions</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bill_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)]</span>
+
+<span class="c1"># remove duplicate (created when splitting action_type)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">([</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;lookup_id&#39;</span><span class="p">]))</span>
+
+<span class="c1"># adding action_num increments of bill</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;action_num&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># total bills introduced</span>
+<span class="n">total_bills</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+
+<span class="c1"># total bills ever &quot;held for further study&quot;</span>
+<span class="n">held_for_study</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;held for further study&#39;</span><span class="p">][</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="c1"># total bills that never left &quot;held for further study&quot;</span>
+<span class="n">last_action</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">)[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s1">&#39;last&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">last_action</span> <span class="o">=</span> <span class="n">last_action</span><span class="p">[</span><span class="n">last_action</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;held for further study&#39;</span><span class="p">]</span>
+<span class="n">died_in_study</span> <span class="o">=</span> <span class="n">last_action</span><span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="c1"># final calcs</span>
+
+<span class="n">total_held_for_study</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">held_for_study</span><span class="p">)</span><span class="o">/</span><span class="n">total_bills</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">total_died_held</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">died_in_study</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">held_for_study</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;total held for study: </span><span class="si">{total_held_for_study}</span><span class="s1">% ({len(held_for_study)})&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;total died held for study: </span><span class="si">{total_died_held}</span><span class="s1">% ({len(died_in_study)})&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>total held for study: 64% (16509)
+total died held for study: 63% (10473)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Bills-Held-&amp;-Died-for-Further-Study-by-Year-(Percents-Compared-to-Total-Bills)">Bills Held &amp; Died for Further Study by Year (Percents Compared to Total Bills)<a class="anchor-link" href="#Bills-Held-&amp;-Died-for-Further-Study-by-Year-(Percents-Compared-to-Total-Bills)">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">died_in_study</span><span class="p">),</span> <span class="s1">&#39;ended_held_for_study&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">held_for_study</span><span class="p">),</span> <span class="s1">&#39;ever_held_for_study&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">held</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">)</span>
+<span class="n">held</span> <span class="o">=</span> <span class="n">held</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;session&#39;</span><span class="p">)[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">,</span> <span class="s1">&#39;ever_held_for_study&#39;</span><span class="p">,</span> <span class="s1">&#39;ended_held_for_study&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+<span class="n">held</span><span class="p">[</span><span class="s1">&#39;percent_ever_held&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;ever_held_for_study&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+<span class="n">held</span><span class="p">[</span><span class="s1">&#39;percent_ended_held&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;ended_held_for_study&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+
+<span class="n">held</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;ended_held_for_study&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;ever_held_for_study&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+
+<span class="n">held</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;count_total&#39;</span><span class="p">,</span> <span class="s1">&#39;count_ever_held&#39;</span><span class="p">,</span> <span class="s1">&#39;count_died_held&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;(% total)_ever_held&#39;</span><span class="p">,</span> <span class="s1">&#39;(% total)_died_held&#39;</span><span class="p">,</span> <span class="s1">&#39;(</span><span class="si">% he</span><span class="s1">ld)_died_held&#39;</span><span class="p">]</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;count_total&#39;</span><span class="p">,</span><span class="s1">&#39;count_ever_held&#39;</span><span class="p">,</span><span class="s1">&#39;(% total)_ever_held&#39;</span><span class="p">,</span><span class="s1">&#39;count_died_held&#39;</span><span class="p">,</span><span class="s1">&#39;(% total)_died_held&#39;</span><span class="p">,</span> <span class="s1">&#39;(</span><span class="si">% he</span><span class="s1">ld)_died_held&#39;</span><span class="p">]</span>
+<span class="n">held</span> <span class="o">=</span> <span class="n">held</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+<span class="n">held</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[4]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count_total</th>
+      <th>count_ever_held</th>
+      <th>(% total)_ever_held</th>
+      <th>count_died_held</th>
+      <th>(% total)_died_held</th>
+      <th>(% held)_died_held</th>
+    </tr>
+    <tr>
+      <th>session</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2007</th>
+      <td>2255</td>
+      <td>1275</td>
+      <td>56%</td>
+      <td>809</td>
+      <td>36%</td>
+      <td>63%</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>2159</td>
+      <td>1201</td>
+      <td>56%</td>
+      <td>779</td>
+      <td>36%</td>
+      <td>65%</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>1999</td>
+      <td>1124</td>
+      <td>56%</td>
+      <td>740</td>
+      <td>37%</td>
+      <td>66%</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>1861</td>
+      <td>910</td>
+      <td>49%</td>
+      <td>618</td>
+      <td>33%</td>
+      <td>68%</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>1926</td>
+      <td>1173</td>
+      <td>61%</td>
+      <td>767</td>
+      <td>40%</td>
+      <td>65%</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>1908</td>
+      <td>1043</td>
+      <td>55%</td>
+      <td>651</td>
+      <td>34%</td>
+      <td>62%</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>1907</td>
+      <td>1234</td>
+      <td>65%</td>
+      <td>708</td>
+      <td>37%</td>
+      <td>56%</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>2036</td>
+      <td>1298</td>
+      <td>64%</td>
+      <td>772</td>
+      <td>38%</td>
+      <td>59%</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>1896</td>
+      <td>1305</td>
+      <td>69%</td>
+      <td>835</td>
+      <td>44%</td>
+      <td>64%</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>2068</td>
+      <td>1473</td>
+      <td>71%</td>
+      <td>911</td>
+      <td>44%</td>
+      <td>62%</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>1963</td>
+      <td>1555</td>
+      <td>79%</td>
+      <td>961</td>
+      <td>49%</td>
+      <td>62%</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>1935</td>
+      <td>1473</td>
+      <td>76%</td>
+      <td>978</td>
+      <td>51%</td>
+      <td>66%</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>1788</td>
+      <td>1445</td>
+      <td>81%</td>
+      <td>944</td>
+      <td>53%</td>
+      <td>65%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Bills-Held-&amp;-Died-for-Further-Study-by-Year-(Seperated-by-Chamber)">Bills Held &amp; Died for Further Study by Year (Seperated by Chamber)<a class="anchor-link" href="#Bills-Held-&amp;-Died-for-Further-Study-by-Year-(Seperated-by-Chamber)">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">chamber</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">chamber</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">chamber</span><span class="p">[</span><span class="s1">&#39;bill_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">),</span> <span class="s1">&#39;chamber_origin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;house&#39;</span>
+<span class="n">chamber</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">chamber</span><span class="p">[</span><span class="s1">&#39;bill_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">),</span> <span class="s1">&#39;chamber_origin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;senate&#39;</span>
+
+<span class="n">held</span> <span class="o">=</span> <span class="n">chamber</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;chamber_origin&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">])[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">,</span> <span class="s1">&#39;ever_held_for_study&#39;</span><span class="p">,</span> <span class="s1">&#39;ended_held_for_study&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="n">held</span><span class="p">[</span><span class="s1">&#39;percent_ever_held&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;ever_held_for_study&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+<span class="n">held</span><span class="p">[</span><span class="s1">&#39;percent_ended_held&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;ended_held_for_study&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+
+<span class="n">held</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;ended_held_for_study&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">held</span><span class="p">[</span><span class="s1">&#39;ever_held_for_study&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+
+<span class="n">held</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;count_total&#39;</span><span class="p">,</span> <span class="s1">&#39;count_ever_held&#39;</span><span class="p">,</span> <span class="s1">&#39;count_died_held&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;(% total)_ever_held&#39;</span><span class="p">,</span> <span class="s1">&#39;(% total)_died_held&#39;</span><span class="p">,</span> <span class="s1">&#39;(</span><span class="si">% he</span><span class="s1">ld)_died_held&#39;</span><span class="p">]</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;count_total&#39;</span><span class="p">,</span><span class="s1">&#39;count_ever_held&#39;</span><span class="p">,</span><span class="s1">&#39;(% total)_ever_held&#39;</span><span class="p">,</span><span class="s1">&#39;count_died_held&#39;</span><span class="p">,</span><span class="s1">&#39;(% total)_died_held&#39;</span><span class="p">,</span> <span class="s1">&#39;(</span><span class="si">% he</span><span class="s1">ld)_died_held&#39;</span><span class="p">]</span>
+<span class="n">held</span> <span class="o">=</span> <span class="n">held</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+<span class="n">held</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[5]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count_total</th>
+      <th>count_ever_held</th>
+      <th>(% total)_ever_held</th>
+      <th>count_died_held</th>
+      <th>(% total)_died_held</th>
+      <th>(% held)_died_held</th>
+    </tr>
+    <tr>
+      <th>chamber_origin</th>
+      <th>session</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="13" valign="top">house</th>
+      <th>2007</th>
+      <td>1279</td>
+      <td>813</td>
+      <td>64%</td>
+      <td>519</td>
+      <td>41%</td>
+      <td>64%</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>1184</td>
+      <td>737</td>
+      <td>62%</td>
+      <td>502</td>
+      <td>42%</td>
+      <td>68%</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>1114</td>
+      <td>732</td>
+      <td>66%</td>
+      <td>485</td>
+      <td>44%</td>
+      <td>66%</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>1037</td>
+      <td>620</td>
+      <td>60%</td>
+      <td>458</td>
+      <td>44%</td>
+      <td>74%</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>1048</td>
+      <td>756</td>
+      <td>72%</td>
+      <td>528</td>
+      <td>50%</td>
+      <td>70%</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>1045</td>
+      <td>637</td>
+      <td>61%</td>
+      <td>422</td>
+      <td>40%</td>
+      <td>66%</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>1076</td>
+      <td>757</td>
+      <td>70%</td>
+      <td>460</td>
+      <td>43%</td>
+      <td>61%</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>1126</td>
+      <td>815</td>
+      <td>72%</td>
+      <td>526</td>
+      <td>47%</td>
+      <td>65%</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>1072</td>
+      <td>814</td>
+      <td>76%</td>
+      <td>556</td>
+      <td>52%</td>
+      <td>68%</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>1140</td>
+      <td>906</td>
+      <td>79%</td>
+      <td>589</td>
+      <td>52%</td>
+      <td>65%</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>1119</td>
+      <td>953</td>
+      <td>85%</td>
+      <td>624</td>
+      <td>56%</td>
+      <td>65%</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>1112</td>
+      <td>913</td>
+      <td>82%</td>
+      <td>625</td>
+      <td>56%</td>
+      <td>68%</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>973</td>
+      <td>826</td>
+      <td>85%</td>
+      <td>593</td>
+      <td>61%</td>
+      <td>72%</td>
+    </tr>
+    <tr>
+      <th rowspan="13" valign="top">senate</th>
+      <th>2007</th>
+      <td>976</td>
+      <td>462</td>
+      <td>47%</td>
+      <td>290</td>
+      <td>30%</td>
+      <td>63%</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>975</td>
+      <td>464</td>
+      <td>48%</td>
+      <td>277</td>
+      <td>28%</td>
+      <td>60%</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>885</td>
+      <td>392</td>
+      <td>44%</td>
+      <td>255</td>
+      <td>28%</td>
+      <td>65%</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>824</td>
+      <td>290</td>
+      <td>35%</td>
+      <td>160</td>
+      <td>19%</td>
+      <td>55%</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>878</td>
+      <td>417</td>
+      <td>47%</td>
+      <td>239</td>
+      <td>27%</td>
+      <td>56%</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>863</td>
+      <td>406</td>
+      <td>47%</td>
+      <td>229</td>
+      <td>27%</td>
+      <td>56%</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>831</td>
+      <td>477</td>
+      <td>56%</td>
+      <td>248</td>
+      <td>30%</td>
+      <td>52%</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>910</td>
+      <td>483</td>
+      <td>53%</td>
+      <td>246</td>
+      <td>27%</td>
+      <td>51%</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>824</td>
+      <td>491</td>
+      <td>60%</td>
+      <td>279</td>
+      <td>34%</td>
+      <td>56%</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>928</td>
+      <td>567</td>
+      <td>61%</td>
+      <td>322</td>
+      <td>35%</td>
+      <td>56%</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>844</td>
+      <td>602</td>
+      <td>71%</td>
+      <td>337</td>
+      <td>40%</td>
+      <td>56%</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>823</td>
+      <td>560</td>
+      <td>68%</td>
+      <td>353</td>
+      <td>43%</td>
+      <td>63%</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>815</td>
+      <td>619</td>
+      <td>76%</td>
+      <td>351</td>
+      <td>43%</td>
+      <td>56%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Making-Extract-of-Bills-Held-for-Study">Making Extract of Bills Held for Study<a class="anchor-link" href="#Making-Extract-of-Bills-Held-for-Study">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/clean/bill_actions.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># removes resolutions</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bill_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)]</span>
+
+<span class="c1"># remove duplicate (created when splitting action_type)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">([</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;lookup_id&#39;</span><span class="p">]))</span>
+
+<span class="c1"># adding action_num increments of bill</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;action_num&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># creating dataset for held for study tableau sheet</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">died_in_study</span><span class="p">),</span> <span class="s1">&#39;ended_held_for_study&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">held_for_study</span><span class="p">),</span> <span class="s1">&#39;ever_held_for_study&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">committee</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">)[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;first&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">committee</span><span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">committee</span><span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">committee</span> <span class="o">=</span> <span class="n">committee</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span><span class="s1">&#39;committee&#39;</span><span class="p">})</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">committee</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./data/clean/held_for_study.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="highlight"><pre><span></span>&lt;/div&gt;
+</pre></div>
+
+
+<p></div>
+</body></p>
+<p></html></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/SmirkyGraphs"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/Smirkygraphs"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://smirkygraphs.github.io"><i class="fa fa-globe fa-lg" aria-hidden="true"></i> Website</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/held-for-study-to-die/">
+                            Held for Further Study: Where Bills Go to Die
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/06/ri-bills-held-for-further-study/">
+                            RI Bills Held for Further Study
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/05/rhode-island-executive-appointments/">
+                            Rhode Island Executive Appointments
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/05/how-often-ri-politicians-vote-the-same/">
+                            How Often RI Politicians Vote the Same
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/04/a-to-z-databases/">
+                            Ask RI - A to Z Databases
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="../../../../tags"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2019 SmirkyGraphs
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+</body>
+</html>
