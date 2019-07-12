@@ -71,7 +71,7 @@
                         <td>' + (feature.properties['percent'] !== null ? Autolinker.link(String(Math.round(feature.properties['percent']*100)) + "%") : '') + '</td>\
                     </tr>\
                 </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
+            layer.bindTooltip(popupContent, {maxHeight: 400});
         }
 
         function style_temp_1_0(feature) {
