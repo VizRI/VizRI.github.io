@@ -27,7 +27,7 @@
             padding-right:10px;
         }
         .leaflet-tooltip {
-            background: none;
+            background: #fff;
             box-shadow: none;
             border: none;
         }
