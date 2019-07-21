@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>RI Bills by Sponsors Party and Outcome - I Viz RI</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="../../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href="../../../../posts/2019/07/ri-bills-by-party/">
+
+        <meta name="author" content="SmirkyGraphs" />
+        <meta name="keywords" content="Politics,Python" />
+        <meta name="description" content="Its no secret that Rhode Island&#39;s legislature leans overwhelmingly in the favor of Democrats. However, I wanted to see just how many bills introduced by Republicans go on to pass both chambers and become law. Also, how often the parties work together on Bi-Partisan bills and how all of these metrics have changed over the years since 2007." />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../theme/css/style.css" type="text/css"/>
+        <link href="../../../../theme/css/custom.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../" class="navbar-brand">
+<img src="../../../../images/logo.png" width="32"/> I Viz RI            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="../../../../category/blog/index">Blog</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/map/index">Map</a>
+                        </li>
+                        <li class="active">
+                            <a href="../../../../category/notebooks/index">Notebooks</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/viz/index">Viz</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1 class="article-title">
+                    <a href="../../../../posts/2019/07/ri-bills-by-party/"
+                       rel="bookmark"
+                       title="Permalink to RI Bills by Sponsors Party and Outcome">
+                        RI Bills by Sponsors Party and Outcome
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-07-21T14:02:00-04:00"> Sun 21 July 2019</time>
+    </span>
+
+        <span class="label label-default">Category</span>
+        <a href="../../../../category/notebooks/index">Notebooks</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../tag/politics/">Politics</a>
+        /
+	<a href="../../../../tag/python/">Python</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><link href="https://ivizri.com/theme/css/notebook.css" rel="stylesheet" type="text/css"></p>
+<hr>
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>bills-sponsor-party</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+
+<p><body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container"></p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Created by: <a href="https://smirkygraphs.github.io/">SmirkyGraphs</a>. Code: <a href="https://github.com/SmirkyGraphs/Python-Notebooks">Github</a>. Source: <a href="http://www.rilin.state.ri.us/pages/legislation.aspx">RI Legislature Site</a>.</p>
+<hr>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="RI-Bills-by-Sponsors-Party-and-Outcome">RI Bills by Sponsors Party and Outcome<a class="anchor-link" href="#RI-Bills-by-Sponsors-Party-and-Outcome">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Its no secret that Rhode Island's legislature leans overwhelmingly in the favor of Democrats. With the House having only 9 Republicans and the Senate only 5. Naturally with the chambers being overwhelmingly Democrat the bills going through and becoming law will primarily be in their favor. However, I wanted to see just how many bills introduced by Republicans go on to pass both chambers and become law. Also, how often the parties work together on Bi-Partisan bills and how all of these metrics have changed over the years since 2007.</p>
+<p>This notebook will take a look at the sponsors party of every bill introduced since 2007, aggregate it and group it by year. Finally, it will look at the final outcome of all bills introduced since 2007 and count how many went on to become law.</p>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Total-Number-of-Bills-by-Sponsor-Party">Total Number of Bills by Sponsor Party<a class="anchor-link" href="#Total-Number-of-Bills-by-Sponsor-Party">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/clean/bill_info.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># removes resolutions (6112)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bill_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)]</span>
+
+<span class="c1"># removes bills that had independents (200)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bill_party&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;other&#39;</span><span class="p">]</span>
+
+<span class="c1"># remove solemnization of marriage (1223)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;RELATING TO SOLEMNIZATION OF MARRIAGES&#39;</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># filter on only wanted columns</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;bill_party&#39;</span><span class="p">,</span> <span class="s1">&#39;origin&#39;</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create a pivot table of bills by partisanship</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;bill_party&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fix table header formating</span>
+<span class="n">table</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">droplevel</span><span class="p">()</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">([</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+<span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># adding a total column</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[6]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>bi-partisan</th>
+      <th>democrat</th>
+      <th>republican</th>
+      <th>total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="13" valign="top">house</th>
+      <th>2007</th>
+      <td>200</td>
+      <td>917</td>
+      <td>132</td>
+      <td>1249</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>218</td>
+      <td>812</td>
+      <td>112</td>
+      <td>1142</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>118</td>
+      <td>891</td>
+      <td>63</td>
+      <td>1072</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>119</td>
+      <td>819</td>
+      <td>40</td>
+      <td>978</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>197</td>
+      <td>781</td>
+      <td>20</td>
+      <td>998</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>155</td>
+      <td>801</td>
+      <td>22</td>
+      <td>978</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>114</td>
+      <td>837</td>
+      <td>42</td>
+      <td>993</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>118</td>
+      <td>879</td>
+      <td>32</td>
+      <td>1029</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>170</td>
+      <td>744</td>
+      <td>34</td>
+      <td>948</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>133</td>
+      <td>849</td>
+      <td>34</td>
+      <td>1016</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>138</td>
+      <td>853</td>
+      <td>69</td>
+      <td>1060</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>175</td>
+      <td>823</td>
+      <td>61</td>
+      <td>1059</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>92</td>
+      <td>755</td>
+      <td>81</td>
+      <td>928</td>
+    </tr>
+    <tr>
+      <th rowspan="13" valign="top">senate</th>
+      <th>2007</th>
+      <td>138</td>
+      <td>760</td>
+      <td>55</td>
+      <td>953</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>138</td>
+      <td>735</td>
+      <td>77</td>
+      <td>950</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>99</td>
+      <td>712</td>
+      <td>37</td>
+      <td>848</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>109</td>
+      <td>653</td>
+      <td>17</td>
+      <td>779</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>164</td>
+      <td>611</td>
+      <td>47</td>
+      <td>822</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>181</td>
+      <td>596</td>
+      <td>37</td>
+      <td>814</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>179</td>
+      <td>571</td>
+      <td>33</td>
+      <td>783</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>176</td>
+      <td>647</td>
+      <td>15</td>
+      <td>838</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>145</td>
+      <td>606</td>
+      <td>22</td>
+      <td>773</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>133</td>
+      <td>717</td>
+      <td>42</td>
+      <td>892</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>77</td>
+      <td>711</td>
+      <td>23</td>
+      <td>811</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>108</td>
+      <td>665</td>
+      <td>14</td>
+      <td>787</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>95</td>
+      <td>670</td>
+      <td>13</td>
+      <td>778</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting table as percentages</span>
+<span class="n">percent_table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+
+<span class="c1"># formatting as percentages</span>
+<span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;bi-partisan&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;bi-partisan&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;democrat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;democrat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;republican&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;republican&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="c1"># removing total</span>
+<span class="n">percent_table</span> <span class="o">=</span> <span class="n">percent_table</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;total&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">percent_table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[8]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>bi-partisan</th>
+      <th>democrat</th>
+      <th>republican</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="13" valign="top">house</th>
+      <th>2007</th>
+      <td>16.0%</td>
+      <td>73.4%</td>
+      <td>10.6%</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>19.1%</td>
+      <td>71.1%</td>
+      <td>9.8%</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>11.0%</td>
+      <td>83.1%</td>
+      <td>5.9%</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>12.2%</td>
+      <td>83.7%</td>
+      <td>4.1%</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>19.7%</td>
+      <td>78.3%</td>
+      <td>2.0%</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>15.8%</td>
+      <td>81.9%</td>
+      <td>2.2%</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>11.5%</td>
+      <td>84.3%</td>
+      <td>4.2%</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>11.5%</td>
+      <td>85.4%</td>
+      <td>3.1%</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>17.9%</td>
+      <td>78.5%</td>
+      <td>3.6%</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>13.1%</td>
+      <td>83.6%</td>
+      <td>3.3%</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>13.0%</td>
+      <td>80.5%</td>
+      <td>6.5%</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>16.5%</td>
+      <td>77.7%</td>
+      <td>5.8%</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>9.9%</td>
+      <td>81.4%</td>
+      <td>8.7%</td>
+    </tr>
+    <tr>
+      <th rowspan="13" valign="top">senate</th>
+      <th>2007</th>
+      <td>14.5%</td>
+      <td>79.7%</td>
+      <td>5.8%</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>14.5%</td>
+      <td>77.4%</td>
+      <td>8.1%</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>11.7%</td>
+      <td>84.0%</td>
+      <td>4.4%</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>14.0%</td>
+      <td>83.8%</td>
+      <td>2.2%</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>20.0%</td>
+      <td>74.3%</td>
+      <td>5.7%</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>22.2%</td>
+      <td>73.2%</td>
+      <td>4.5%</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>22.9%</td>
+      <td>72.9%</td>
+      <td>4.2%</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>21.0%</td>
+      <td>77.2%</td>
+      <td>1.8%</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>18.8%</td>
+      <td>78.4%</td>
+      <td>2.8%</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>14.9%</td>
+      <td>80.4%</td>
+      <td>4.7%</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>9.5%</td>
+      <td>87.7%</td>
+      <td>2.8%</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>13.7%</td>
+      <td>84.5%</td>
+      <td>1.8%</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>12.2%</td>
+      <td>86.1%</td>
+      <td>1.7%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+<h2 id="Bills-by-Sponsors-Party---Became-Law">Bills by Sponsors Party - Became Law<a class="anchor-link" href="#Bills-by-Sponsors-Party---Became-Law">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/clean/bill_info.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># removes resolutions (6112)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bill_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)]</span>
+
+<span class="c1"># removes bills that had independents (200)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bill_party&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;other&#39;</span><span class="p">]</span>
+
+<span class="c1"># removes bills that never became law (5867)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;relevant_dates.became_law&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span>
+
+<span class="c1"># removes solemnization of marriages (1177)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;RELATING TO SOLEMNIZATION OF MARRIAGES&#39;</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># filter on only wanted columns</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lookup_id&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;bill_party&#39;</span><span class="p">,</span> <span class="s1">&#39;origin&#39;</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create a pivot table of bills by partisanship</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;bill_party&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fix table header formating</span>
+<span class="n">table</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">droplevel</span><span class="p">()</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">([</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+<span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># adding a total column</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[13]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>bi-partisan</th>
+      <th>democrat</th>
+      <th>republican</th>
+      <th>total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="13" valign="top">house</th>
+      <th>2007</th>
+      <td>47</td>
+      <td>218</td>
+      <td>31</td>
+      <td>296</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>50</td>
+      <td>193</td>
+      <td>16</td>
+      <td>259</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>26</td>
+      <td>179</td>
+      <td>16</td>
+      <td>221</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>19</td>
+      <td>148</td>
+      <td>5</td>
+      <td>172</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>39</td>
+      <td>193</td>
+      <td>6</td>
+      <td>238</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>29</td>
+      <td>235</td>
+      <td>4</td>
+      <td>268</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>24</td>
+      <td>260</td>
+      <td>3</td>
+      <td>287</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>26</td>
+      <td>262</td>
+      <td>7</td>
+      <td>295</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>22</td>
+      <td>128</td>
+      <td>7</td>
+      <td>157</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>24</td>
+      <td>263</td>
+      <td>8</td>
+      <td>295</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>24</td>
+      <td>232</td>
+      <td>10</td>
+      <td>266</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>28</td>
+      <td>185</td>
+      <td>6</td>
+      <td>219</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>4</td>
+      <td>55</td>
+      <td>2</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <th rowspan="13" valign="top">senate</th>
+      <th>2007</th>
+      <td>36</td>
+      <td>210</td>
+      <td>23</td>
+      <td>269</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>41</td>
+      <td>178</td>
+      <td>26</td>
+      <td>245</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>32</td>
+      <td>152</td>
+      <td>15</td>
+      <td>199</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>18</td>
+      <td>144</td>
+      <td>7</td>
+      <td>169</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>40</td>
+      <td>169</td>
+      <td>12</td>
+      <td>221</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>44</td>
+      <td>200</td>
+      <td>17</td>
+      <td>261</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>54</td>
+      <td>206</td>
+      <td>12</td>
+      <td>272</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>67</td>
+      <td>201</td>
+      <td>8</td>
+      <td>276</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>24</td>
+      <td>114</td>
+      <td>4</td>
+      <td>142</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>35</td>
+      <td>218</td>
+      <td>14</td>
+      <td>267</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>21</td>
+      <td>243</td>
+      <td>7</td>
+      <td>271</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>14</td>
+      <td>183</td>
+      <td>3</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>6</td>
+      <td>48</td>
+      <td>1</td>
+      <td>55</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting table as percentages</span>
+<span class="n">percent_table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+
+<span class="c1"># formatting as percentages</span>
+<span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;bi-partisan&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;bi-partisan&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;democrat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;democrat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;republican&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">percent_table</span><span class="p">[</span><span class="s1">&#39;republican&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="c1"># removing total</span>
+<span class="n">percent_table</span> <span class="o">=</span> <span class="n">percent_table</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;total&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">percent_table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[15]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>bi-partisan</th>
+      <th>democrat</th>
+      <th>republican</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="13" valign="top">house</th>
+      <th>2007</th>
+      <td>15.9%</td>
+      <td>73.6%</td>
+      <td>10.5%</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>19.3%</td>
+      <td>74.5%</td>
+      <td>6.2%</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>11.8%</td>
+      <td>81.0%</td>
+      <td>7.2%</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>11.0%</td>
+      <td>86.0%</td>
+      <td>2.9%</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>16.4%</td>
+      <td>81.1%</td>
+      <td>2.5%</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>10.8%</td>
+      <td>87.7%</td>
+      <td>1.5%</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>8.4%</td>
+      <td>90.6%</td>
+      <td>1.0%</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>8.8%</td>
+      <td>88.8%</td>
+      <td>2.4%</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>14.0%</td>
+      <td>81.5%</td>
+      <td>4.5%</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>8.1%</td>
+      <td>89.2%</td>
+      <td>2.7%</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>9.0%</td>
+      <td>87.2%</td>
+      <td>3.8%</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>12.8%</td>
+      <td>84.5%</td>
+      <td>2.7%</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>6.6%</td>
+      <td>90.2%</td>
+      <td>3.3%</td>
+    </tr>
+    <tr>
+      <th rowspan="13" valign="top">senate</th>
+      <th>2007</th>
+      <td>13.4%</td>
+      <td>78.1%</td>
+      <td>8.6%</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>16.7%</td>
+      <td>72.7%</td>
+      <td>10.6%</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>16.1%</td>
+      <td>76.4%</td>
+      <td>7.5%</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>10.7%</td>
+      <td>85.2%</td>
+      <td>4.1%</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>18.1%</td>
+      <td>76.5%</td>
+      <td>5.4%</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>16.9%</td>
+      <td>76.6%</td>
+      <td>6.5%</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>19.9%</td>
+      <td>75.7%</td>
+      <td>4.4%</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>24.3%</td>
+      <td>72.8%</td>
+      <td>2.9%</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>16.9%</td>
+      <td>80.3%</td>
+      <td>2.8%</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>13.1%</td>
+      <td>81.6%</td>
+      <td>5.2%</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>7.7%</td>
+      <td>89.7%</td>
+      <td>2.6%</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>7.0%</td>
+      <td>91.5%</td>
+      <td>1.5%</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>10.9%</td>
+      <td>87.3%</td>
+      <td>1.8%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<p></body></p>
+<p></html></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/SmirkyGraphs"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/Smirkygraphs"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://smirkygraphs.github.io"><i class="fa fa-globe fa-lg" aria-hidden="true"></i> Website</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/ri-bills-by-party/">
+                            RI Bills by Sponsors Party and Outcome
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/providence-ri-single-family-homes/">
+                            Providence, RI Single-Family Homes
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/rhode-island-road-suffix/">
+                            Rhode Island Road Suffix's
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/optimal-route-to-ri-dunkin/">
+                            Optimal Route to Every RI Dunkin'
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/held-for-study-to-die/">
+                            Held for Further Study: Where Bills Go to Die
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="../../../../tags"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2019 SmirkyGraphs
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+</body>
+</html>
