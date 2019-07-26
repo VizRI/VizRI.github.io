@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>RI House & Senate Floor Votes - I Viz RI</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="../../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href="../../../../posts/2019/07/ri-legislature-floor-votes/">
+
+        <meta name="author" content="SmirkyGraphs" />
+        <meta name="keywords" content="Politics,Python" />
+        <meta name="description" content="This notebook will take a look at how many votes occur each year, when the session ends and how many votes occur in the final days of a session compared to the year as a whole for both the House and Senate." />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../theme/css/style.css" type="text/css"/>
+        <link href="../../../../theme/css/custom.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../" class="navbar-brand">
+<img src="../../../../images/logo.png" width="32"/> I Viz RI            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="../../../../category/blog/index">Blog</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/map/index">Map</a>
+                        </li>
+                        <li class="active">
+                            <a href="../../../../category/notebooks/index">Notebooks</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/viz/index">Viz</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1 class="article-title">
+                    <a href="../../../../posts/2019/07/ri-legislature-floor-votes/"
+                       rel="bookmark"
+                       title="Permalink to RI House & Senate Floor Votes">
+                        RI House & Senate Floor Votes
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-07-26T08:00:00-04:00"> Fri 26 July 2019</time>
+    </span>
+
+        <span class="label label-default">Category</span>
+        <a href="../../../../category/notebooks/index">Notebooks</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../tag/politics/">Politics</a>
+        /
+	<a href="../../../../tag/python/">Python</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><link href="https://ivizri.com/theme/css/notebook.css" rel="stylesheet" type="text/css"></p>
+<hr>
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>floor-votes-by-year</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+
+<p><body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container"></p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Created by: <a href="https://smirkygraphs.github.io/">SmirkyGraphs</a>. Code: <a href="https://github.com/SmirkyGraphs/Python-Notebooks">Github</a>. Source: <a href="http://www.rilin.state.ri.us/pages/legislation.aspx">RI Legislature Site</a>.</p>
+<hr>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Rhode-Island-House-and-Senate-Floor-Votes-by-Year">Rhode Island House and Senate Floor Votes by Year<a class="anchor-link" href="#Rhode-Island-House-and-Senate-Floor-Votes-by-Year">&#182;</a></h1><p>The final days of a session can get a bit crazy for legislatures. The last day of 2016 saw a whopping 212 votes for the House and 127 for the Senate. This notebook will take a look at how many votes occur each year, when the session ends and how many votes occur in the final days of a session compared to the year as a whole for both the House and Senate.</p>
+<hr>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Number-of-House-Votes-and-Sessions-by-Year">Number of House Votes and Sessions by Year<a class="anchor-link" href="#Number-of-House-Votes-and-Sessions-by-Year">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/clean/house_vote_info_clean.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># adding cols to make data prep easier</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="c1"># remove roll call as it wasnt present in earlier years</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;vote_category&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;ROLL CALL&#39;</span><span class="p">]</span>
+
+<span class="c1"># dates to remove (a tour and a possible test?)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bill_date&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;2003-11-12&#39;</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bill_date&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;2008-11-25&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting count of total votes for each individual session day</span>
+<span class="n">h_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;bill_date&#39;</span><span class="p">])[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># getting running total of floor votes for each session</span>
+<span class="n">h_df</span><span class="p">[</span><span class="s1">&#39;votes_total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">h_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">h_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">h_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+
+<span class="c1"># getting a running total of number of days for each session</span>
+<span class="n">h_df</span><span class="p">[</span><span class="s1">&#39;day_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">h_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">h_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">h_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">())</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># previewing the table</span>
+<span class="n">h_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[5]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>session</th>
+      <th>bill_date</th>
+      <th>count</th>
+      <th>votes_total</th>
+      <th>day_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2003</td>
+      <td>2003-01-08</td>
+      <td>7</td>
+      <td>7</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2003</td>
+      <td>2003-01-09</td>
+      <td>1</td>
+      <td>8</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># day with most house votes</span>
+<span class="n">h_df</span><span class="p">[</span><span class="n">h_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">h_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[6]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>session</th>
+      <th>bill_date</th>
+      <th>count</th>
+      <th>votes_total</th>
+      <th>day_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>801</th>
+      <td>2016</td>
+      <td>2016-06-18</td>
+      <td>212</td>
+      <td>920</td>
+      <td>59</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting table of final days for each session</span>
+<span class="n">house_votes</span> <span class="o">=</span> <span class="n">h_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;session&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span>
+
+<span class="c1"># add fitting headers and removing index label</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;last_day&#39;</span><span class="p">,</span> <span class="s1">&#39;last_day_votes&#39;</span><span class="p">,</span> <span class="s1">&#39;total_votes&#39;</span><span class="p">,</span> <span class="s1">&#39;total_sessions&#39;</span><span class="p">]</span>
+<span class="n">house_votes</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">cols</span>
+<span class="n">house_votes</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">house_votes</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
+<span class="n">house_votes</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">house_votes</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[8]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>session</th>
+      <th>last_day</th>
+      <th>last_day_votes</th>
+      <th>total_votes</th>
+      <th>total_sessions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2003</th>
+      <td>2003-07-15</td>
+      <td>36</td>
+      <td>948</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <th>2004</th>
+      <td>2004-07-30</td>
+      <td>15</td>
+      <td>1140</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th>2005</th>
+      <td>2005-07-15</td>
+      <td>13</td>
+      <td>1053</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <th>2006</th>
+      <td>2006-06-24</td>
+      <td>82</td>
+      <td>1158</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>2007</th>
+      <td>2007-10-30</td>
+      <td>40</td>
+      <td>1122</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>2008-06-21</td>
+      <td>188</td>
+      <td>955</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>2009-10-30</td>
+      <td>6</td>
+      <td>831</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>2010-06-11</td>
+      <td>43</td>
+      <td>749</td>
+      <td>47</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>2011-11-17</td>
+      <td>29</td>
+      <td>805</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>2012-06-13</td>
+      <td>26</td>
+      <td>870</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>2013-07-03</td>
+      <td>87</td>
+      <td>984</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>2014-06-21</td>
+      <td>31</td>
+      <td>981</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>2015-06-25</td>
+      <td>24</td>
+      <td>645</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>2016-06-18</td>
+      <td>212</td>
+      <td>920</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>2017-09-19</td>
+      <td>157</td>
+      <td>880</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>2018-06-23</td>
+      <td>102</td>
+      <td>716</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>2019-06-28</td>
+      <td>105</td>
+      <td>624</td>
+      <td>65</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="[House]-Total-Votes-Final-10-Days-vs.-All-Other-Days">[House] Total Votes Final 10 Days vs. All Other Days<a class="anchor-link" href="#[House]-Total-Votes-Final-10-Days-vs.-All-Other-Days">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting count of total votes for each individual session day</span>
+<span class="n">end_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;bill_date&#39;</span><span class="p">])[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting running total of floor votes for each session</span>
+<span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;votes_total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+
+<span class="c1"># getting a REVERSED running total of number of days for each session</span>
+<span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;day_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">())</span><span class="o">.</span><span class="n">cumcount</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">end_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;day_id&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;final_10_days&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;final_10_days&#39;</span>
+<span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;final_10_days&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;final_10_days&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;other_days&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">end_df</span> <span class="o">=</span> <span class="n">end_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;final_10_days&#39;</span><span class="p">])[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">end_df</span> <span class="o">=</span> <span class="n">end_df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;final_10_days&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
+
+<span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;final_10_days&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;other_days&#39;</span><span class="p">]</span>
+<span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;%_final_10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;final_10_days&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span>
+
+<span class="c1"># removing total and cleaning % format</span>
+<span class="n">house_end_df</span> <span class="o">=</span> <span class="n">end_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;total&#39;</span><span class="p">)</span>
+<span class="n">house_end_df</span><span class="p">[</span><span class="s1">&#39;%_final_10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">house_end_df</span><span class="p">[</span><span class="s1">&#39;%_final_10&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="c1"># add fitting headers and removing index label</span>
+<span class="n">house_end_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">house_end_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
+<span class="n">house_end_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">house_end_df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[13]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>session</th>
+      <th>final_10_days</th>
+      <th>other_days</th>
+      <th>%_final_10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2003</th>
+      <td>545</td>
+      <td>403</td>
+      <td>57.5%</td>
+    </tr>
+    <tr>
+      <th>2004</th>
+      <td>599</td>
+      <td>541</td>
+      <td>52.5%</td>
+    </tr>
+    <tr>
+      <th>2005</th>
+      <td>572</td>
+      <td>481</td>
+      <td>54.3%</td>
+    </tr>
+    <tr>
+      <th>2006</th>
+      <td>642</td>
+      <td>516</td>
+      <td>55.4%</td>
+    </tr>
+    <tr>
+      <th>2007</th>
+      <td>599</td>
+      <td>523</td>
+      <td>53.4%</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>596</td>
+      <td>359</td>
+      <td>62.4%</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>485</td>
+      <td>346</td>
+      <td>58.4%</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>491</td>
+      <td>258</td>
+      <td>65.6%</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>401</td>
+      <td>404</td>
+      <td>49.8%</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>518</td>
+      <td>352</td>
+      <td>59.5%</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>556</td>
+      <td>428</td>
+      <td>56.5%</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>589</td>
+      <td>392</td>
+      <td>60.0%</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>386</td>
+      <td>259</td>
+      <td>59.8%</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>620</td>
+      <td>300</td>
+      <td>67.4%</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>564</td>
+      <td>316</td>
+      <td>64.1%</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>481</td>
+      <td>235</td>
+      <td>67.2%</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>387</td>
+      <td>237</td>
+      <td>62.0%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Number-of-Senate-Votes-and-Sessions-by-Year">Number of Senate Votes and Sessions by Year<a class="anchor-link" href="#Number-of-Senate-Votes-and-Sessions-by-Year">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/clean/senate_vote_info_clean.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># adding cols to make data prep easier</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="c1"># remove roll call for normalization (did so for house)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;vote_category&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;ROLL CALL&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting count of total votes for each individual session day</span>
+<span class="n">s_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;bill_date&#39;</span><span class="p">])[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># getting running total of floor votes for each session</span>
+<span class="n">s_df</span><span class="p">[</span><span class="s1">&#39;votes_total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">s_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">s_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">s_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+
+<span class="c1"># getting a running total of number of days for each session</span>
+<span class="n">s_df</span><span class="p">[</span><span class="s1">&#39;day_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">s_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">s_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">s_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">())</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># previewing the table</span>
+<span class="n">s_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[17]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>session</th>
+      <th>bill_date</th>
+      <th>count</th>
+      <th>votes_total</th>
+      <th>day_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2016</td>
+      <td>2016-01-06</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2016</td>
+      <td>2016-01-20</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># day with most senate votes</span>
+<span class="n">s_df</span><span class="p">[</span><span class="n">s_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">s_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[18]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>session</th>
+      <th>bill_date</th>
+      <th>count</th>
+      <th>votes_total</th>
+      <th>day_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>57</th>
+      <td>2016</td>
+      <td>2016-06-18</td>
+      <td>127</td>
+      <td>722</td>
+      <td>58</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting table of final days for each session</span>
+<span class="n">senate_votes</span> <span class="o">=</span> <span class="n">s_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;session&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span>
+
+<span class="c1"># add fitting headers and removing index label</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;last_day&#39;</span><span class="p">,</span> <span class="s1">&#39;last_day_votes&#39;</span><span class="p">,</span> <span class="s1">&#39;total_votes&#39;</span><span class="p">,</span> <span class="s1">&#39;total_sessions&#39;</span><span class="p">]</span>
+<span class="n">senate_votes</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">cols</span>
+<span class="n">senate_votes</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">senate_votes</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
+<span class="n">senate_votes</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">senate_votes</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[20]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>session</th>
+      <th>last_day</th>
+      <th>last_day_votes</th>
+      <th>total_votes</th>
+      <th>total_sessions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2016</th>
+      <td>2016-06-18</td>
+      <td>127</td>
+      <td>722</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>2017-09-19</td>
+      <td>85</td>
+      <td>575</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>2018-06-23</td>
+      <td>124</td>
+      <td>524</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>2019-06-28</td>
+      <td>36</td>
+      <td>572</td>
+      <td>61</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="[Senate]-Total-Votes-Final-10-Days-vs.-All-Other-Days">[Senate] Total Votes Final 10 Days vs. All Other Days<a class="anchor-link" href="#[Senate]-Total-Votes-Final-10-Days-vs.-All-Other-Days">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting count of total votes for each individual session day</span>
+<span class="n">end_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;bill_date&#39;</span><span class="p">])[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting running total of floor votes for each session</span>
+<span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;votes_total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+
+<span class="c1"># getting a REVERSED running total of number of days for each session</span>
+<span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;day_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span><span class="o">.</span><span class="n">cumsum</span><span class="p">())</span><span class="o">.</span><span class="n">cumcount</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">end_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;day_id&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;final_10_days&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;final_10_days&#39;</span>
+<span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;final_10_days&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;final_10_days&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;other_days&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">end_df</span> <span class="o">=</span> <span class="n">end_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="s1">&#39;final_10_days&#39;</span><span class="p">])[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">end_df</span> <span class="o">=</span> <span class="n">end_df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;final_10_days&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
+
+<span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;final_10_days&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;other_days&#39;</span><span class="p">]</span>
+<span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;%_final_10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;final_10_days&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">end_df</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span>
+
+<span class="c1"># removing total and cleaning % format</span>
+<span class="n">senate_end_df</span> <span class="o">=</span> <span class="n">end_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;total&#39;</span><span class="p">)</span>
+<span class="n">senate_end_df</span><span class="p">[</span><span class="s1">&#39;%_final_10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">senate_end_df</span><span class="p">[</span><span class="s1">&#39;%_final_10&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="c1"># add fitting headers and removing index label</span>
+<span class="n">senate_end_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">senate_end_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
+<span class="n">senate_end_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">senate_end_df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[25]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>session</th>
+      <th>final_10_days</th>
+      <th>other_days</th>
+      <th>%_final_10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2016</th>
+      <td>404</td>
+      <td>318</td>
+      <td>56.0%</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>316</td>
+      <td>259</td>
+      <td>55.0%</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>304</td>
+      <td>220</td>
+      <td>58.0%</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>335</td>
+      <td>237</td>
+      <td>58.6%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Creating-Export-Report-for-Tableau">Creating Export Report for Tableau<a class="anchor-link" href="#Creating-Export-Report-for-Tableau">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># adding chamber label to house sets</span>
+<span class="n">house_votes</span><span class="p">[</span><span class="s1">&#39;chamber&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;house&#39;</span>
+<span class="n">house_end_df</span><span class="p">[</span><span class="s1">&#39;chamber&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;house&#39;</span>
+
+<span class="c1"># adding chamber label to senate sets</span>
+<span class="n">senate_votes</span><span class="p">[</span><span class="s1">&#39;chamber&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;senate&#39;</span>
+<span class="n">senate_end_df</span><span class="p">[</span><span class="s1">&#39;chamber&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;senate&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">final_10_days</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">house_end_df</span><span class="p">,</span> <span class="n">senate_end_df</span><span class="p">])</span>
+<span class="n">total_floor_votes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">house_votes</span><span class="p">,</span> <span class="n">senate_votes</span><span class="p">])</span>
+
+<span class="n">final_10_days</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;session&#39;</span>
+<span class="n">total_floor_votes</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;session&#39;</span>
+
+<span class="n">final_10_days</span> <span class="o">=</span> <span class="n">final_10_days</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">total_floor_votes</span> <span class="o">=</span> <span class="n">total_floor_votes</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="n">final_10_days</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../data/reports/total-floor-votes/final_10_days.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">total_floor_votes</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../data/reports/total-floor-votes/total_floor_votes.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<p></body></p>
+<p></html></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/SmirkyGraphs"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/Smirkygraphs"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://smirkygraphs.github.io"><i class="fa fa-globe fa-lg" aria-hidden="true"></i> Website</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/ri-legislature-floor-votes/">
+                            RI House & Senate Floor Votes
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/ri-bills-by-party/">
+                            RI Bills by Sponsors Party and Outcome
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/providence-ri-single-family-homes/">
+                            Providence, RI Single-Family Homes
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/rhode-island-road-suffix/">
+                            Rhode Island Road Suffix's
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/optimal-route-to-ri-dunkin/">
+                            Optimal Route to Every RI Dunkin'
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="../../../../tags"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2019 SmirkyGraphs
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+</body>
+</html>
