@@ -1,0 +1,5377 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>Providence Property Taxes 2019 - I Viz RI</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="../../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href="../../../../posts/2019/08/providence-property-taxes-2019/">
+
+        <meta name="author" content="SmirkyGraphs" />
+        <meta name="keywords" content="Providence,Taxes" />
+        <meta name="description" content="Recently, Providence released their property tax roll for 2019. This time I used python &amp; pandas to clean the data &amp; create pivot tables viewing the changes. I focused on geographic changes looking at zip code, ward and neighborhoods to compare and contrast how the median single family &amp; 2-5 family home value, and cost in taxes has changed from last year." />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../theme/css/style.css" type="text/css"/>
+        <link href="../../../../theme/css/custom.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../" class="navbar-brand">
+<img src="../../../../images/logo.png" width="32"/> I Viz RI            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="../../../../category/blog/index">Blog</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/map/index">Map</a>
+                        </li>
+                        <li class="active">
+                            <a href="../../../../category/notebooks/index">Notebooks</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/viz/index">Viz</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1 class="article-title">
+                    <a href="../../../../posts/2019/08/providence-property-taxes-2019/"
+                       rel="bookmark"
+                       title="Permalink to Providence Property Taxes 2019">
+                        Providence Property Taxes 2019
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-08-26T07:10:00-04:00"> Mon 26 August 2019</time>
+    </span>
+
+        <span class="label label-default">Category</span>
+        <a href="../../../../category/notebooks/index">Notebooks</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../tag/providence/">Providence</a>
+        /
+	<a href="../../../../tag/taxes/">Taxes</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><link href="https://ivizri.com/theme/css/notebook.css" rel="stylesheet" type="text/css"></p>
+<hr>
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>pvd-property-taxes-2019</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+
+<p><body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container"></p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Created by <a href="http://smirkygraphs.github.io/">SmirkyGraphs</a>. Code: <a href="https://github.com/SmirkyGraphs/Python-Notebooks">Github</a>. Source: <a href="https://data.providenceri.gov/">OpenPVD</a>.</p>
+<hr>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Providence-Property-Taxes-2019-Analysis">Providence Property Taxes 2019 Analysis<a class="anchor-link" href="#Providence-Property-Taxes-2019-Analysis">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Providence posts a spreadsheet of their full property tax roll every year on OpenPVD. This notebook will be used to view the changes between 2018 and 2019 by 3 geographic regions using Zip codes, Wards, and Neighborhoods. The goal is to see how much taxes have increased or decreased for each region and how much they pay in taxes compared to one another.</p>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>This data has 356 parcels removed, due to them not being in the parcel shapefile</em><br>
+<em>The ward, zip code and neighborhoods are based on the centroids of the parcel</em></p>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#ZipCodes">Skip to Zip Codes</a><br>
+<a href="#Wards">Skip to Wards</a><br>
+<a href="#Neighborhoods">Skip to Neighborhoods</a></p>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load data (this dataset has 356 properties removed due to no location info)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/reports/2019_pvd_property_tax_clean.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get total taxes for 2018 -&gt; $280,423,906.64</span>
+<span class="n">total_2018</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2018 &amp; taxes &gt; 0&#39;</span><span class="p">)[</span><span class="s1">&#39;taxes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># get total taxes for 2019 -&gt; $284,756,820.28</span>
+<span class="n">total_2019</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year == 2019 &amp; taxes &gt; 0&#39;</span><span class="p">)[</span><span class="s1">&#39;taxes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># get percent increase</span>
+<span class="n">change</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(((</span><span class="n">total_2019</span> <span class="o">-</span> <span class="n">total_2018</span><span class="p">)</span><span class="o">/</span><span class="n">total_2018</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;total taxes 2018: </span><span class="si">{total_2018}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;total taxes 2019: </span><span class="si">{total_2019}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;          change: </span><span class="si">{change}</span><span class="s1">%&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>total taxes 2018: 280423906.64
+total taxes 2019: 284756820.28
+          change: 1.55%
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">increase</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">decrease</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">same</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">exempt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;assessment&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;exemption&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2019</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;increased: </span><span class="si">{increase}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;decreased: </span><span class="si">{decrease}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;     same: </span><span class="si">{same}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;   exempt: </span><span class="si">{exempt}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>increased: 24874
+decreased: 15107
+     same: 1058
+   exempt: 2515
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># remove exempt properties from the dataset </span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;taxes &gt; 0&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 2-5 Family and Single Family Homes make up ~45% of taxes and will be the focus of this</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;taxes&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">/</span><span class="n">table</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[6]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>class</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2 -5 Family</th>
+      <td>21.9%</td>
+      <td>23.4%</td>
+    </tr>
+    <tr>
+      <th>Single Family</th>
+      <td>23.8%</td>
+      <td>22.9%</td>
+    </tr>
+    <tr>
+      <th>Commercial II</th>
+      <td>20.0%</td>
+      <td>19.1%</td>
+    </tr>
+    <tr>
+      <th>Apartment Building</th>
+      <td>5.6%</td>
+      <td>6.1%</td>
+    </tr>
+    <tr>
+      <th>Residential Condo</th>
+      <td>6.1%</td>
+      <td>5.5%</td>
+    </tr>
+    <tr>
+      <th>Industrial</th>
+      <td>4.7%</td>
+      <td>4.7%</td>
+    </tr>
+    <tr>
+      <th>44-3-9 Stb</th>
+      <td>3.5%</td>
+      <td>4.1%</td>
+    </tr>
+    <tr>
+      <th>Commercial I</th>
+      <td>4.0%</td>
+      <td>4.0%</td>
+    </tr>
+    <tr>
+      <th>Combination</th>
+      <td>3.6%</td>
+      <td>3.7%</td>
+    </tr>
+    <tr>
+      <th>CI Vacant Land</th>
+      <td>2.5%</td>
+      <td>2.3%</td>
+    </tr>
+    <tr>
+      <th>Miscellaneous</th>
+      <td>2.1%</td>
+      <td>2.1%</td>
+    </tr>
+    <tr>
+      <th>Commercial Condo</th>
+      <td>1.4%</td>
+      <td>1.4%</td>
+    </tr>
+    <tr>
+      <th>Residential Vacant Land</th>
+      <td>0.7%</td>
+      <td>0.6%</td>
+    </tr>
+    <tr>
+      <th>Utility</th>
+      <td>0.1%</td>
+      <td>0.1%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="From-here-down-only-single-family-and-2-5-family-homes-are-used.">From here down only single family and 2-5 family homes are used.<a class="anchor-link" href="#From-here-down-only-single-family-and-2-5-family-homes-are-used.">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># filter for only single family and 2-5 family homes</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Single Family&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2 -5 Family&#39;</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><section id="ZipCodes"></section></p>
+<hr>
+
+<h2 id="Summary-Stats-by-Zip-Code">Summary Stats by Zip Code<a class="anchor-link" href="#Summary-Stats-by-Zip-Code">&#182;</a></h2><ul>
+<li>Assessments<ul>
+<li><a href="#zip-median-assess">Median Assessment</a></li>
+<li><a href="#zip-assessment-change">Median Assessment Change from 2018 to 2019</a></li>
+<li><a href="#zip-assess-sqrft">Median Assessment per Square Feet</a></li>
+<li><a href="#zip-assess-sqrft-change">Median Assessment per Square Feet Change from 2018 to 2019</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Taxes<ul>
+<li><a href="#zip-increase-decrease">Whose Taxes Increase/Decreased in 2019</a></li>
+<li><a href="#zip-tax-burden">Total Property Tax Burden</a></li>
+<li><a href="#zip-median-taxes">Median Taxes</a></li>
+<li><a href="#zip-taxes-change">Median Taxes Change from 2018 to 2019</a></li>
+<li><a href="#zip-taxes-sqrft">Median Tax per Square Feet</a></li>
+<li><a href="#zip-taxes-sqrft-change">Median Tax per Square Feet Change from 2018 to 2019</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="zip-median-assess"></section><h2 id="Assessments">Assessments<a class="anchor-link" href="#Assessments">&#182;</a></h2><h3 id="Median-Assessment-by-Zip-Code">Median Assessment by Zip Code<a class="anchor-link" href="#Median-Assessment-by-Zip-Code">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show the median assessment for each zip code</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zip_codes&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;assessment&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[8]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>zip_codes</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2906</th>
+      <td>388200.0</td>
+      <td>462250.0</td>
+    </tr>
+    <tr>
+      <th>2903</th>
+      <td>185550.0</td>
+      <td>299100.0</td>
+    </tr>
+    <tr>
+      <th>2908</th>
+      <td>142400.0</td>
+      <td>202300.0</td>
+    </tr>
+    <tr>
+      <th>2909</th>
+      <td>132900.0</td>
+      <td>189700.0</td>
+    </tr>
+    <tr>
+      <th>2904</th>
+      <td>132100.0</td>
+      <td>188800.0</td>
+    </tr>
+    <tr>
+      <th>2907</th>
+      <td>131700.0</td>
+      <td>188300.0</td>
+    </tr>
+    <tr>
+      <th>2905</th>
+      <td>126200.0</td>
+      <td>174750.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="zip-assessment-change"></section><h3 id="Median-Assessment-Change-from-2018-to-2019-by-Zip-Code">Median Assessment Change from 2018 to 2019 by Zip Code<a class="anchor-link" href="#Median-Assessment-Change-from-2018-to-2019-by-Zip-Code">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zip_codes&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;assess_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;assess_%_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;assess_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[9]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>assess_%_chng</th>
+      <th>assess_chng</th>
+    </tr>
+    <tr>
+      <th>zip_codes</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2903</th>
+      <td>56.7%</td>
+      <td>103800.0</td>
+    </tr>
+    <tr>
+      <th>2907</th>
+      <td>42.2%</td>
+      <td>54600.0</td>
+    </tr>
+    <tr>
+      <th>2909</th>
+      <td>41.9%</td>
+      <td>56100.0</td>
+    </tr>
+    <tr>
+      <th>2904</th>
+      <td>40.9%</td>
+      <td>53100.0</td>
+    </tr>
+    <tr>
+      <th>2908</th>
+      <td>38.8%</td>
+      <td>54300.0</td>
+    </tr>
+    <tr>
+      <th>2905</th>
+      <td>38.4%</td>
+      <td>46700.0</td>
+    </tr>
+    <tr>
+      <th>2906</th>
+      <td>19.6%</td>
+      <td>72500.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="zip-assess-sqrft"></section><h3 id="Median-Assessment-per-Square-Feet-by-Zip-Code">Median Assessment per Square Feet by Zip Code<a class="anchor-link" href="#Median-Assessment-per-Square-Feet-by-Zip-Code">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median assessment per square foot</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zip_codes&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;assess_pr_sqrft&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[10]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>zip_codes</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2903</th>
+      <td>60.08</td>
+      <td>94.04</td>
+    </tr>
+    <tr>
+      <th>2906</th>
+      <td>76.02</td>
+      <td>89.69</td>
+    </tr>
+    <tr>
+      <th>2905</th>
+      <td>34.85</td>
+      <td>48.30</td>
+    </tr>
+    <tr>
+      <th>2908</th>
+      <td>32.78</td>
+      <td>46.24</td>
+    </tr>
+    <tr>
+      <th>2909</th>
+      <td>30.95</td>
+      <td>44.42</td>
+    </tr>
+    <tr>
+      <th>2907</th>
+      <td>29.64</td>
+      <td>42.62</td>
+    </tr>
+    <tr>
+      <th>2904</th>
+      <td>28.34</td>
+      <td>40.04</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="zip-assess-sqrft-change"></section><h3 id="Median-Assessment-per-Square-Feet-Change-from-2018-to-2019-by-Zip-Code">Median Assessment per Square Feet Change from 2018 to 2019 by Zip Code<a class="anchor-link" href="#Median-Assessment-per-Square-Feet-Change-from-2018-to-2019-by-Zip-Code">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased (for square footage)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zip_codes&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;assess_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[11]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>assess_pr_sqrft_%_chng</th>
+      <th>assess_pr_sqrft_chng</th>
+    </tr>
+    <tr>
+      <th>zip_codes</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2903</th>
+      <td>56.8%</td>
+      <td>32.15</td>
+    </tr>
+    <tr>
+      <th>2907</th>
+      <td>42.2%</td>
+      <td>12.55</td>
+    </tr>
+    <tr>
+      <th>2909</th>
+      <td>41.9%</td>
+      <td>12.96</td>
+    </tr>
+    <tr>
+      <th>2904</th>
+      <td>40.9%</td>
+      <td>11.25</td>
+    </tr>
+    <tr>
+      <th>2908</th>
+      <td>38.8%</td>
+      <td>12.38</td>
+    </tr>
+    <tr>
+      <th>2905</th>
+      <td>38.4%</td>
+      <td>12.64</td>
+    </tr>
+    <tr>
+      <th>2906</th>
+      <td>19.6%</td>
+      <td>13.92</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="zip-increase-decrease"></section><h2 id="Taxes">Taxes<a class="anchor-link" href="#Taxes">&#182;</a></h2><h3 id="Whose-Taxes-Increase/Decreased-in-2019-by-Zip-Code">Whose Taxes Increase/Decreased in 2019 by Zip Code<a class="anchor-link" href="#Whose-Taxes-Increase/Decreased-in-2019-by-Zip-Code">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting table of % increase/decrease for 2019</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt; 2018&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># add a basic count</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># get increase, decrease or same</span>
+<span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;increase&#39;</span>
+<span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span>
+<span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;decrease&#39;</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zip_codes&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;change&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;increase&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;decrease&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;decrease&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;increase&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;increase&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;increase&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[12]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>change</th>
+      <th>decrease</th>
+      <th>increase</th>
+    </tr>
+    <tr>
+      <th>zip_codes</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2904</th>
+      <td>15.2%</td>
+      <td>84.8%</td>
+    </tr>
+    <tr>
+      <th>2903</th>
+      <td>16.5%</td>
+      <td>83.5%</td>
+    </tr>
+    <tr>
+      <th>2909</th>
+      <td>17.7%</td>
+      <td>82.3%</td>
+    </tr>
+    <tr>
+      <th>2907</th>
+      <td>20.9%</td>
+      <td>79.1%</td>
+    </tr>
+    <tr>
+      <th>2908</th>
+      <td>21.8%</td>
+      <td>78.2%</td>
+    </tr>
+    <tr>
+      <th>2905</th>
+      <td>26.9%</td>
+      <td>73.1%</td>
+    </tr>
+    <tr>
+      <th>2906</th>
+      <td>71.8%</td>
+      <td>28.2%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="zip-tax-burden"></section><h3 id="Total-Property-Tax-Burden-by-Zip-Code">Total Property Tax Burden by Zip Code<a class="anchor-link" href="#Total-Property-Tax-Burden-by-Zip-Code">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show zip codes as a percent of total taxes payed</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zip_codes&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;assessment&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+
+<span class="c1"># getting table as percentages</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">/</span><span class="n">table</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[13]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>zip_codes</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2906</th>
+      <td>44.1%</td>
+      <td>39.7%</td>
+    </tr>
+    <tr>
+      <th>2908</th>
+      <td>18.9%</td>
+      <td>20.1%</td>
+    </tr>
+    <tr>
+      <th>2909</th>
+      <td>14.5%</td>
+      <td>15.8%</td>
+    </tr>
+    <tr>
+      <th>2907</th>
+      <td>9.2%</td>
+      <td>10.0%</td>
+    </tr>
+    <tr>
+      <th>2905</th>
+      <td>5.5%</td>
+      <td>5.9%</td>
+    </tr>
+    <tr>
+      <th>2904</th>
+      <td>5.3%</td>
+      <td>5.7%</td>
+    </tr>
+    <tr>
+      <th>2903</th>
+      <td>2.5%</td>
+      <td>2.9%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="zip-median-taxes"></section><h3 id="Median-Taxes-By-Zip-Code">Median Taxes By Zip Code<a class="anchor-link" href="#Median-Taxes-By-Zip-Code">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show the median taxes due for each zip code</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zip_codes&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;taxes&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[14]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>zip_codes</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2906</th>
+      <td>8319.00</td>
+      <td>7652.30</td>
+    </tr>
+    <tr>
+      <th>2903</th>
+      <td>5058.06</td>
+      <td>6031.96</td>
+    </tr>
+    <tr>
+      <th>2908</th>
+      <td>3028.68</td>
+      <td>3319.48</td>
+    </tr>
+    <tr>
+      <th>2909</th>
+      <td>2914.76</td>
+      <td>3272.28</td>
+    </tr>
+    <tr>
+      <th>2907</th>
+      <td>2788.04</td>
+      <td>3157.32</td>
+    </tr>
+    <tr>
+      <th>2904</th>
+      <td>2698.56</td>
+      <td>2977.48</td>
+    </tr>
+    <tr>
+      <th>2905</th>
+      <td>2726.00</td>
+      <td>2932.88</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="zip-taxes-change"></section><h3 id="Median-Taxes-Change-from-2018-to-2019-by-Zip-Code">Median Taxes Change from 2018 to 2019 by Zip Code<a class="anchor-link" href="#Median-Taxes-Change-from-2018-to-2019-by-Zip-Code">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zip_codes&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;tax_%_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tax_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[15]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tax_%_chng</th>
+      <th>tax_chng</th>
+    </tr>
+    <tr>
+      <th>zip_codes</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2903</th>
+      <td>22.1%</td>
+      <td>905.32</td>
+    </tr>
+    <tr>
+      <th>2909</th>
+      <td>10.7%</td>
+      <td>300.14</td>
+    </tr>
+    <tr>
+      <th>2907</th>
+      <td>10.6%</td>
+      <td>288.28</td>
+    </tr>
+    <tr>
+      <th>2904</th>
+      <td>10.0%</td>
+      <td>265.12</td>
+    </tr>
+    <tr>
+      <th>2908</th>
+      <td>8.4%</td>
+      <td>237.44</td>
+    </tr>
+    <tr>
+      <th>2905</th>
+      <td>7.5%</td>
+      <td>195.80</td>
+    </tr>
+    <tr>
+      <th>2906</th>
+      <td>-6.8%</td>
+      <td>-512.04</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="#zip-taxes-sqrft"></section><h3 id="Median-Tax-per-Square-Feet-by-Zip-Code">Median Tax per Square Feet by Zip Code<a class="anchor-link" href="#Median-Tax-per-Square-Feet-by-Zip-Code">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show median tax per sqrft</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zip_codes&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;tax_pr_sqrft&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[16]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>zip_codes</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2903</th>
+      <td>1.56</td>
+      <td>1.91</td>
+    </tr>
+    <tr>
+      <th>2906</th>
+      <td>1.55</td>
+      <td>1.42</td>
+    </tr>
+    <tr>
+      <th>2905</th>
+      <td>0.74</td>
+      <td>0.80</td>
+    </tr>
+    <tr>
+      <th>2908</th>
+      <td>0.69</td>
+      <td>0.75</td>
+    </tr>
+    <tr>
+      <th>2909</th>
+      <td>0.67</td>
+      <td>0.75</td>
+    </tr>
+    <tr>
+      <th>2907</th>
+      <td>0.64</td>
+      <td>0.71</td>
+    </tr>
+    <tr>
+      <th>2904</th>
+      <td>0.58</td>
+      <td>0.64</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="zip-taxes-sqrft-change"></section><h3 id="Median-Tax-per-Square-Feet-Change-from-2018-to-2019-by-Zip-Code">Median Tax per Square Feet Change from 2018 to 2019 by Zip Code<a class="anchor-link" href="#Median-Tax-per-Square-Feet-Change-from-2018-to-2019-by-Zip-Code">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;zip_codes&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;taxes_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[17]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>taxes_pr_sqrft_%_chng</th>
+      <th>taxes_pr_sqrft_chng</th>
+    </tr>
+    <tr>
+      <th>zip_codes</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2903</th>
+      <td>22.1%</td>
+      <td>0.28</td>
+    </tr>
+    <tr>
+      <th>2909</th>
+      <td>10.7%</td>
+      <td>0.07</td>
+    </tr>
+    <tr>
+      <th>2907</th>
+      <td>10.6%</td>
+      <td>0.07</td>
+    </tr>
+    <tr>
+      <th>2904</th>
+      <td>10.0%</td>
+      <td>0.06</td>
+    </tr>
+    <tr>
+      <th>2908</th>
+      <td>8.4%</td>
+      <td>0.05</td>
+    </tr>
+    <tr>
+      <th>2905</th>
+      <td>7.5%</td>
+      <td>0.05</td>
+    </tr>
+    <tr>
+      <th>2906</th>
+      <td>-6.8%</td>
+      <td>-0.10</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><section id="Wards"></section></p>
+<hr>
+
+<h2 id="Summary-Stats-by-Ward">Summary Stats by Ward<a class="anchor-link" href="#Summary-Stats-by-Ward">&#182;</a></h2><ul>
+<li>Assessments<ul>
+<li><a href="#ward-median-assess">Median Assessment</a></li>
+<li><a href="#ward-assessment-change">Median Assessment Change from 2018 to 2019</a></li>
+<li><a href="#ward-assess-sqrft">Median Assessment per Square Feet</a></li>
+<li><a href="#ward-assess-sqrft-change">Median Assessment per Square Feet Change from 2018 to 2019</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Taxes<ul>
+<li><a href="#ward-increase-decrease">Whose Taxes Increase/Decreased in 2019</a></li>
+<li><a href="#ward-tax-burden">Total Property Tax Burden</a></li>
+<li><a href="#ward-median-taxes">Median Taxes</a></li>
+<li><a href="#ward-taxes-change">Median Taxes Change from 2018 to 2019</a></li>
+<li><a href="#ward-taxes-sqrft">Median Tax per Square Feet</a></li>
+<li><a href="#ward-taxes-sqrft-change">Median Tax per Square Feet Change from 2018 to 2019</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="ward-median-assess"></section><h2 id="Assessments">Assessments<a class="anchor-link" href="#Assessments">&#182;</a></h2><h3 id="Median-Assessment-by-Ward">Median Assessment by Ward<a class="anchor-link" href="#Median-Assessment-by-Ward">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show the median assessment for each zip code</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;assessment&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[18]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>ward</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>534300.0</td>
+      <td>621350.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>351200.0</td>
+      <td>443150.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>316400.0</td>
+      <td>382300.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>180600.0</td>
+      <td>283400.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>153700.0</td>
+      <td>212900.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>137700.0</td>
+      <td>203550.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>127300.0</td>
+      <td>192800.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>140300.0</td>
+      <td>191600.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>123100.0</td>
+      <td>188400.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>132500.0</td>
+      <td>188400.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>130750.0</td>
+      <td>186450.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>129350.0</td>
+      <td>184500.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>131550.0</td>
+      <td>179700.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>128500.0</td>
+      <td>177700.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>129000.0</td>
+      <td>176600.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="ward-assessment-change"></section><h3 id="Median-Assessment-Change-from-2018-to-2019-by-Ward">Median Assessment Change from 2018 to 2019 by Ward<a class="anchor-link" href="#Median-Assessment-Change-from-2018-to-2019-by-Ward">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;assess_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;assess_%_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;assess_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[19]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>assess_%_chng</th>
+      <th>assess_chng</th>
+    </tr>
+    <tr>
+      <th>ward</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>13</th>
+      <td>54.1%</td>
+      <td>96600.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>52.3%</td>
+      <td>62800.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>49.5%</td>
+      <td>63200.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>43.5%</td>
+      <td>60150.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>42.7%</td>
+      <td>55150.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>41.6%</td>
+      <td>55700.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>40.1%</td>
+      <td>51900.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>37.9%</td>
+      <td>47900.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>37.5%</td>
+      <td>55400.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>37.0%</td>
+      <td>45900.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>36.2%</td>
+      <td>48400.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>35.9%</td>
+      <td>46100.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>25.7%</td>
+      <td>88350.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>22.2%</td>
+      <td>63500.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>14.5%</td>
+      <td>78800.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="ward-assess-sqrft"></section><h3 id="Median-Assessment-per-Square-Feet-by-Ward">Median Assessment per Square Feet by Ward<a class="anchor-link" href="#Median-Assessment-per-Square-Feet-by-Ward">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median assessment per square foot</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;assess_pr_sqrft&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[20]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>ward</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>89.64</td>
+      <td>113.56</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>90.13</td>
+      <td>104.43</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>65.19</td>
+      <td>78.45</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>48.36</td>
+      <td>74.92</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>36.51</td>
+      <td>53.12</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>35.60</td>
+      <td>48.66</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>33.23</td>
+      <td>48.19</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>30.57</td>
+      <td>46.59</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>32.08</td>
+      <td>45.95</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>30.14</td>
+      <td>44.81</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>31.81</td>
+      <td>44.04</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>30.82</td>
+      <td>42.10</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>29.24</td>
+      <td>40.42</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>28.76</td>
+      <td>40.24</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>28.16</td>
+      <td>39.03</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="ward-assess-sqrft-change"></section><h3 id="Median-Assessment-per-Square-Feet-Change-from-2018-to-2019-by-Ward">Median Assessment per Square Feet Change from 2018 to 2019 by Ward<a class="anchor-link" href="#Median-Assessment-per-Square-Feet-Change-from-2018-to-2019-by-Ward">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased (for square footage)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;assess_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[21]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>assess_pr_sqrft_%_chng</th>
+      <th>assess_pr_sqrft_chng</th>
+    </tr>
+    <tr>
+      <th>ward</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>13</th>
+      <td>54.1%</td>
+      <td>25.67</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>52.3%</td>
+      <td>15.40</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>49.5%</td>
+      <td>14.43</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>43.5%</td>
+      <td>15.43</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>42.7%</td>
+      <td>14.07</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>41.6%</td>
+      <td>13.32</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>40.1%</td>
+      <td>11.04</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>37.9%</td>
+      <td>10.54</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>37.5%</td>
+      <td>11.41</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>37.0%</td>
+      <td>12.47</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>36.2%</td>
+      <td>10.77</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>35.9%</td>
+      <td>10.38</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>25.7%</td>
+      <td>22.23</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>22.2%</td>
+      <td>12.75</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>14.5%</td>
+      <td>12.65</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="ward-increase-decrease"></section><h2 id="Taxes">Taxes<a class="anchor-link" href="#Taxes">&#182;</a></h2><h3 id="Whose-Taxes-Increase/Decreased-in-2019-by-Ward">Whose Taxes Increase/Decreased in 2019 by Ward<a class="anchor-link" href="#Whose-Taxes-Increase/Decreased-in-2019-by-Ward">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting table of % increase/decrease for 2019</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt; 2018&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># add a basic count</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># get increase, decrease or same</span>
+<span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;increase&#39;</span>
+<span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span>
+<span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;decrease&#39;</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;change&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;increase&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;decrease&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;decrease&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;increase&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;increase&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;increase&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[22]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>change</th>
+      <th>decrease</th>
+      <th>increase</th>
+    </tr>
+    <tr>
+      <th>ward</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6</th>
+      <td>7.1%</td>
+      <td>92.9%</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>11.7%</td>
+      <td>88.3%</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>14.6%</td>
+      <td>85.4%</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>17.7%</td>
+      <td>82.3%</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>19.0%</td>
+      <td>81.0%</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>20.2%</td>
+      <td>79.8%</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>21.1%</td>
+      <td>78.9%</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>21.2%</td>
+      <td>78.8%</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>22.0%</td>
+      <td>78.0%</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>24.7%</td>
+      <td>75.3%</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>29.6%</td>
+      <td>70.4%</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>30.2%</td>
+      <td>69.8%</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>60.7%</td>
+      <td>39.3%</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>66.4%</td>
+      <td>33.6%</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>82.2%</td>
+      <td>17.8%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="ward-tax-burden"></section><h3 id="Total-Property-Tax-Burden-by-Ward">Total Property Tax Burden by Ward<a class="anchor-link" href="#Total-Property-Tax-Burden-by-Ward">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show zip codes as a percent of total taxes payed</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;assessment&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+
+<span class="c1"># getting table as percentages</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">/</span><span class="n">table</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[23]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>ward</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>21.1%</td>
+      <td>18.5%</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>16.1%</td>
+      <td>14.6%</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>8.2%</td>
+      <td>8.7%</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7.6%</td>
+      <td>7.3%</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>5.5%</td>
+      <td>5.8%</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.1%</td>
+      <td>5.5%</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>4.5%</td>
+      <td>5.2%</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>4.4%</td>
+      <td>5.1%</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>4.5%</td>
+      <td>4.8%</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>4.3%</td>
+      <td>4.6%</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>4.3%</td>
+      <td>4.5%</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>3.9%</td>
+      <td>4.5%</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>4.2%</td>
+      <td>4.4%</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>3.4%</td>
+      <td>3.7%</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2.7%</td>
+      <td>2.9%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="ward-median-taxes"></section><h3 id="Median-Taxes-By-Ward">Median Taxes By Ward<a class="anchor-link" href="#Median-Taxes-By-Ward">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show the median taxes due for each zip code</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;taxes&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[24]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>ward</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>10796.84</td>
+      <td>9667.24</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>8670.76</td>
+      <td>8610.76</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6328.08</td>
+      <td>5919.92</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>4406.72</td>
+      <td>5139.84</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>3458.36</td>
+      <td>3817.16</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>3149.20</td>
+      <td>3379.18</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>2972.28</td>
+      <td>3325.40</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>3050.18</td>
+      <td>3296.66</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2680.08</td>
+      <td>3186.12</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2668.68</td>
+      <td>3181.22</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>2893.32</td>
+      <td>3065.12</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2786.16</td>
+      <td>2986.52</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2695.74</td>
+      <td>2964.24</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2744.80</td>
+      <td>2944.34</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2672.42</td>
+      <td>2889.78</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="ward-taxes-change"></section><h3 id="Median-Taxes-Change-from-2018-to-2019-by-Ward">Median Taxes Change from 2018 to 2019 by Ward<a class="anchor-link" href="#Median-Taxes-Change-from-2018-to-2019-by-Ward">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;tax_%_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tax_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[25]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tax_%_chng</th>
+      <th>tax_chng</th>
+    </tr>
+    <tr>
+      <th>ward</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>13</th>
+      <td>19.8%</td>
+      <td>789.56</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>18.8%</td>
+      <td>477.28</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>16.7%</td>
+      <td>438.68</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>11.2%</td>
+      <td>343.08</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>10.8%</td>
+      <td>312.86</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>10.4%</td>
+      <td>295.26</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9.3%</td>
+      <td>246.40</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>7.5%</td>
+      <td>209.42</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7.3%</td>
+      <td>198.48</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>6.3%</td>
+      <td>170.08</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>6.1%</td>
+      <td>165.70</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>5.8%</td>
+      <td>153.24</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-2.3%</td>
+      <td>-170.90</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-5.0%</td>
+      <td>-319.48</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-10.7%</td>
+      <td>-1056.48</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="#ward-taxes-sqrft"></section><h3 id="Median-Tax-per-Square-Feet-by-Ward">Median Tax per Square Feet by Ward<a class="anchor-link" href="#Median-Tax-per-Square-Feet-by-Ward">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show median tax per sqrft</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;tax_pr_sqrft&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[26]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>ward</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2.14</td>
+      <td>2.09</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.75</td>
+      <td>1.57</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>1.14</td>
+      <td>1.33</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.31</td>
+      <td>1.21</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0.92</td>
+      <td>1.03</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0.78</td>
+      <td>0.85</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.77</td>
+      <td>0.81</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.66</td>
+      <td>0.79</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0.71</td>
+      <td>0.78</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.62</td>
+      <td>0.72</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.63</td>
+      <td>0.67</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.62</td>
+      <td>0.67</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>0.63</td>
+      <td>0.67</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.59</td>
+      <td>0.65</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.59</td>
+      <td>0.64</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="ward-taxes-sqrft-change"></section><h3 id="Median-Tax-per-Square-Feet-Change-from-2018-to-2019-by-Ward">Median Tax per Square Feet Change from 2018 to 2019 by Ward<a class="anchor-link" href="#Median-Tax-per-Square-Feet-Change-from-2018-to-2019-by-Ward">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;taxes_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[27]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>taxes_pr_sqrft_%_chng</th>
+      <th>taxes_pr_sqrft_chng</th>
+    </tr>
+    <tr>
+      <th>ward</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>13</th>
+      <td>19.8%</td>
+      <td>0.21</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>18.8%</td>
+      <td>0.11</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>16.7%</td>
+      <td>0.10</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>11.3%</td>
+      <td>0.09</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>10.8%</td>
+      <td>0.08</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>10.4%</td>
+      <td>0.07</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9.3%</td>
+      <td>0.05</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>7.5%</td>
+      <td>0.04</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7.3%</td>
+      <td>0.04</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>6.3%</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>6.1%</td>
+      <td>0.05</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>5.8%</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-2.3%</td>
+      <td>-0.04</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-5.0%</td>
+      <td>-0.06</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-10.7%</td>
+      <td>-0.16</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><section id="Neighborhoods"></section></p>
+<hr>
+
+<h2 id="Summary-Stats-by-Neighborhood">Summary Stats by Neighborhood<a class="anchor-link" href="#Summary-Stats-by-Neighborhood">&#182;</a></h2><ul>
+<li>Assessments<ul>
+<li><a href="#neighbor-median-assess">Median Assessment</a></li>
+<li><a href="#neighbor-assessment-change">Median Assessment Change from 2018 to 2019</a></li>
+<li><a href="#neighbor-assess-sqrft">Median Assessment per Square Feet</a></li>
+<li><a href="#neighbor-assess-sqrft-change">Median Assessment per Square Feet Change from 2018 to 2019</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Taxes<ul>
+<li><a href="#neighbor-increase-decrease">Whose Taxes Increase/Decreased in 2019</a></li>
+<li><a href="#neighbor-tax-burden">Total Property Tax Burden</a></li>
+<li><a href="#neighbor-median-taxes">Median Taxes</a></li>
+<li><a href="#neighbor-taxes-change">Median Taxes Change from 2018 to 2019</a></li>
+<li><a href="#neighbor-taxes-sqrft">Median Tax per Square Feet</a></li>
+<li><a href="#neighbor-taxes-sqrft-change">Median Tax per Square Feet Change from 2018 to 2019</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="neighbor-median-assess"></section><h2 id="Assessments">Assessments<a class="anchor-link" href="#Assessments">&#182;</a></h2><h3 id="Median-Assessment-by-Neighborhood">Median Assessment by Neighborhood<a class="anchor-link" href="#Median-Assessment-by-Neighborhood">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show the median assessment for each zip code</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;assessment&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[28]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>neighborhood</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>College Hill</th>
+      <td>590850.0</td>
+      <td>722400.0</td>
+    </tr>
+    <tr>
+      <th>Blackstone</th>
+      <td>469050.0</td>
+      <td>542900.0</td>
+    </tr>
+    <tr>
+      <th>Wayland</th>
+      <td>454200.0</td>
+      <td>533000.0</td>
+    </tr>
+    <tr>
+      <th>Downtown</th>
+      <td>439950.0</td>
+      <td>448350.0</td>
+    </tr>
+    <tr>
+      <th>Fox Point</th>
+      <td>322000.0</td>
+      <td>407900.0</td>
+    </tr>
+    <tr>
+      <th>Hope</th>
+      <td>288400.0</td>
+      <td>357000.0</td>
+    </tr>
+    <tr>
+      <th>Mount Hope</th>
+      <td>266100.0</td>
+      <td>334900.0</td>
+    </tr>
+    <tr>
+      <th>Federal Hill</th>
+      <td>178400.0</td>
+      <td>295900.0</td>
+    </tr>
+    <tr>
+      <th>Elmhurst</th>
+      <td>160850.0</td>
+      <td>222700.0</td>
+    </tr>
+    <tr>
+      <th>Elmwood</th>
+      <td>133600.0</td>
+      <td>205000.0</td>
+    </tr>
+    <tr>
+      <th>Valley</th>
+      <td>126800.0</td>
+      <td>201500.0</td>
+    </tr>
+    <tr>
+      <th>West End</th>
+      <td>135300.0</td>
+      <td>196600.0</td>
+    </tr>
+    <tr>
+      <th>Mount Pleasant</th>
+      <td>134700.0</td>
+      <td>195150.0</td>
+    </tr>
+    <tr>
+      <th>Smith Hill</th>
+      <td>127650.0</td>
+      <td>190000.0</td>
+    </tr>
+    <tr>
+      <th>South Elmwood</th>
+      <td>139700.0</td>
+      <td>190000.0</td>
+    </tr>
+    <tr>
+      <th>Charles</th>
+      <td>132500.0</td>
+      <td>189500.0</td>
+    </tr>
+    <tr>
+      <th>Silver Lake</th>
+      <td>132400.0</td>
+      <td>185100.0</td>
+    </tr>
+    <tr>
+      <th>Manton</th>
+      <td>127400.0</td>
+      <td>183400.0</td>
+    </tr>
+    <tr>
+      <th>Reservoir</th>
+      <td>137150.0</td>
+      <td>180600.0</td>
+    </tr>
+    <tr>
+      <th>Olneyville</th>
+      <td>119400.0</td>
+      <td>179650.0</td>
+    </tr>
+    <tr>
+      <th>Hartford</th>
+      <td>130500.0</td>
+      <td>178300.0</td>
+    </tr>
+    <tr>
+      <th>Washington Park</th>
+      <td>130600.0</td>
+      <td>176600.0</td>
+    </tr>
+    <tr>
+      <th>Upper South Providence</th>
+      <td>124000.0</td>
+      <td>175700.0</td>
+    </tr>
+    <tr>
+      <th>Lower South Providence</th>
+      <td>120150.0</td>
+      <td>173100.0</td>
+    </tr>
+    <tr>
+      <th>Wanskuck</th>
+      <td>121100.0</td>
+      <td>166000.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="neighbor-assessment-change"></section><h3 id="Median-Assessment-Change-from-2018-to-2019-by-Neighborhood">Median Assessment Change from 2018 to 2019 by Neighborhood<a class="anchor-link" href="#Median-Assessment-Change-from-2018-to-2019-by-Neighborhood">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;assess_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;assess_%_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;assess_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[29]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>assess_%_chng</th>
+      <th>assess_chng</th>
+    </tr>
+    <tr>
+      <th>neighborhood</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Federal Hill</th>
+      <td>62.0%</td>
+      <td>111300.0</td>
+    </tr>
+    <tr>
+      <th>Valley</th>
+      <td>54.2%</td>
+      <td>69300.0</td>
+    </tr>
+    <tr>
+      <th>Elmwood</th>
+      <td>52.0%</td>
+      <td>69400.0</td>
+    </tr>
+    <tr>
+      <th>Olneyville</th>
+      <td>50.4%</td>
+      <td>59150.0</td>
+    </tr>
+    <tr>
+      <th>Manton</th>
+      <td>46.8%</td>
+      <td>57300.0</td>
+    </tr>
+    <tr>
+      <th>Smith Hill</th>
+      <td>45.2%</td>
+      <td>58300.0</td>
+    </tr>
+    <tr>
+      <th>Mount Pleasant</th>
+      <td>43.6%</td>
+      <td>56700.0</td>
+    </tr>
+    <tr>
+      <th>Upper South Providence</th>
+      <td>43.2%</td>
+      <td>52400.0</td>
+    </tr>
+    <tr>
+      <th>Charles</th>
+      <td>41.9%</td>
+      <td>53900.0</td>
+    </tr>
+    <tr>
+      <th>Lower South Providence</th>
+      <td>41.0%</td>
+      <td>50300.0</td>
+    </tr>
+    <tr>
+      <th>Silver Lake</th>
+      <td>39.6%</td>
+      <td>51250.0</td>
+    </tr>
+    <tr>
+      <th>West End</th>
+      <td>38.5%</td>
+      <td>56000.0</td>
+    </tr>
+    <tr>
+      <th>Wanskuck</th>
+      <td>36.4%</td>
+      <td>43600.0</td>
+    </tr>
+    <tr>
+      <th>Elmhurst</th>
+      <td>36.2%</td>
+      <td>56100.0</td>
+    </tr>
+    <tr>
+      <th>Hartford</th>
+      <td>36.1%</td>
+      <td>46150.0</td>
+    </tr>
+    <tr>
+      <th>South Elmwood</th>
+      <td>34.9%</td>
+      <td>47700.0</td>
+    </tr>
+    <tr>
+      <th>Washington Park</th>
+      <td>34.6%</td>
+      <td>44500.0</td>
+    </tr>
+    <tr>
+      <th>Reservoir</th>
+      <td>32.9%</td>
+      <td>44100.0</td>
+    </tr>
+    <tr>
+      <th>Mount Hope</th>
+      <td>29.2%</td>
+      <td>66500.0</td>
+    </tr>
+    <tr>
+      <th>Fox Point</th>
+      <td>26.5%</td>
+      <td>85000.0</td>
+    </tr>
+    <tr>
+      <th>Hope</th>
+      <td>24.3%</td>
+      <td>63450.0</td>
+    </tr>
+    <tr>
+      <th>College Hill</th>
+      <td>21.9%</td>
+      <td>121600.0</td>
+    </tr>
+    <tr>
+      <th>Wayland</th>
+      <td>17.3%</td>
+      <td>81300.0</td>
+    </tr>
+    <tr>
+      <th>Blackstone</th>
+      <td>14.1%</td>
+      <td>66400.0</td>
+    </tr>
+    <tr>
+      <th>Downtown</th>
+      <td>4.3%</td>
+      <td>25100.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="neighbor-assess-sqrft"></section><h3 id="Median-Assessment-per-Square-Feet-by-Neighborhood">Median Assessment per Square Feet by Neighborhood<a class="anchor-link" href="#Median-Assessment-per-Square-Feet-by-Neighborhood">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median assessment per square foot</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;assess_pr_sqrft&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[30]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>neighborhood</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>College Hill</th>
+      <td>108.85</td>
+      <td>130.48</td>
+    </tr>
+    <tr>
+      <th>Fox Point</th>
+      <td>93.88</td>
+      <td>118.89</td>
+    </tr>
+    <tr>
+      <th>Wayland</th>
+      <td>92.72</td>
+      <td>111.31</td>
+    </tr>
+    <tr>
+      <th>Downtown</th>
+      <td>102.74</td>
+      <td>107.31</td>
+    </tr>
+    <tr>
+      <th>Blackstone</th>
+      <td>79.23</td>
+      <td>90.54</td>
+    </tr>
+    <tr>
+      <th>Federal Hill</th>
+      <td>51.64</td>
+      <td>84.72</td>
+    </tr>
+    <tr>
+      <th>Hope</th>
+      <td>60.42</td>
+      <td>75.24</td>
+    </tr>
+    <tr>
+      <th>Mount Hope</th>
+      <td>55.41</td>
+      <td>71.38</td>
+    </tr>
+    <tr>
+      <th>Smith Hill</th>
+      <td>35.33</td>
+      <td>52.15</td>
+    </tr>
+    <tr>
+      <th>Valley</th>
+      <td>33.41</td>
+      <td>51.85</td>
+    </tr>
+    <tr>
+      <th>Olneyville</th>
+      <td>33.42</td>
+      <td>49.73</td>
+    </tr>
+    <tr>
+      <th>Washington Park</th>
+      <td>35.66</td>
+      <td>48.84</td>
+    </tr>
+    <tr>
+      <th>West End</th>
+      <td>33.87</td>
+      <td>47.98</td>
+    </tr>
+    <tr>
+      <th>Lower South Providence</th>
+      <td>32.71</td>
+      <td>47.22</td>
+    </tr>
+    <tr>
+      <th>Elmhurst</th>
+      <td>33.78</td>
+      <td>46.68</td>
+    </tr>
+    <tr>
+      <th>Mount Pleasant</th>
+      <td>31.57</td>
+      <td>45.47</td>
+    </tr>
+    <tr>
+      <th>Silver Lake</th>
+      <td>31.23</td>
+      <td>44.23</td>
+    </tr>
+    <tr>
+      <th>Elmwood</th>
+      <td>28.53</td>
+      <td>43.58</td>
+    </tr>
+    <tr>
+      <th>Charles</th>
+      <td>29.75</td>
+      <td>42.16</td>
+    </tr>
+    <tr>
+      <th>Upper South Providence</th>
+      <td>29.87</td>
+      <td>41.93</td>
+    </tr>
+    <tr>
+      <th>South Elmwood</th>
+      <td>30.06</td>
+      <td>41.42</td>
+    </tr>
+    <tr>
+      <th>Reservoir</th>
+      <td>29.17</td>
+      <td>39.02</td>
+    </tr>
+    <tr>
+      <th>Wanskuck</th>
+      <td>28.05</td>
+      <td>38.40</td>
+    </tr>
+    <tr>
+      <th>Manton</th>
+      <td>25.36</td>
+      <td>36.79</td>
+    </tr>
+    <tr>
+      <th>Hartford</th>
+      <td>26.62</td>
+      <td>36.54</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="neighbor-assess-sqrft-change"></section><h3 id="Median-Assessment-per-Square-Feet-Change-from-2018-to-2019-by-Neighborhood">Median Assessment per Square Feet Change from 2018 to 2019 by Neighborhood<a class="anchor-link" href="#Median-Assessment-per-Square-Feet-Change-from-2018-to-2019-by-Neighborhood">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased (for square footage)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;assess_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;assess_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;assess_pr_sqrft_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[31]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>assess_pr_sqrft_%_chng</th>
+      <th>assess_pr_sqrft_chng</th>
+    </tr>
+    <tr>
+      <th>neighborhood</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Federal Hill</th>
+      <td>62.0%</td>
+      <td>31.95</td>
+    </tr>
+    <tr>
+      <th>Valley</th>
+      <td>54.2%</td>
+      <td>17.87</td>
+    </tr>
+    <tr>
+      <th>Elmwood</th>
+      <td>52.0%</td>
+      <td>14.85</td>
+    </tr>
+    <tr>
+      <th>Olneyville</th>
+      <td>50.4%</td>
+      <td>16.11</td>
+    </tr>
+    <tr>
+      <th>Manton</th>
+      <td>46.8%</td>
+      <td>10.87</td>
+    </tr>
+    <tr>
+      <th>Smith Hill</th>
+      <td>45.2%</td>
+      <td>15.85</td>
+    </tr>
+    <tr>
+      <th>Mount Pleasant</th>
+      <td>43.6%</td>
+      <td>13.08</td>
+    </tr>
+    <tr>
+      <th>Upper South Providence</th>
+      <td>43.2%</td>
+      <td>12.33</td>
+    </tr>
+    <tr>
+      <th>Charles</th>
+      <td>41.9%</td>
+      <td>11.91</td>
+    </tr>
+    <tr>
+      <th>Lower South Providence</th>
+      <td>41.0%</td>
+      <td>13.90</td>
+    </tr>
+    <tr>
+      <th>Downtown</th>
+      <td>4.3%</td>
+      <td>4.56</td>
+    </tr>
+    <tr>
+      <th>Silver Lake</th>
+      <td>39.6%</td>
+      <td>12.51</td>
+    </tr>
+    <tr>
+      <th>West End</th>
+      <td>38.5%</td>
+      <td>13.44</td>
+    </tr>
+    <tr>
+      <th>Wanskuck</th>
+      <td>36.4%</td>
+      <td>9.82</td>
+    </tr>
+    <tr>
+      <th>Elmhurst</th>
+      <td>36.2%</td>
+      <td>11.72</td>
+    </tr>
+    <tr>
+      <th>Hartford</th>
+      <td>36.1%</td>
+      <td>9.42</td>
+    </tr>
+    <tr>
+      <th>South Elmwood</th>
+      <td>34.9%</td>
+      <td>10.35</td>
+    </tr>
+    <tr>
+      <th>Washington Park</th>
+      <td>34.6%</td>
+      <td>12.09</td>
+    </tr>
+    <tr>
+      <th>Reservoir</th>
+      <td>32.9%</td>
+      <td>9.41</td>
+    </tr>
+    <tr>
+      <th>Mount Hope</th>
+      <td>29.2%</td>
+      <td>14.45</td>
+    </tr>
+    <tr>
+      <th>Fox Point</th>
+      <td>26.5%</td>
+      <td>23.68</td>
+    </tr>
+    <tr>
+      <th>Hope</th>
+      <td>24.3%</td>
+      <td>13.35</td>
+    </tr>
+    <tr>
+      <th>College Hill</th>
+      <td>21.9%</td>
+      <td>21.89</td>
+    </tr>
+    <tr>
+      <th>Wayland</th>
+      <td>17.3%</td>
+      <td>15.44</td>
+    </tr>
+    <tr>
+      <th>Blackstone</th>
+      <td>14.1%</td>
+      <td>10.75</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="neighbor-increase-decrease"></section><h2 id="Taxes">Taxes<a class="anchor-link" href="#Taxes">&#182;</a></h2><h3 id="Whose-Taxes-Increase/Decreased-in-2019-by-Neighborhood">Whose Taxes Increase/Decreased in 2019 by Neighborhood<a class="anchor-link" href="#Whose-Taxes-Increase/Decreased-in-2019-by-Neighborhood">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># getting table of % increase/decrease for 2019</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;year &gt; 2018&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># add a basic count</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># get increase, decrease or same</span>
+<span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;increase&#39;</span>
+<span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span>
+<span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;decrease&#39;</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;change&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;increase&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;decrease&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;decrease&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;increase&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;increase&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;increase&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[32]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>change</th>
+      <th>decrease</th>
+      <th>increase</th>
+    </tr>
+    <tr>
+      <th>neighborhood</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Federal Hill</th>
+      <td>7.4%</td>
+      <td>92.6%</td>
+    </tr>
+    <tr>
+      <th>Valley</th>
+      <td>9.4%</td>
+      <td>90.6%</td>
+    </tr>
+    <tr>
+      <th>Elmwood</th>
+      <td>10.1%</td>
+      <td>89.9%</td>
+    </tr>
+    <tr>
+      <th>Charles</th>
+      <td>14.4%</td>
+      <td>85.6%</td>
+    </tr>
+    <tr>
+      <th>Manton</th>
+      <td>15.4%</td>
+      <td>84.6%</td>
+    </tr>
+    <tr>
+      <th>Olneyville</th>
+      <td>15.6%</td>
+      <td>84.4%</td>
+    </tr>
+    <tr>
+      <th>Smith Hill</th>
+      <td>16.6%</td>
+      <td>83.4%</td>
+    </tr>
+    <tr>
+      <th>Silver Lake</th>
+      <td>16.6%</td>
+      <td>83.4%</td>
+    </tr>
+    <tr>
+      <th>Mount Pleasant</th>
+      <td>17.8%</td>
+      <td>82.2%</td>
+    </tr>
+    <tr>
+      <th>Lower South Providence</th>
+      <td>19.6%</td>
+      <td>80.4%</td>
+    </tr>
+    <tr>
+      <th>Upper South Providence</th>
+      <td>19.6%</td>
+      <td>80.4%</td>
+    </tr>
+    <tr>
+      <th>Elmhurst</th>
+      <td>23.3%</td>
+      <td>76.7%</td>
+    </tr>
+    <tr>
+      <th>Hartford</th>
+      <td>23.5%</td>
+      <td>76.5%</td>
+    </tr>
+    <tr>
+      <th>West End</th>
+      <td>25.1%</td>
+      <td>74.9%</td>
+    </tr>
+    <tr>
+      <th>South Elmwood</th>
+      <td>25.7%</td>
+      <td>74.3%</td>
+    </tr>
+    <tr>
+      <th>Wanskuck</th>
+      <td>25.8%</td>
+      <td>74.2%</td>
+    </tr>
+    <tr>
+      <th>Washington Park</th>
+      <td>31.4%</td>
+      <td>68.6%</td>
+    </tr>
+    <tr>
+      <th>Reservoir</th>
+      <td>37.5%</td>
+      <td>62.5%</td>
+    </tr>
+    <tr>
+      <th>Mount Hope</th>
+      <td>47.3%</td>
+      <td>52.7%</td>
+    </tr>
+    <tr>
+      <th>Fox Point</th>
+      <td>58.2%</td>
+      <td>41.8%</td>
+    </tr>
+    <tr>
+      <th>Hope</th>
+      <td>65.5%</td>
+      <td>34.5%</td>
+    </tr>
+    <tr>
+      <th>College Hill</th>
+      <td>66.1%</td>
+      <td>33.9%</td>
+    </tr>
+    <tr>
+      <th>Downtown</th>
+      <td>75.0%</td>
+      <td>25.0%</td>
+    </tr>
+    <tr>
+      <th>Wayland</th>
+      <td>75.7%</td>
+      <td>24.3%</td>
+    </tr>
+    <tr>
+      <th>Blackstone</th>
+      <td>86.9%</td>
+      <td>13.1%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="neighbor-tax-burden"></section><h3 id="Total-Property-Tax-Burden-by-Neighborhood">Total Property Tax Burden by Neighborhood<a class="anchor-link" href="#Total-Property-Tax-Burden-by-Neighborhood">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show zip codes as a percent of total taxes payed</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;assessment&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+
+<span class="c1"># getting table as percentages</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">/</span><span class="n">table</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[33]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>neighborhood</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Blackstone</th>
+      <td>19.1%</td>
+      <td>16.5%</td>
+    </tr>
+    <tr>
+      <th>Elmhurst</th>
+      <td>8.2%</td>
+      <td>8.4%</td>
+    </tr>
+    <tr>
+      <th>College Hill</th>
+      <td>8.0%</td>
+      <td>7.4%</td>
+    </tr>
+    <tr>
+      <th>Mount Pleasant</th>
+      <td>6.0%</td>
+      <td>6.6%</td>
+    </tr>
+    <tr>
+      <th>West End</th>
+      <td>4.7%</td>
+      <td>5.0%</td>
+    </tr>
+    <tr>
+      <th>Silver Lake</th>
+      <td>4.5%</td>
+      <td>4.8%</td>
+    </tr>
+    <tr>
+      <th>Wayland</th>
+      <td>5.4%</td>
+      <td>4.8%</td>
+    </tr>
+    <tr>
+      <th>Hope</th>
+      <td>4.7%</td>
+      <td>4.4%</td>
+    </tr>
+    <tr>
+      <th>Wanskuck</th>
+      <td>4.0%</td>
+      <td>4.2%</td>
+    </tr>
+    <tr>
+      <th>Fox Point</th>
+      <td>4.3%</td>
+      <td>4.1%</td>
+    </tr>
+    <tr>
+      <th>Charles</th>
+      <td>3.6%</td>
+      <td>3.9%</td>
+    </tr>
+    <tr>
+      <th>Washington Park</th>
+      <td>3.5%</td>
+      <td>3.7%</td>
+    </tr>
+    <tr>
+      <th>Elmwood</th>
+      <td>3.1%</td>
+      <td>3.7%</td>
+    </tr>
+    <tr>
+      <th>Mount Hope</th>
+      <td>3.9%</td>
+      <td>3.7%</td>
+    </tr>
+    <tr>
+      <th>Federal Hill</th>
+      <td>2.7%</td>
+      <td>3.3%</td>
+    </tr>
+    <tr>
+      <th>Hartford</th>
+      <td>2.6%</td>
+      <td>2.7%</td>
+    </tr>
+    <tr>
+      <th>Smith Hill</th>
+      <td>1.9%</td>
+      <td>2.1%</td>
+    </tr>
+    <tr>
+      <th>Lower South Providence</th>
+      <td>1.9%</td>
+      <td>2.0%</td>
+    </tr>
+    <tr>
+      <th>Valley</th>
+      <td>1.5%</td>
+      <td>1.7%</td>
+    </tr>
+    <tr>
+      <th>Reservoir</th>
+      <td>1.7%</td>
+      <td>1.7%</td>
+    </tr>
+    <tr>
+      <th>Manton</th>
+      <td>1.5%</td>
+      <td>1.7%</td>
+    </tr>
+    <tr>
+      <th>Olneyville</th>
+      <td>1.4%</td>
+      <td>1.6%</td>
+    </tr>
+    <tr>
+      <th>Upper South Providence</th>
+      <td>1.0%</td>
+      <td>1.0%</td>
+    </tr>
+    <tr>
+      <th>South Elmwood</th>
+      <td>0.9%</td>
+      <td>1.0%</td>
+    </tr>
+    <tr>
+      <th>Downtown</th>
+      <td>0.0%</td>
+      <td>0.0%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="neighbor-median-taxes"></section><h3 id="Median-Taxes-By-Neighborhood">Median Taxes By Neighborhood<a class="anchor-link" href="#Median-Taxes-By-Neighborhood">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show the median taxes due for each zip code</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;taxes&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[34]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>neighborhood</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>College Hill</th>
+      <td>12825.28</td>
+      <td>12191.80</td>
+    </tr>
+    <tr>
+      <th>Downtown</th>
+      <td>12662.56</td>
+      <td>10073.46</td>
+    </tr>
+    <tr>
+      <th>Wayland</th>
+      <td>9477.26</td>
+      <td>8769.44</td>
+    </tr>
+    <tr>
+      <th>Blackstone</th>
+      <td>9369.92</td>
+      <td>8496.16</td>
+    </tr>
+    <tr>
+      <th>Fox Point</th>
+      <td>7983.64</td>
+      <td>7748.84</td>
+    </tr>
+    <tr>
+      <th>Federal Hill</th>
+      <td>4791.18</td>
+      <td>5862.48</td>
+    </tr>
+    <tr>
+      <th>Mount Hope</th>
+      <td>5878.10</td>
+      <td>5710.20</td>
+    </tr>
+    <tr>
+      <th>Hope</th>
+      <td>5589.24</td>
+      <td>5307.88</td>
+    </tr>
+    <tr>
+      <th>Smith Hill</th>
+      <td>3223.18</td>
+      <td>3575.94</td>
+    </tr>
+    <tr>
+      <th>Valley</th>
+      <td>2903.96</td>
+      <td>3459.48</td>
+    </tr>
+    <tr>
+      <th>Elmhurst</th>
+      <td>3176.26</td>
+      <td>3458.00</td>
+    </tr>
+    <tr>
+      <th>West End</th>
+      <td>3236.52</td>
+      <td>3453.60</td>
+    </tr>
+    <tr>
+      <th>Elmwood</th>
+      <td>2801.20</td>
+      <td>3382.84</td>
+    </tr>
+    <tr>
+      <th>Olneyville</th>
+      <td>2924.36</td>
+      <td>3319.30</td>
+    </tr>
+    <tr>
+      <th>Upper South Providence</th>
+      <td>2925.28</td>
+      <td>3165.26</td>
+    </tr>
+    <tr>
+      <th>Silver Lake</th>
+      <td>2868.88</td>
+      <td>3150.70</td>
+    </tr>
+    <tr>
+      <th>Mount Pleasant</th>
+      <td>2771.12</td>
+      <td>3105.72</td>
+    </tr>
+    <tr>
+      <th>Manton</th>
+      <td>2701.56</td>
+      <td>3014.36</td>
+    </tr>
+    <tr>
+      <th>Charles</th>
+      <td>2680.88</td>
+      <td>2978.96</td>
+    </tr>
+    <tr>
+      <th>Lower South Providence</th>
+      <td>2710.96</td>
+      <td>2974.56</td>
+    </tr>
+    <tr>
+      <th>South Elmwood</th>
+      <td>2731.64</td>
+      <td>2927.68</td>
+    </tr>
+    <tr>
+      <th>Wanskuck</th>
+      <td>2735.40</td>
+      <td>2899.22</td>
+    </tr>
+    <tr>
+      <th>Washington Park</th>
+      <td>2733.06</td>
+      <td>2898.72</td>
+    </tr>
+    <tr>
+      <th>Reservoir</th>
+      <td>2740.10</td>
+      <td>2818.32</td>
+    </tr>
+    <tr>
+      <th>Hartford</th>
+      <td>2603.80</td>
+      <td>2813.88</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="neighbor-taxes-change"></section><h3 id="Median-Taxes-Change-from-2018-to-2019-by-Neighborhood">Median Taxes Change from 2018 to 2019 by Neighborhood<a class="anchor-link" href="#Median-Taxes-Change-from-2018-to-2019-by-Neighborhood">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tax_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;tax_%_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;tax_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tax_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[35]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tax_%_chng</th>
+      <th>tax_chng</th>
+    </tr>
+    <tr>
+      <th>neighborhood</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Federal Hill</th>
+      <td>26.3%</td>
+      <td>1132.02</td>
+    </tr>
+    <tr>
+      <th>Valley</th>
+      <td>19.1%</td>
+      <td>551.92</td>
+    </tr>
+    <tr>
+      <th>Elmwood</th>
+      <td>18.6%</td>
+      <td>513.92</td>
+    </tr>
+    <tr>
+      <th>Olneyville</th>
+      <td>17.6%</td>
+      <td>443.12</td>
+    </tr>
+    <tr>
+      <th>Manton</th>
+      <td>14.0%</td>
+      <td>369.68</td>
+    </tr>
+    <tr>
+      <th>Smith Hill</th>
+      <td>12.8%</td>
+      <td>385.36</td>
+    </tr>
+    <tr>
+      <th>Mount Pleasant</th>
+      <td>12.3%</td>
+      <td>323.16</td>
+    </tr>
+    <tr>
+      <th>Upper South Providence</th>
+      <td>11.3%</td>
+      <td>312.86</td>
+    </tr>
+    <tr>
+      <th>Charles</th>
+      <td>11.1%</td>
+      <td>286.58</td>
+    </tr>
+    <tr>
+      <th>Lower South Providence</th>
+      <td>9.7%</td>
+      <td>260.76</td>
+    </tr>
+    <tr>
+      <th>Silver Lake</th>
+      <td>8.6%</td>
+      <td>240.22</td>
+    </tr>
+    <tr>
+      <th>West End</th>
+      <td>7.8%</td>
+      <td>227.90</td>
+    </tr>
+    <tr>
+      <th>Elmhurst</th>
+      <td>6.3%</td>
+      <td>201.28</td>
+    </tr>
+    <tr>
+      <th>Wanskuck</th>
+      <td>6.2%</td>
+      <td>155.80</td>
+    </tr>
+    <tr>
+      <th>Hartford</th>
+      <td>6.2%</td>
+      <td>154.28</td>
+    </tr>
+    <tr>
+      <th>South Elmwood</th>
+      <td>5.8%</td>
+      <td>148.34</td>
+    </tr>
+    <tr>
+      <th>Washington Park</th>
+      <td>5.1%</td>
+      <td>130.74</td>
+    </tr>
+    <tr>
+      <th>Reservoir</th>
+      <td>3.3%</td>
+      <td>94.56</td>
+    </tr>
+    <tr>
+      <th>Mount Hope</th>
+      <td>0.9%</td>
+      <td>49.68</td>
+    </tr>
+    <tr>
+      <th>Fox Point</th>
+      <td>-1.7%</td>
+      <td>-118.68</td>
+    </tr>
+    <tr>
+      <th>Hope</th>
+      <td>-3.2%</td>
+      <td>-170.84</td>
+    </tr>
+    <tr>
+      <th>College Hill</th>
+      <td>-4.7%</td>
+      <td>-543.60</td>
+    </tr>
+    <tr>
+      <th>Wayland</th>
+      <td>-8.8%</td>
+      <td>-860.10</td>
+    </tr>
+    <tr>
+      <th>Blackstone</th>
+      <td>-10.8%</td>
+      <td>-998.54</td>
+    </tr>
+    <tr>
+      <th>Downtown</th>
+      <td>-19.0%</td>
+      <td>-2589.10</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="#neighbor-taxes-sqrft"></section><h3 id="Median-Tax-per-Square-Feet-by-Neighborhood">Median Tax per Square Feet by Neighborhood<a class="anchor-link" href="#Median-Tax-per-Square-Feet-by-Neighborhood">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table will show median tax per sqrft</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;tax_pr_sqrft&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2018</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">2019</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[36]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>year</th>
+      <th>2018</th>
+      <th>2019</th>
+    </tr>
+    <tr>
+      <th>neighborhood</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Fox Point</th>
+      <td>2.19</td>
+      <td>2.16</td>
+    </tr>
+    <tr>
+      <th>College Hill</th>
+      <td>2.24</td>
+      <td>2.14</td>
+    </tr>
+    <tr>
+      <th>Downtown</th>
+      <td>2.55</td>
+      <td>2.01</td>
+    </tr>
+    <tr>
+      <th>Wayland</th>
+      <td>1.93</td>
+      <td>1.75</td>
+    </tr>
+    <tr>
+      <th>Federal Hill</th>
+      <td>1.38</td>
+      <td>1.71</td>
+    </tr>
+    <tr>
+      <th>Blackstone</th>
+      <td>1.53</td>
+      <td>1.36</td>
+    </tr>
+    <tr>
+      <th>Mount Hope</th>
+      <td>1.20</td>
+      <td>1.14</td>
+    </tr>
+    <tr>
+      <th>Hope</th>
+      <td>1.18</td>
+      <td>1.13</td>
+    </tr>
+    <tr>
+      <th>Smith Hill</th>
+      <td>0.91</td>
+      <td>1.02</td>
+    </tr>
+    <tr>
+      <th>Olneyville</th>
+      <td>0.78</td>
+      <td>0.92</td>
+    </tr>
+    <tr>
+      <th>Valley</th>
+      <td>0.76</td>
+      <td>0.91</td>
+    </tr>
+    <tr>
+      <th>West End</th>
+      <td>0.78</td>
+      <td>0.84</td>
+    </tr>
+    <tr>
+      <th>Lower South Providence</th>
+      <td>0.76</td>
+      <td>0.83</td>
+    </tr>
+    <tr>
+      <th>Washington Park</th>
+      <td>0.73</td>
+      <td>0.79</td>
+    </tr>
+    <tr>
+      <th>Upper South Providence</th>
+      <td>0.69</td>
+      <td>0.75</td>
+    </tr>
+    <tr>
+      <th>Silver Lake</th>
+      <td>0.67</td>
+      <td>0.73</td>
+    </tr>
+    <tr>
+      <th>Mount Pleasant</th>
+      <td>0.64</td>
+      <td>0.72</td>
+    </tr>
+    <tr>
+      <th>Elmwood</th>
+      <td>0.61</td>
+      <td>0.72</td>
+    </tr>
+    <tr>
+      <th>Elmhurst</th>
+      <td>0.66</td>
+      <td>0.71</td>
+    </tr>
+    <tr>
+      <th>Charles</th>
+      <td>0.59</td>
+      <td>0.66</td>
+    </tr>
+    <tr>
+      <th>Wanskuck</th>
+      <td>0.61</td>
+      <td>0.65</td>
+    </tr>
+    <tr>
+      <th>South Elmwood</th>
+      <td>0.59</td>
+      <td>0.63</td>
+    </tr>
+    <tr>
+      <th>Reservoir</th>
+      <td>0.59</td>
+      <td>0.61</td>
+    </tr>
+    <tr>
+      <th>Manton</th>
+      <td>0.53</td>
+      <td>0.60</td>
+    </tr>
+    <tr>
+      <th>Hartford</th>
+      <td>0.53</td>
+      <td>0.57</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<section id="neighbor-taxes-sqrft-change"></section><h3 id="Median-Tax-per-Square-Feet-Change-from-2018-to-2019-by-Neighborhood">Median Tax per Square Feet Change from 2018 to 2019 by Neighborhood<a class="anchor-link" href="#Median-Tax-per-Square-Feet-Change-from-2018-to-2019-by-Neighborhood">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this table shows the median difference between 2018 &amp; 2019 and the median percentage increased</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;neighborhood&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">,</span> <span class="s1">&#39;taxes_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_%_chng&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{:,.1%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_chng&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;taxes_pr_sqrft_chng&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">table</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[37]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>taxes_pr_sqrft_%_chng</th>
+      <th>taxes_pr_sqrft_chng</th>
+    </tr>
+    <tr>
+      <th>neighborhood</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Federal Hill</th>
+      <td>26.3%</td>
+      <td>0.32</td>
+    </tr>
+    <tr>
+      <th>Valley</th>
+      <td>19.1%</td>
+      <td>0.14</td>
+    </tr>
+    <tr>
+      <th>Elmwood</th>
+      <td>18.6%</td>
+      <td>0.11</td>
+    </tr>
+    <tr>
+      <th>Olneyville</th>
+      <td>17.6%</td>
+      <td>0.12</td>
+    </tr>
+    <tr>
+      <th>Manton</th>
+      <td>14.0%</td>
+      <td>0.07</td>
+    </tr>
+    <tr>
+      <th>Smith Hill</th>
+      <td>12.8%</td>
+      <td>0.11</td>
+    </tr>
+    <tr>
+      <th>Mount Pleasant</th>
+      <td>12.3%</td>
+      <td>0.07</td>
+    </tr>
+    <tr>
+      <th>Upper South Providence</th>
+      <td>11.3%</td>
+      <td>0.07</td>
+    </tr>
+    <tr>
+      <th>Charles</th>
+      <td>11.1%</td>
+      <td>0.06</td>
+    </tr>
+    <tr>
+      <th>Lower South Providence</th>
+      <td>9.7%</td>
+      <td>0.07</td>
+    </tr>
+    <tr>
+      <th>Silver Lake</th>
+      <td>8.6%</td>
+      <td>0.06</td>
+    </tr>
+    <tr>
+      <th>West End</th>
+      <td>7.8%</td>
+      <td>0.06</td>
+    </tr>
+    <tr>
+      <th>Elmhurst</th>
+      <td>6.3%</td>
+      <td>0.04</td>
+    </tr>
+    <tr>
+      <th>Wanskuck</th>
+      <td>6.2%</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <th>Hartford</th>
+      <td>6.2%</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <th>South Elmwood</th>
+      <td>5.8%</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <th>Washington Park</th>
+      <td>5.1%</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <th>Reservoir</th>
+      <td>3.3%</td>
+      <td>0.02</td>
+    </tr>
+    <tr>
+      <th>Mount Hope</th>
+      <td>0.9%</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>Fox Point</th>
+      <td>-1.7%</td>
+      <td>-0.03</td>
+    </tr>
+    <tr>
+      <th>Hope</th>
+      <td>-3.2%</td>
+      <td>-0.04</td>
+    </tr>
+    <tr>
+      <th>College Hill</th>
+      <td>-4.7%</td>
+      <td>-0.10</td>
+    </tr>
+    <tr>
+      <th>Wayland</th>
+      <td>-8.8%</td>
+      <td>-0.15</td>
+    </tr>
+    <tr>
+      <th>Blackstone</th>
+      <td>-10.8%</td>
+      <td>-0.16</td>
+    </tr>
+    <tr>
+      <th>Downtown</th>
+      <td>-19.0%</td>
+      <td>-0.47</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<p></body></p>
+<p></html></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/SmirkyGraphs"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/Smirkygraphs"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://smirkygraphs.github.io"><i class="fa fa-globe fa-lg" aria-hidden="true"></i> Website</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/08/providence-property-taxes-2019/">
+                            Providence Property Taxes 2019
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/08/most-votes-occur-in-final-days/">
+                            Most Votes Occur in The Final Days of Session
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/08/rhode-island-schools-enrollment/">
+                            Rhode Island Public Schools Enrollment Changes
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/ri-legislature-floor-votes/">
+                            RI House & Senate Floor Votes
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/07/ri-bills-by-party/">
+                            RI Bills by Sponsors Party and Outcome
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="../../../../tags"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2019 SmirkyGraphs
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+</body>
+</html>
