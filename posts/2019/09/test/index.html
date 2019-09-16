@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>test - I Viz RI</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="../../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href="../../../../posts/2019/09/test/">
+
+        <meta name="author" content="SmirkyGraphs" />
+        <meta name="keywords" content="test" />
+        <meta name="description" content="test" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../theme/css/style.css" type="text/css"/>
+        <link href="../../../../theme/css/custom.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../" class="navbar-brand">
+<img src="../../../../images/logo.png" width="32"/> I Viz RI            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="../../../../category/blog/index">Blog</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/map/index">Map</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/notebooks/index">Notebooks</a>
+                        </li>
+                        <li class="active">
+                            <a href="../../../../category/tutorial/index">Tutorial</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/viz/index">Viz</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1 class="article-title">
+                    <a href="../../../../posts/2019/09/test/"
+                       rel="bookmark"
+                       title="Permalink to test">
+                        test
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-09-16T01:09:00-04:00"> Mon 16 September 2019</time>
+    </span>
+
+        <span class="label label-default">Category</span>
+        <a href="../../../../category/tutorial/index">Tutorial</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../tag/test/">test</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <hr>
+<p>Providence's JUMP Bike program provides location data of every bike currently available through the <a href="https://pvd.jumpbikes.com/opendata/gbfs.json">gbfs data feed</a>. Using Python and AWS you can <em>sorta</em> create trip data of the bikes. While the gbfs data is directly from the company, it's not ment to be used for trip data. However currently it is the only data provided for Providence and there is no official trip information publicly available. </p>
+<p>The gbfs data is updated every 60s showing you the location of every bike assigned to the Providence region, it contains <code>bike_id</code>, <code>lat</code>, <code>lon</code> and <code>battery_level</code>. The way we create trips is a bike will be at one location from 8am-9am. Once rented the bike will disappear from the data, 20 mins later the bike will re appear somewhere else. This would be considered a "trip".</p>
+<p>A few issues with this method is it would:</p>
+<ul>
+<li>
+<p>include bikes gathered to be charged and returned somewhere else</p>
+<ul>
+<li>these were excluded by removing any records when a charge increased by 10% (14% of records)</li>
+</ul>
+</li>
+<li>
+<p>include bikes taken out for repairs and returned several days later</p>
+<ul>
+<li>these were excluded by removing any trip over 2 hours (9% of records)</li>
+</ul>
+</li>
+<li>
+<p>includes bikes moved to other cities but still assigned to the Providence region</p>
+<ul>
+<li>these were excluded using a geographic shape of RI and only taking points inside it</li>
+</ul>
+</li>
+</ul>
+<h3>Scheduled AWS Lambda into S3 Bucket</h3>
+<p>I had some AWS credit from awhile back that i've been searching for a project to use it twords and figured this would be a good oportunity. I chose to use a lambda script to feed the json data from the gbfs feed directly into an S3 bucket to store it for future use. Heres a flowchart of what this process looks like.</p>
+<p>[flowgraphimagethingy]</p>
+<p>The code would be triggered every 5 minutes from a CloudWatch Cron trigger running 24/7. The code only required Python standard library so theres no packaging involved, this was the code used, it will require you setup IAM permissions to allow the lambda function to put objects into your bucket.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+<span class="kn">import</span> <span class="nn">botocore</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+
+<span class="k">def</span> <span class="nf">collect_vehicles</span><span class="p">(</span><span class="n">vehicles_url</span><span class="p">,</span> <span class="n">vehicle_type</span><span class="p">):</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">vehicles_url</span><span class="p">)</span>
+    <span class="n">vehicles_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">vehicles_data</span><span class="p">[</span><span class="s1">&#39;last_updated&#39;</span><span class="p">]</span>
+
+    <span class="n">vehicles_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">vehicles_data</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>  
+    <span class="n">vehicles_file</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;{vehicle_type}/{vehicle_type}_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span>
+
+    <span class="k">return</span> <span class="n">vehicles_data</span><span class="p">,</span> <span class="n">vehicles_file</span>
+
+<span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+
+    <span class="n">bucket_name</span> <span class="o">=</span> <span class="s1">&#39;{YOUR BUCKET NAME}&#39;</span>
+    <span class="n">bike_status</span> <span class="o">=</span> <span class="s1">&#39;https://pvd.jumpbikes.com/opendata/free_bike_status.json&#39;</span>
+
+    <span class="n">bikes_data</span><span class="p">,</span> <span class="n">bikes_file</span> <span class="o">=</span> <span class="n">collect_vehicles</span><span class="p">(</span><span class="n">bike_status</span><span class="p">,</span> <span class="s1">&#39;bikes&#39;</span><span class="p">)</span>
+
+    <span class="c1"># S3 Connect</span>
+    <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span>
+        <span class="s1">&#39;s3&#39;</span><span class="p">,</span>
+        <span class="n">config</span><span class="o">=</span><span class="n">botocore</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Config</span><span class="p">(</span><span class="n">signature_version</span><span class="o">=</span><span class="s1">&#39;s3v4&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Uploaded File</span>
+    <span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">)</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">Key</span><span class="o">=</span><span class="n">bikes_file</span><span class="p">,</span> <span class="n">Body</span><span class="o">=</span><span class="n">bikes_data</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Lastly in the AWS process, you can get retrieve all the files from your bucket easily using the <a href="https://aws.amazon.com/cli/">AWS CLI</a> command.</p>
+<div class="highlight"><pre><span></span>aws s3 sync s3://{YOUR BUCKET NAME} {YOUR FILE PATH}
+</pre></div>
+
+
+<h3>Making Trips from Data Collected</h3>
+<p>The first step in making trip data is to combine all your downloaded files into a pandas dataframe.</p>
+<div class="highlight"><pre><span></span><span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;{YOUR FILE PATH}/*.json&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+
+    <span class="c1"># load files &amp; get timestamp</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;records&#39;</span><span class="p">)</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;last_updated&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># flatten json data into table &amp; add timestamp</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timestamp</span>
+
+    <span class="c1"># add file to frames </span>
+    <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Next we will need to order the data by <code>bike_id</code> so we can compare the rows to see changes<br>
+aswell as convert the timestamp to a understandable format.</p>
+<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;US/Eastern&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Now, we can use pandas <code>.shift()</code> to compare each row to the one below it. Most importantly we first make sure the bike_id is the same, then we use <code>.ne()</code> <em>not equal</em> to check if lat OR lng has changed. This will create a TRUE value for every time the value has changed, which would be the "end" of a trip, then we can simply look for that true value and create the "start".</p>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span>  \
+          <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span>          \
+          <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())))</span>        \
+          <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()))</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> \
+            <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="bp">True</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;trip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;start&#39;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;trip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;end&#39;</span>
+</pre></div>
+
+
+<p>However this is an issue when a bike would be re-rented within the 5 min causing a single record to be both a start, and a stop location. To solve this we create a copy of every row that needs to be duplicated and append it back into the dataframe.</p>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;dupe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+         <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span>
+       <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+       <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trip&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;end&#39;</span><span class="p">)</span>
+       <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;end&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">dupe</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;dupe&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">dupe</span><span class="p">[</span><span class="s1">&#39;trip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;start&#39;</span>
+
+<span class="c1"># merge rows that needed to be duplicated</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dupe</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<p>To create a unique ID number for each trip we can use a groupby with <code>.cumcount()</code></p>
+<div class="highlight"><pre><span></span><span class="c1"># adding a trip_id to join start &amp; stop data</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;trip_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;trip&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+
+
+<p>Finally to create the actual trips, we remove all the extra fat (which is 90% of our rows) and pivot the dataframe on the trip, and trip_id level.</p>
+<div class="highlight"><pre><span></span><span class="n">trips</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span>
+<span class="n">trips</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;trip&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;trip_id&#39;</span><span class="p">)</span>
+
+<span class="n">col_one</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">col_two</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">trips</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">col_one</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">col_two</span>
+
+<span class="n">trips</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Now you end up all the information for every time a bike has moved the basic trip data. If you wish to challenge yourself, you'd still need to filter out errors like charging, out of state and repairs. The full code is available on my github.</p>
+<p><hr>
+Useful Links</p>
+<p><a href="https://github.com/SmirkyGraphs/pvd-bike-share">Full Code - My Github</a>
+<a href="https://www.graphhopper.com/open-source/">Graphhopper Routing Engine</a>
+<a href="https://mds.bird.co/gbfs/providence/free_bikes">Bird gbfs data</a>
+<a href="https://data.lime.bike/api/partners/v1/gbfs/providence/gbfs.json">Lime gbfs data</a></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/SmirkyGraphs"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/Smirkygraphs"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://smirkygraphs.github.io"><i class="fa fa-globe fa-lg" aria-hidden="true"></i> Website</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/09/test/">
+                            test
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/08/providence-taxes-by-region/">
+                            Providence Taxes by Region
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/08/providence-property-taxes-2019/">
+                            Providence Property Taxes 2019
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/08/most-votes-occur-in-final-days/">
+                            Most Votes Occur in The Final Days of Session
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2019/08/rhode-island-schools-enrollment/">
+                            Rhode Island Public Schools Enrollment Changes
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="../../../../tags"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2019 SmirkyGraphs
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+</body>
+</html>
