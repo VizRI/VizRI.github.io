@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <title>Automating a Tableau Public Dashboard - I Viz RI</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="../../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href="../../../../posts/2020/04/automating-a-tableau-public-dashboard/">
+
+        <meta name="author" content="SmirkyGraphs" />
+        <meta name="keywords" content="tableau,python,automation" />
+        <meta name="description" content="Manually updating Tableau dashboards isn&#39;t exactly hard. First you open up Tableau, next you open the workbook you wish to update, lastly you click on data in the toolbar, hover the dataset you wish to update and click refresh. Not hard, but doing it daily, can begin to be a pain and feel like a chore. Luckily! Tableau Public has google sheets as a datasource and allows you to keep the dashboard synced with the sheet daily updates. This will show you how to add a few lines to your pandas workflow to upload your dataframe to google sheets automatically." />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../../theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../../theme/css/pygments/autumn.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../theme/css/style.css" type="text/css"/>
+        <link href="../../../../theme/css/custom.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../../" class="navbar-brand">
+<img src="../../../../images/logo.png" width="32"/> I Viz RI            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="../../../../category/blog/index">Blog</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/map/index">Map</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/notebooks/index">Notebooks</a>
+                        </li>
+                        <li class="active">
+                            <a href="../../../../category/tutorial/index">Tutorial</a>
+                        </li>
+                        <li >
+                            <a href="../../../../category/viz/index">Viz</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../../../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1 class="article-title">
+                    <a href="../../../../posts/2020/04/automating-a-tableau-public-dashboard/"
+                       rel="bookmark"
+                       title="Permalink to Automating a Tableau Public Dashboard">
+                        Automating a Tableau Public Dashboard
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2020-04-28T08:06:00-04:00"> Tue 28 April 2020</time>
+    </span>
+
+        <span class="label label-default">Category</span>
+        <a href="../../../../category/tutorial/index">Tutorial</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="../../../../tag/tableau/">tableau</a>
+        /
+	<a href="../../../../tag/python/">python</a>
+        /
+	<a href="../../../../tag/automation/">automation</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <hr>
+<p>Manually updating Tableau dashboards isn't exactly hard. First you open up Tableau, next you open the workbook you wish to update, lastly you click on data in the toolbar, hover the dataset you wish to update and click refresh. Not hard, but doing it daily, can begin to be a pain and feel like a chore. Luckily! Tableau Public has google sheets as a datasource and allows you to keep the dashboard synced with the sheet daily updates. This will show you how to add a few lines to your pandas workflow to upload your dataframe to google sheets automatically.</p>
+<p>For this you will need:<br>
+- A Google account<br>
+- A Tableau public account<br>
+- Knowledge of Python &amp; Pandas  </p>
+<hr>
+<h2>Step 1: Google Service Account</h2>
+<p><a href="https://pygsheets.readthedocs.io/en/stable/authorization.html">pygsheets</a> docs have a great walkthrough on how to set up authentication. The method I use is through using a <a href="https://pygsheets.readthedocs.io/en/stable/authorization.html#service-account">google service account</a>. While following those steps, the project name doesn't really matter and the service account name will appear as the name that updated the google sheet. Once you download the service account key save it somewhere safe, <strong>NOT anywhere public</strong>. Lastly copy the email of the service account as you will need to add it to the google sheet allowing it to edit the workbook.</p>
+<hr>
+<h2>Step 2: Set up the Google Sheet</h2>
+<p>To start, set up the basics, create a new sheet, add the tabs &amp; name them. Next format the columns however you want, number format, alignment, date format, font size anything that doesn't require changing a cell. There's no need to add column headers, you can do that from the pandas DataFrame. Next, add the service account email allowing it to edit the sheet. To do this from the google sheet, go to the top right -&gt; click "share" -&gt; "invite people" -&gt; add email.</p>
+<p><img src='https://imgur.com/YSgadFw.png'></img></p>
+<hr>
+<h2>Step 3: Pyton Code</h2>
+<p>I assume you have your own data, so I'm going to make a basic sample DataFrame.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pygsheets</span>
+
+<span class="c1"># sample dataframe</span>
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">letters</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;J&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;letters&#39;</span><span class="p">:</span> <span class="n">letters</span><span class="p">,</span> <span class="s1">&#39;numbers&#39;</span><span class="p">:</span> <span class="n">numbers</span><span class="p">})</span>
+
+<span class="c1"># google sheets authentication</span>
+<span class="n">creds</span> <span class="o">=</span> <span class="s1">&#39;C:/path/to/your/service_file.json&#39;</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">pygsheets</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">service_file</span><span class="o">=</span><span class="n">creds</span><span class="p">)</span>
+<span class="n">wb</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;[YOUR GOOGLE SHEET FILE NAME]&#39;</span><span class="p">)</span>
+
+<span class="c1"># open the sheet by name</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">worksheet_by_title</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;[YOUR SHEET NAME]&#39;</span><span class="p">)</span>
+<span class="n">sheet</span><span class="o">.</span><span class="n">set_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Simply replace the creds with your service file, the [YOUR GOOGLE SHEET] with the workbook name and [YOUR SHEET NAME] with the sheet tab name, the (1,1) is where the dataframe will begin, so A1. Obviously re-running all this code would accomplish nothing... As the sample data is hard-coded and will never change. However assuming your reading from a csv, excel or loading data from a database it would write over the existing data showing the new info. If for some reason your new data is smaller then your existing data make sure to add <code>sheet.clear()</code> prior to the <code>set_dataframe</code> or some of the old data would still exist.</p>
+<hr>
+<h2>Step 4: Make the Tableau Dashboard</h2>
+<p>To add data from google sheets, under connect -&gt; google sheets a chrome tab will open requiring you to login. Then it will ask for permission click "Allow" and close the tab. You'll be provided a list of every sheet you have access to, find your sheet, connect to it and now you have your data, make your dashboard like normal. Now when you go to publish to Tableau Public you'll have a checkbox to keep the data synced and embed your google credentials which from looking at the xml appears to just be your login email name.</p>
+<p><img src='https://imgur.com/cMll0Au.png'></img></p>
+<hr>
+<h2>Common Issues with This</h2>
+<p>Tableau Public allows connecting to google sheets, and automatic refreshes. However this will only happen automatically once per day and it can't be scheduled for a specific time. This still eases updating though as instead of needing to open Tableau again you can simply go to the dashboard and there will be a button to "request update" which will update the dashboard within a few minutes. If you require more frequent updates, and don't wish to have to click request update. This would require a paid version of Tableau like server or online which allow scheduled refreshes of your data.</p>
+<p><img src='https://imgur.com/tVFsJNa.png'></img></p>
+<p>I've run into an issue when joining data, if you use a geojson/shapefile layer and join a google sheet to it. You don't get the option to automatically update the google sheet. I'm not sure if this happens with other file formats but a possible solution could be a blend rather than a join.</p>
+<p>This still requires you to run the code on your own, however if you're on a Mac you can look into using CRON to schedule a python script. On Windows you can use the windows task scheduler to use a timed based trigger to run your python script. Personally the data I used this for updates once a day at 12pm so I just added some code to sleep my program till 12:05pm.</p>
+<div class="highlight"><pre><span></span># wait till 12:05 then continue
+target = pd.datetime.now().replace(hour=12).replace(minute=5)
+while pd.datetime.now() &lt; target:
+    print(f&quot;[status] waiting for 12pm&quot;, end=&#39;\r&#39;)
+    time.sleep(60)
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/SmirkyGraphs"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/Smirkygraphs"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://smirkygraphs.github.io"><i class="fa fa-globe fa-lg" aria-hidden="true"></i> Website</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2020/04/automating-a-tableau-public-dashboard/">
+                            Automating a Tableau Public Dashboard
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2020/04/providence-police-cases-arrests/">
+                            Providence Police Cases & Arrests
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2020/04/ri-power-outages-4_13_20/">
+                            RI Power Outages 4/13/20 Storm
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2020/04/ri-covid-temp-license/">
+                            RI COVID-19 Emergency Temporary Licenses
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="../../../../posts/2020/03/covid-19-cases-by-location/">
+                            COVID-19 Cases by Location
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="../../../../tags"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2020 SmirkyGraphs
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../../../../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../../theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+</body>
+</html>
