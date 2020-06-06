@@ -227,3 +227,9 @@ figure.floatcenter, .align-center {
 #main-content {
     border: 1px solid #f6f6f6 !important;
 }
+ 
+.thumb {
+    overflow: auto;
+    height: auto;
+    margin-bottom: 30px;
+}
