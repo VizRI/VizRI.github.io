@@ -111,15 +111,20 @@
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <hr>
-<p>Information on COVID deaths in Rhode Island can be a bit confusing. So confusing you end up with 2 different news stations WPRI reporting "18 deaths since Friday" and NBC10 reporting "12 total deaths reported for previous 2 days". Now, you're probably thinking the difference is just NBC10 doesn't include Friday like WPRI. However, the actual death total since Friday was <strong>only 3</strong>.</p>
+<p>Information on COVID deaths in Rhode Island can be a bit confusing. So confusing you end up with 2 different news stations WPRI reporting <a href="https://twitter.com/KimKalunian/status/1272584078181781504">"18 deaths since Friday"</a> and NBC10 reporting <a href="https://twitter.com/nbc10_brian/status/1272557639856250880">"12 total deaths reported for previous 2 days"</a>. Now, you're probably thinking the difference is just NBC10 doesn't include Friday like WPRI. <strong>However, the actual death total since Friday was only 3</strong>.</p>
 <p>Rhode Island Department of Health provides various sources for its data. For information on deaths RIDOH maintains a Google spreadsheet, the 2 important sheets regarded information on deaths is the "Summary Stats" and "COVID Trends" sheets. The Summary Stats contains the cumulative total fatalities while the COVID Trends shows a day by day historical record of deaths.</p>
-<p>I believe WPRI reports deaths the similear to the way I use for my @RI_COVID19 twitter bot. Taking the total cumulative number and comparing it to the prior total cumulative number. On Friday (6/12) RIDOH reported the total to be 833, by Monday the number grew to 851 a difference of 18 so one would assume that means 18 people died since Friday. So what gives, why does the trend data say 3? </p>
+<p>I believe WPRI reports deaths the similear to the way I use for my <a href="https://twitter.com/ri_covid19">@RI_COVID19</a> twitter bot. Taking the total cumulative number and comparing it to the prior total cumulative number. On Friday (6/12) RIDOH reported the total to be 833, by Monday the number grew to 851 a difference of 18 so one would assume that means 18 people died since Friday. So what gives, why does the trend data say 3? </p>
 <p>Unfortunately prior to today I wasn't logging the trend data daily and would just save over the prior file thinking that it was just the new rows added. Luckily though, using git I was able to go back and grab prior logs of the "COVID Trends" for 5/10, 5/17, 5/21, 5/30, 6/9 and 6/14. To find out when the 18 deaths occured I compared the "COVID Trends" data for the 2 most recent dates and found 6 of the deaths date back to April and 7 back to May.</p>
 <p><img src='https://imgur.com/LZTgRG9.png'></img></p>
 <p>I was kind of surprised to see newly reported deaths going back so far so I decided to check just how much data has changed since I first recorded the trend data on 5/10 one day after the phase 1 re opening of the state. When comparing trend data of 5/10 to today's numbers (6/15) there has been an increase of 100 deaths exactly. The 2 largest daily changes have been on both 5/8 and 5/9 with them both seeing an increase of 10 deaths.</p>
 <p><img src='https://imgur.com/NnOW9l3.png'></img></p>
 <p>So to wrap things up, there was 18 new deaths, however all 18 didn't occure between Friday and Monday. Lastly, to see what kind of effect these discrepancies had on what the 7-day moving average was back on 5/10 compared to the data/what we know now I created a line chart comparing the daily deaths for the 2 trend sheets.</p>
 <p><img src='https://imgur.com/ej6imlQ.png'></img></p>
+<hr>
+
+<p><a href="https://docs.google.com/spreadsheets/d/1n-zMS9Al94CPj_Tc3K7Adin-tN9x1RSjjx2UzJ4SV7Q/edit#gid=1225599023">RIDOH - Summary States</a></p>
+<p><a href="https://docs.google.com/spreadsheets/d/1n-zMS9Al94CPj_Tc3K7Adin-tN9x1RSjjx2UzJ4SV7Q/edit#gid=590763272">RIDOH - COVID Trends</a></p>
+<p><a href="https://github.com/SmirkyGraphs/ri-covid19-updates">Source Code</a></p>
             </div>           
             <!-- /.entry-content -->
         </article>
