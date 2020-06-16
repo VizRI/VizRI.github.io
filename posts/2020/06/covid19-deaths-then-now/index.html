@@ -2,7 +2,7 @@
 <html lang="en"
 >
 <head>
-    <title>Rhode Island's Expenditures Breakdown - I Viz RI</title>
+    <title>COVID-19 Deaths Then vs. Now - I Viz RI</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -16,11 +16,11 @@
 
     <link href="../../../../images/favicon.png" rel="icon">
 
-<link rel="canonical" href="../../../../posts/2018/01/expenditures-breakdown/">
+<link rel="canonical" href="../../../../posts/2020/06/covid19-deaths-then-now/">
 
         <meta name="author" content="SmirkyGraphs" />
-        <meta name="keywords" content="Viz,Tableau,Financial" />
-        <meta name="description" content="" />
+        <meta name="keywords" content="covid,health" />
+        <meta name="description" content="Rhode Island Department of Health provides various sources for its data. For information on deaths RIDOH maintains a Google spreadsheet, the 2 important sheets regarded information on deaths is the &#34;Summary Stats&#34; and &#34;COVID Trends&#34; sheets. The Summary Stats contains the cumulative total fatalities while the COVID Trends shows a day by day historical record of deaths." />
 
 
 
@@ -50,7 +50,7 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li >
+                        <li class="active">
                             <a href="../../../../category/blog/index">Blog</a>
                         </li>
                         <li >
@@ -62,7 +62,7 @@
                         <li >
                             <a href="../../../../category/tutorial/index">Tutorial</a>
                         </li>
-                        <li class="active">
+                        <li >
                             <a href="../../../../category/viz/index">Viz</a>
                         </li>
             </ul>
@@ -83,10 +83,10 @@
         <article>
             <header class="page-header">
                 <h1 class="article-title">
-                    <a href="../../../../posts/2018/01/expenditures-breakdown/"
+                    <a href="../../../../posts/2020/06/covid19-deaths-then-now/"
                        rel="bookmark"
-                       title="Permalink to Rhode Island's Expenditures Breakdown">
-                        Rhode Island's Expenditures Breakdown
+                       title="Permalink to COVID-19 Deaths Then vs. Now">
+                        COVID-19 Deaths Then vs. Now
                     </a>
                 </h1>
             </header>
@@ -96,25 +96,30 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-01-14T17:45:00-05:00"> Sun 14 January 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2020-06-16T07:40:00-04:00"> Tue 16 June 2020</time>
     </span>
 
         <span class="label label-default">Category</span>
-        <a href="../../../../category/viz/index">Viz</a>
+        <a href="../../../../category/blog/index">Blog</a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="../../../../tag/viz/">Viz</a>
+	<a href="../../../../tag/covid/">covid</a>
         /
-	<a href="../../../../tag/tableau/">Tableau</a>
-        /
-	<a href="../../../../tag/financial/">Financial</a>
+	<a href="../../../../tag/health/">health</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p><link href="https://ivizri.com/theme/css/viz.css" rel="stylesheet" type="text/css"></p>
-<hr>
-<p><html><div class='tableauPlaceholder' id='viz1515970102953' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Rh&#47;RhodeIslandExpenditureBreakdown&#47;Story1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='RhodeIslandExpenditureBreakdown&#47;Story1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Rh&#47;RhodeIslandExpenditureBreakdown&#47;Story1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1515970102953');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1016px';vizElement.style.height='991px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script></html></p>
+                <hr>
+<p>Information on COVID deaths in Rhode Island can be a bit confusing. So confusing you end up with 2 different news stations WPRI reporting "18 deaths since Friday" and NBC10 reporting "12 total deaths reported for previous 2 days". Now, you're probably thinking the difference is just NBC10 doesn't include Friday like WPRI. However, the actual death total since Friday was <strong>only 3</strong>.</p>
+<p>Rhode Island Department of Health provides various sources for its data. For information on deaths RIDOH maintains a Google spreadsheet, the 2 important sheets regarded information on deaths is the "Summary Stats" and "COVID Trends" sheets. The Summary Stats contains the cumulative total fatalities while the COVID Trends shows a day by day historical record of deaths.</p>
+<p>I believe WPRI reports deaths the similear to the way I use for my @RI_COVID19 twitter bot. Taking the total cumulative number and comparing it to the prior total cumulative number. On Friday (6/12) RIDOH reported the total to be 833, by Monday the number grew to 851 a difference of 18 so one would assume that means 18 people died since Friday. So what gives, why does the trend data say 3? </p>
+<p>Unfortunately prior to today I wasn't logging the trend data daily and would just save over the prior file thinking that it was just the new rows added. Luckily though, using git I was able to go back and grab prior logs of the "COVID Trends" for 5/10, 5/17, 5/21, 5/30, 6/9 and 6/14. To find out when the 18 deaths occured I compared the "COVID Trends" data for the 2 most recent dates and found 6 of the deaths date back to April and 7 back to May.</p>
+<p><img src='https://imgur.com/LZTgRG9.png'></img></p>
+<p>I was kind of surprised to see newly reported deaths going back so far so I decided to check just how much data has changed since I first recorded the trend data on 5/10 one day after the phase 1 re opening of the state. When comparing trend data of 5/10 to today's numbers (6/15) there has been an increase of 100 deaths exactly. The 2 largest daily changes have been on both 5/8 and 5/9 with them both seeing an increase of 10 deaths.</p>
+<p><img src='https://imgur.com/NnOW9l3.png'></img></p>
+<p>So to wrap things up, there was 18 new deaths, however all 18 didn't occure between Friday and Monday. Lastly, to see what kind of effect these discrepancies had on what the 7-day moving average was back on 5/10 compared to the data/what we know now I created a line chart comparing the daily deaths for the 2 trend sheets.</p>
+<p><img src='https://imgur.com/ej6imlQ.png'></img></p>
             </div>           
             <!-- /.entry-content -->
         </article>
