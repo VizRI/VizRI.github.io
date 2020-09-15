@@ -335,43 +335,5 @@
 
 </body>
 
-<script type="text/javascript">
-function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
-
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        display.textContent = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-          location.reload();
-        }
-    }, 1000);
-}
-
-// function percent(values) {
-//    var text = values.innerHTML
-//    var reporting = text.split(" ")[0]
-//    var total = text.split(" ")[2]
-//
-//    var percent = (100 * reporting) / total
-//    return text.concat(" (", percent, "%)")
-//}
-
-window.onload = function () {
-    var fiveMinutes = 60 * 5,
-        display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-
-    // var values = document.querySelectorAll('.reporting');
-    // values.forEach(element => { 
-    //     element.innerHTML = percent(element);  
-    //     element.style.visibility = 'visible';
-    // });
-};
-
-</script>
 
 </html>
