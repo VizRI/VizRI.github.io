@@ -6,7 +6,7 @@ $(document).ready(function () {
         "info":     false,
         "filter":   false,
         ajax: {
-            url: "http://127.1.2.3:5000/data/death-dates",
+            url: "https://ivizri.com/test/data/death-dates/",
             dataSrc: '',
             method: "GET",
             dataType: 'json'
@@ -27,7 +27,7 @@ $(document).ready(function () {
         "info":     false,
         "filter":   false,
         ajax: {
-            url: "http://127.1.2.3:5000/data/capacity",
+            url: "https://ivizri.com/test/data/capacity/",
             dataSrc: '',
             method: "GET",
             dataType: 'json'
