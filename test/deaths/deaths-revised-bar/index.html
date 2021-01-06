@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Rhode Island COVID-19</title>
 
-    <!-- <link href= "/static/main.css" rel="stylesheet"/> -->
+    <!-- <link href= "../../static/main.css" rel="stylesheet"/> -->
     <link href= "https://ivizri.com/test/static/main.css" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
@@ -24,34 +24,34 @@
 <div class="sidenav position-fixed text-white h-100 w-sidebar p-4">
     <div class="sidenav-content">
         <ul class="list-unstyled components mt-5 mb-3">
-            <li class="active"><a href="https://ivizri.com/test/">Daily Update</a></li>
-            <li class="active"><a href="https://ivizri.com/test/totals/">Current Totals</a></li>
+            <li class="active"><a href="../../index.html">Daily Update</a></li>
+            <li class="active"><a href="../../totals/index.html">Current Totals</a></li>
         </ul>
         <ul class="list-unstyled components mb-3">
             <li>
                 <a href="#deathsSubmenu" data-toggle="collapse" data-target="#deathsSubmenu" aria-expanded="true" class="panel-title active">Deaths</a>
                     <ul class="list-unstyled collapse show" id="deathsSubmenu">
-                        <li class="sub-item"><a href="https://ivizri.com/test/deaths/daily-deaths/">Daily Deaths</a></li>
-                        <li class="sub-item"><a href="https://ivizri.com/test/deaths/deaths-revised-bar/">Deaths Revised (bar)</a></li>
-                        <li class="sub-item"><a href="https://ivizri.com/test/deaths/deaths-revised-avg/">Deaths Revised (avg)</a></li>
+                        <li class="sub-item"><a href="../daily-deaths/index.html">Daily Deaths</a></li>
+                        <li class="sub-item"><a href="index.html">Deaths Revised (bar)</a></li>
+                        <li class="sub-item"><a href="../deaths-revised-avg/index.html">Deaths Revised (avg)</a></li>
                     </ul>
                 </li>
         
                 <li>
                 <a href="#testSubmenu" data-toggle="collapse" data-target="#testSubmenu" aria-expanded="false" class="panel-title collapsed">Testing</a>
                     <ul class="collapse list-unstyled" id="testSubmenu">
-                        <li class="sub-item"><a href="https://ivizri.com/test/testing/labs-positive/">Labs Positive</a></li>
-                        <li class="sub-item"><a href="https://ivizri.com/test/testing/labs-positive-pct/">Labs Positive (&nbsp;%&nbsp;)</a></li>
-                        <li class="sub-item"><a href="https://ivizri.com/test/testing/people-positive/">People Positive</a></li>
-                        <li class="sub-item"><a href="https://ivizri.com/test/testing/people-positive-pct/">People Positive (&nbsp;%&nbsp;)</a></li>
+                        <li class="sub-item"><a href="../../testing/labs-positive/index.html">Labs Positive</a></li>
+                        <li class="sub-item"><a href="../../testing/labs-positive-pct/index.html">Labs Positive (&nbsp;%&nbsp;)</a></li>
+                        <li class="sub-item"><a href="../../testing/people-positive/index.html">People Positive</a></li>
+                        <li class="sub-item"><a href="../../testing/people-positive-pct/index.html">People Positive (&nbsp;%&nbsp;)</a></li>
                     </ul>
                 </li>
                 <li>
                 <a href="#hospSubmenu" data-toggle="collapse" data-target="#hospSubmenu" aria-expanded="false" class="panel-title collapsed">Hospitalized</a>
                     <ul class="collapse list-unstyled" id="hospSubmenu">
-                        <li class="sub-item"><a href="https://ivizri.com/test/hospital/admissions/">Hospital Admissions</a></li>
-                        <li class="sub-item"><a href="https://ivizri.com/test/hospital/intensive-care/">Intensive Care</a></li>
-                        <li class="sub-item"><a href="https://ivizri.com/test/hospital/ventilator/">Ventilator</a></li>
+                        <li class="sub-item"><a href="../../hospital/admissions/index.html">Hospital Admissions</a></li>
+                        <li class="sub-item"><a href="../../hospital/intensive-care/index.html">Intensive Care</a></li>
+                        <li class="sub-item"><a href="../../hospital/ventilator/index.html">Ventilator</a></li>
                     </ul>
                 </li>
             </li>
@@ -59,7 +59,7 @@
     </div>
     <div class="sidenav-footer">
         <ul class="list-unstyled components mb-5">
-            <li><a href="https://ivizri.com/test/about/">About</a></li>
+            <li><a href="../../about/index.html">About</a></li>
             <li><a href="https://twitter.com/RI_COVID19">Twitter Bot</a></li>
         </ul>
         <ul class="list-unstyled components mb-5">
@@ -130,8 +130,8 @@
             data-toggle="modal" 
             data-title="First Reported vs. Current (Bargraph)"
             data-src="<a href='https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937'>RIDOH Trends Sheet</a>"
-            data-details='"New hospital admissions"'
-            data-desc="Shows the total number of new hospital admissions daily as a blue bar. The orange line is the 7-day moving average of new hospital admissions."
+            data-details='"Date of deaths"'
+            data-desc="The blue bar is calculated by using the first reported value for each day. The orange bar is the difference between the first reported value and the current death total for each date."
             data-target="#daily-update-src">Source</button>
           </div>
         </div>
@@ -166,6 +166,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>    
     <script src="https://ivizri.com/test/static/js/table.js"></script>      
-    <!-- <script src="/static/js/table.js"></script> -->
+    <!-- <script src="../../static/js/table.js"></script> -->
 </footer>
 </html>
