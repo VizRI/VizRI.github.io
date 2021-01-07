@@ -1,0 +1,210 @@
+body {
+    height: 100vh;
+    overflow-x: hidden;
+    padding-top: 55px;
+    color: #333333;
+}
+
+.bg-dark {
+    background-color: #343a40 !important;
+}
+
+/* set the sidebar width */
+.w-sidebar {
+    width: 250px;
+    max-width: 250px;
+}
+ 
+.row.collapse {
+    margin-left: -250px;
+    left: 0;
+    transition: margin-left .15s linear;
+}
+ 
+.row.collapse.show {
+    margin-left: 0 !important;
+}
+ 
+.row.collapsing {
+    margin-left: -250px;
+    left: -0.05%;
+    transition: all .15s linear;
+}
+ 
+/* optional */
+.vh-100 {
+    min-height: 100vh;
+}
+ 
+ /* optional for overlay sidebar on small screens */
+@media (max-width:768px) {
+    .row.collapse,
+    .row.collapsing {
+        margin-left: 0 !important;
+        left: 0 !important;
+        overflow: visible;
+    }
+     
+    .row > .sidebar.show {
+        display: flex !important;
+        margin-left: -100% !important;
+        transition: all .05s linear;
+        position: fixed;
+        z-index: 1050;
+        max-width: 0;
+        min-width: 0;
+        flex-basis: auto;
+    }
+     
+    .row > .sidebar.collapse.show {
+        margin-left: 0 !important;
+        width: 100%;
+        max-width: 100%;
+        min-width: initial;
+    }
+     
+    .row > .sidebar.collapsing {
+        display: flex !important;
+        margin-left: -100% !important;
+        transition: all .2s linear !important;
+        position: fixed;
+        z-index: 1050;
+        min-width: initial;
+    }
+}
+
+.sidenav {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2%;
+    overflow-y: auto;
+    background-color: #e0e0e0;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.sidenav ul li a {
+    padding: 10px 0;
+    display: block;
+    color: #333333;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.panel-title {
+    position: relative;
+}
+
+.panel-title::after {
+    content: "\f107";
+    color: #333;
+    right: 0px;
+    position: absolute;
+    font-family: "FontAwesome"
+}
+
+.panel-title[aria-expanded="true"]::after {
+    content: "\f106";
+}
+
+.fa-bars {
+    color:rgba(255,255,255,.8);
+}
+
+#bannerTitle {
+    margin-left: 250px;
+}
+
+.navbar-brand {
+    font-size: 1.3rem !important;
+    font-weight: 750;
+    letter-spacing: 1px;
+}
+
+.navbar {
+    height: 55px !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+
+a[data-toggle=collapse] {
+    position: relative;
+}
+
+.collapse {
+    display: none;
+}
+
+.collapse.show {
+    display: block;
+}
+
+.sub-item {
+    font-size: 0.8rem;
+    text-indent: 10%;
+}
+
+.card {
+    background-color: #e0e0e05d !important;
+    border-radius: 0 !important;
+    text-align: left;
+}
+
+.card h5 {
+    font-size: .8125rem;
+}
+
+.value {
+    font-size: 1.3rem !important;
+    line-height: 1.2;
+    font-weight: 800;
+    display: inline;
+}
+
+.diff {
+    font-size: 1rem;
+    line-height: 1em;
+    font-weight: 700;
+    display: inline;
+}
+
+.pct-chng {
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+    line-height: 1.2em;
+    min-height: 1.2rem;
+}
+
+.text-sm {
+    font-size: .875rem !important;
+}
+
+.info {
+    background: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.up-down {
+    font-size: 1rem;
+}
+
+.test-2 {
+    padding-right: 1.25rem !important;
+    padding-top: 0.5rem;
+}
+
+.fa-info {
+    color: #333333;
+}
+
+.m-stats-cards-card-wrapper {
+    text-align: left !important;
+}
+
+.sidenav-content {
+    flex: 1 1 auto;
+}
+
+.text-side {
+    color: #333333 !important;
+}
