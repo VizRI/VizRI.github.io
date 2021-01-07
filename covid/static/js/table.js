@@ -6,7 +6,7 @@ $(document).ready(function () {
         "info":     false,
         "filter":   false,
         ajax: {
-            url: "https://ivizri.com/test/static/api/daily_death_dates.json",
+            url: "https://ivizri.com/covid/static/api/daily_death_dates.json",
             dataSrc: '',
             method: "GET",
             dataType: 'json'
@@ -27,7 +27,7 @@ $(document).ready(function () {
         "info":     false,
         "filter":   false,
         ajax: {
-            url: "https://ivizri.com/test/static/api/capacity.json",
+            url: "https://ivizri.com/covid/static/api/capacity.json",
             dataSrc: '',
             method: "GET",
             dataType: 'json'
