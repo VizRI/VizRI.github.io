@@ -33,8 +33,8 @@ $(document).ready(function () {
             dataType: 'json'
         },
         columns: [
-            { data: "name" },
-            { data: "percent_full", className: "text-right" }
+            { data: "metric" },
+            { data: "%_capacity_covid", className: "text-right" }
         ]
     });
 });
