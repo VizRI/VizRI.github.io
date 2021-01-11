@@ -62,7 +62,7 @@
             <li><a href="https://twitter.com/RI_COVID19">Twitter Bot</a></li>
         </ul>
         <ul class="list-unstyled components mb-5">
-            <div class="small text-side">Updated: 1/10/2021</div>
+            <div class="small text-side">Updated: 1/11/2021</div>
             <div class="small text-side">Designed by: SmirkyGraphs</div>
         </ul>
     </div>
@@ -129,6 +129,7 @@
                         onclick="showModal(this)"
                         class="info btn pull-right"
                         data-toggle="modal" 
+                        data-title="Total Labs"
                         data-src="&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937&#34;&gt;RIDOH Trends Sheet&lt;/a&gt;"
                         data-details="&#34;Cumulative total tests completed (may count people more than once)&#34;&lt;br&gt;&#34;Cumulative negative tests (may count people more than once)&#34;"
                         data-desc="shows the total number tests done and the total number that came back negative."
@@ -151,6 +152,7 @@
                         onclick="showModal(this)"
                         class="info btn pull-right"
                         data-toggle="modal" 
+                        data-title="Total Positive Labs"
                         data-src="&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937&#34;&gt;RIDOH Trends Sheet&lt;/a&gt;"
                         data-details="&#34;Cumulative positive tests (may count people more than once)&#34;&lt;br&gt;&#34;Cumulative total tests completed (may count people more than once)&#34;"
                         data-desc="shows the total number of tests that came back positive and the percent of all tests that came back positive."
@@ -173,6 +175,7 @@
                         onclick="showModal(this)"
                         class="info btn pull-right"
                         data-toggle="modal" 
+                        data-title="Total People Tested"
                         data-src="&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937&#34;&gt;RIDOH Trends Sheet&lt;/a&gt;"
                         data-details="&#34;Cumulative people tested (one count per person)&#34;&lt;br&gt;&#34;Cumulative people who have only tested negative (counts first negative lab per person)&#34;"
                         data-desc="shows the total number of people tested and how many of them have only tested negative."
@@ -195,6 +198,7 @@
                         onclick="showModal(this)"
                         class="info btn pull-right"
                         data-toggle="modal" 
+                        data-title="Total People Positive"
                         data-src="&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937&#34;&gt;RIDOH Trends Sheet&lt;/a&gt;"
                         data-details="&#34;Cumulative people who tested positive (counts first positive lab per person)&#34;&lt;br&gt;&#34;Cumulative people tested (one count per person)&#34;"
                         data-desc="shows the total number of people who have tested positive, as well as the percent of all people tested who have been positive."
@@ -217,6 +221,7 @@
                         onclick="showModal(this)"
                         class="info btn pull-right"
                         data-toggle="modal" 
+                        data-title="Total Deaths"
                         data-src="&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937&#34;&gt;RIDOH Trends Sheet&lt;/a&gt;"
                         data-details="&#34;Total deaths&#34;&lt;br&gt;&#34;Cumulative hospital discharges&#34;"
                         data-desc="shows the total number of current deaths in Rhode Island and how many of those occured inside a hospital."
@@ -239,6 +244,7 @@
                         onclick="showModal(this)"
                         class="info btn pull-right"
                         data-toggle="modal" 
+                        data-title="Total Hospital Admitted"
                         data-src="&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937&#34;&gt;RIDOH Trends Sheet&lt;/a&gt;"
                         data-details="&#34;Cumulative hospital admissions&#34;,&lt;br&gt;&#34;Cumulative hospital discharges&#34;"
                         data-desc="shows the total number of people admitted and discharged from a hospital."
@@ -267,5 +273,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>       
     <script src="/covid/static/js/table.js"></script>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-4']);
+        _gaq.push(['_trackPageview']);
+    
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 </footer>
 </html>
