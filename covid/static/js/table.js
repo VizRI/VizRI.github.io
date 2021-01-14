@@ -16,10 +16,7 @@ $(document).ready(function () {
             { data: "deaths", className: "text-center" }
         ]
     });
-});
 
-
-$(document).ready(function () {
     $('#capacity').DataTable({
         "loading": false,
         "paging":   false,
@@ -37,5 +34,23 @@ $(document).ready(function () {
             { data: "%_capacity_covid", className: "text-right" }
         ]
     });
-});
 
+    $('#nursingHome').DataTable({
+        "searching": false,
+        "paging": false,
+        "info": false,
+        ajax: {
+            url: "http://127.1.2.3:5000/static/api/nursing_home_table.json",
+            dataSrc: '',
+            method: "GET",
+            dataType: 'json'
+        },
+        columns: [
+            { data: "city_town" },
+            { data: "facility_name" },
+            { data: "cases_avg", className: "text-right" },
+            { data: "fatalities_avg", className: "text-right" }
+        ]
+    });    
+    
+});

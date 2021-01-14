@@ -1,0 +1,500 @@
+[
+    {
+        "city_town": "Coventry",
+        "facility_name": "Alpine Nursing Home ",
+        "cases_avg": 42.0,
+        "fatalities_avg": 12.0
+    },
+    {
+        "city_town": "Westerly",
+        "facility_name": "Apple Rehab Clipper ",
+        "cases_avg": 32.0,
+        "fatalities_avg": 7.0
+    },
+    {
+        "city_town": "Westerly",
+        "facility_name": "Apple Rehab Watch Hill ",
+        "cases_avg": 37.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Warwick",
+        "facility_name": "Avalon Nursing Home ",
+        "cases_avg": 22.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Woonsocket",
+        "facility_name": "Ballou Home ",
+        "cases_avg": 7.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Providence",
+        "facility_name": "Bannister House ",
+        "cases_avg": 97.0,
+        "fatalities_avg": 17.0
+    },
+    {
+        "city_town": "Burrillville",
+        "facility_name": "Bayberry Commons ",
+        "cases_avg": 7.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Providence",
+        "facility_name": "Berkshire Place ",
+        "cases_avg": 167.0,
+        "fatalities_avg": 37.0
+    },
+    {
+        "city_town": "Providence",
+        "facility_name": "Bethany Home ",
+        "cases_avg": 27.0,
+        "fatalities_avg": 7.0
+    },
+    {
+        "city_town": "Warwick",
+        "facility_name": "Brentwood Nursing Home ",
+        "cases_avg": 67.0,
+        "fatalities_avg": 22.0
+    },
+    {
+        "city_town": "Johnston",
+        "facility_name": "Briarcliffe Manor ",
+        "cases_avg": 117.0,
+        "fatalities_avg": 32.0
+    },
+    {
+        "city_town": "Tiverton",
+        "facility_name": "Brookdale Sakonnet Bay ",
+        "cases_avg": 22.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Wakefield",
+        "facility_name": "Brookdale South Bay ",
+        "cases_avg": 17.0,
+        "fatalities_avg": 7.0
+    },
+    {
+        "city_town": "Cranston",
+        "facility_name": "Cedar Crest ",
+        "cases_avg": 107.0,
+        "fatalities_avg": 12.0
+    },
+    {
+        "city_town": "Providence",
+        "facility_name": "Charlesgate Nursing Center ",
+        "cases_avg": 77.0,
+        "fatalities_avg": 17.0
+    },
+    {
+        "city_town": "Johnston",
+        "facility_name": "Cherry Hill Manor ",
+        "cases_avg": 122.0,
+        "fatalities_avg": 47.0
+    },
+    {
+        "city_town": "Cranston",
+        "facility_name": "Cra-Mar Meadows ",
+        "cases_avg": 27.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Warren",
+        "facility_name": "Crestwood Nursing & Rehab ",
+        "cases_avg": 42.0,
+        "fatalities_avg": 12.0
+    },
+    {
+        "city_town": "Burrillville",
+        "facility_name": "Crystal Lake Rehabilitation & Care Center ",
+        "cases_avg": 42.0,
+        "fatalities_avg": 17.0
+    },
+    {
+        "city_town": "East Providence",
+        "facility_name": "Eastgate Nursing & Rehab ",
+        "cases_avg": 52.0,
+        "fatalities_avg": 12.0
+    },
+    {
+        "city_town": "East Providence",
+        "facility_name": "Elderwood at Riverside ",
+        "cases_avg": 22.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "South Kingstown",
+        "facility_name": "Elderwood of Scallop Shell ",
+        "cases_avg": 7.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Providence",
+        "facility_name": "Elmhurst Healthcare Center ",
+        "cases_avg": 187.0,
+        "fatalities_avg": 52.0
+    },
+    {
+        "city_town": "Providence",
+        "facility_name": "Elmwood Nursing and Rehab Center ",
+        "cases_avg": 47.0,
+        "fatalities_avg": 7.0
+    },
+    {
+        "city_town": "East Providence",
+        "facility_name": "Evergreen House Health Center ",
+        "cases_avg": 137.0,
+        "fatalities_avg": 22.0
+    },
+    {
+        "city_town": "Woonsocket",
+        "facility_name": "Friendly Home ",
+        "cases_avg": 92.0,
+        "fatalities_avg": 27.0
+    },
+    {
+        "city_town": "North Providence",
+        "facility_name": "Golden Crest ",
+        "cases_avg": 107.0,
+        "fatalities_avg": 37.0
+    },
+    {
+        "city_town": "Warren",
+        "facility_name": "Grace Barker Nursing Home ",
+        "cases_avg": 62.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Middletown",
+        "facility_name": "Grand Islander ",
+        "cases_avg": 3.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Cumberland",
+        "facility_name": "Grandview Center ",
+        "cases_avg": 67.0,
+        "fatalities_avg": 12.0
+    },
+    {
+        "city_town": "Greenville",
+        "facility_name": "Greenville Skilled Nursing & Rehabilitation ",
+        "cases_avg": 77.0,
+        "fatalities_avg": 22.0
+    },
+    {
+        "city_town": "Warwick",
+        "facility_name": "Greenwood Center ",
+        "cases_avg": 82.0,
+        "fatalities_avg": 7.0
+    },
+    {
+        "city_town": "Providence",
+        "facility_name": "Hallworth House ",
+        "cases_avg": 27.0,
+        "fatalities_avg": 12.0
+    },
+    {
+        "city_town": "Central Falls",
+        "facility_name": "Harris Health Care Center North ",
+        "cases_avg": 22.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "East Providence",
+        "facility_name": "Harris Health Center ",
+        "cases_avg": 27.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "East Providence",
+        "facility_name": "Hattie Ide Chaffee Home ",
+        "cases_avg": 22.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Newport",
+        "facility_name": "Heatherwood Rehab & Health Center ",
+        "cases_avg": 7.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Smithfield",
+        "facility_name": "Hebert Nursing Home ",
+        "cases_avg": 82.0,
+        "fatalities_avg": 7.0
+    },
+    {
+        "city_town": "Smithfield",
+        "facility_name": "Heritage Hills ",
+        "cases_avg": 72.0,
+        "fatalities_avg": 12.0
+    },
+    {
+        "city_town": "Manville",
+        "facility_name": "Holiday Retirement Home ",
+        "cases_avg": 132.0,
+        "fatalities_avg": 32.0
+    },
+    {
+        "city_town": "North Providence",
+        "facility_name": "Hopkins Manor ",
+        "cases_avg": 112.0,
+        "fatalities_avg": 22.0
+    },
+    {
+        "city_town": "Pawtucket",
+        "facility_name": "Jeanne Jugan Residence ",
+        "cases_avg": 17.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Warwick",
+        "facility_name": "Kent Regency ",
+        "cases_avg": 42.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "West Kingston",
+        "facility_name": "Kingston Center for Rehab & Nursing ",
+        "cases_avg": 42.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "East Providence",
+        "facility_name": "Linn Health & Rehab Center ",
+        "cases_avg": 42.0,
+        "fatalities_avg": 17.0
+    },
+    {
+        "city_town": "Central Falls",
+        "facility_name": "Mansion Center ",
+        "cases_avg": 52.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Johnston",
+        "facility_name": "Morgan Health Center Nursing and Rehab ",
+        "cases_avg": 77.0,
+        "fatalities_avg": 22.0
+    },
+    {
+        "city_town": "Cumberland",
+        "facility_name": "Mount St. Rita ",
+        "cases_avg": 82.0,
+        "fatalities_avg": 22.0
+    },
+    {
+        "city_town": "Pawtucket",
+        "facility_name": "Oak Hill Health Center ",
+        "cases_avg": 117.0,
+        "fatalities_avg": 27.0
+    },
+    {
+        "city_town": "Woonsocket",
+        "facility_name": "Oakland Grove Health Center ",
+        "cases_avg": 127.0,
+        "fatalities_avg": 32.0
+    },
+    {
+        "city_town": "East Providence",
+        "facility_name": "Orchard View Manor ",
+        "cases_avg": 162.0,
+        "fatalities_avg": 52.0
+    },
+    {
+        "city_town": "Pascoag",
+        "facility_name": "Overlook Nursing and Rehab Center ",
+        "cases_avg": 77.0,
+        "fatalities_avg": 17.0
+    },
+    {
+        "city_town": "Pawtucket",
+        "facility_name": "Pawtucket Skilled Nursing & Rehab ",
+        "cases_avg": 47.0,
+        "fatalities_avg": 7.0
+    },
+    {
+        "city_town": "Coventry",
+        "facility_name": "Respiratory and Rehabilitation Center of RI ",
+        "cases_avg": 27.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Bristol",
+        "facility_name": "Rhode Island Veterans Home ",
+        "cases_avg": 32.0,
+        "fatalities_avg": 7.0
+    },
+    {
+        "city_town": "Coventry",
+        "facility_name": "Riverview Healthcare Community ",
+        "cases_avg": 137.0,
+        "fatalities_avg": 22.0
+    },
+    {
+        "city_town": "North Kingstown",
+        "facility_name": "Roberts Health Center ",
+        "cases_avg": 57.0,
+        "fatalities_avg": 7.0
+    },
+    {
+        "city_town": "Middletown",
+        "facility_name": "Royal Middletown Nursing Center ",
+        "cases_avg": 3.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Westerly",
+        "facility_name": "Royal of Westerly Nursing Center ",
+        "cases_avg": 12.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "North Smithfield",
+        "facility_name": "Saint Antoine Residence ",
+        "cases_avg": 112.0,
+        "fatalities_avg": 32.0
+    },
+    {
+        "city_town": "East Greenwich",
+        "facility_name": "Saint Elizabeth Home ",
+        "cases_avg": 7.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Bristol",
+        "facility_name": "Saint Elizabeth Manor East Bay ",
+        "cases_avg": 72.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "North Kingstown",
+        "facility_name": "Scalabrini Villa ",
+        "cases_avg": 72.0,
+        "fatalities_avg": 22.0
+    },
+    {
+        "city_town": "Cranston",
+        "facility_name": "Scandinavian Home Nursing ",
+        "cases_avg": 37.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Bristol",
+        "facility_name": "Silver Creek Manor ",
+        "cases_avg": 97.0,
+        "fatalities_avg": 22.0
+    },
+    {
+        "city_town": "North Kingstown",
+        "facility_name": "South County Nursing Center ",
+        "cases_avg": 87.0,
+        "fatalities_avg": 27.0
+    },
+    {
+        "city_town": "West Kingston",
+        "facility_name": "South Kingstown Center ",
+        "cases_avg": 22.0,
+        "fatalities_avg": 7.0
+    },
+    {
+        "city_town": "Providence",
+        "facility_name": "Steere House Nursing and Rehab ",
+        "cases_avg": 92.0,
+        "fatalities_avg": 32.0
+    },
+    {
+        "city_town": "Greenville",
+        "facility_name": "Stillwater Skilled Nursing ",
+        "cases_avg": 67.0,
+        "fatalities_avg": 22.0
+    },
+    {
+        "city_town": "Providence",
+        "facility_name": "Summit Commons ",
+        "cases_avg": 112.0,
+        "fatalities_avg": 32.0
+    },
+    {
+        "city_town": "Warwick",
+        "facility_name": "Sunny View Nursing Home ",
+        "cases_avg": 22.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Providence",
+        "facility_name": "Tavares Pediatric Center ",
+        "cases_avg": 7.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "East Providence",
+        "facility_name": "Tockwotton On The Waterfront Nursing ",
+        "cases_avg": 12.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": null,
+        "facility_name": "Total",
+        "cases_avg": 5032.0,
+        "fatalities_avg": 1122.0
+    },
+    {
+        "city_town": "Woonsocket",
+        "facility_name": "Trinity Health Center ",
+        "cases_avg": 147.0,
+        "fatalities_avg": 17.0
+    },
+    {
+        "city_town": "Newport",
+        "facility_name": "Village House Nursing and Rehab ",
+        "cases_avg": 7.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Warren",
+        "facility_name": "Warren Skilled Nursing And Rehab ",
+        "cases_avg": 12.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "East Providence",
+        "facility_name": "Waterview Villa ",
+        "cases_avg": 77.0,
+        "fatalities_avg": 12.0
+    },
+    {
+        "city_town": "Warwick",
+        "facility_name": "West Shore Health Center ",
+        "cases_avg": 112.0,
+        "fatalities_avg": 47.0
+    },
+    {
+        "city_town": "West Warwick",
+        "facility_name": "West View Nursing Center ",
+        "cases_avg": 87.0,
+        "fatalities_avg": 17.0
+    },
+    {
+        "city_town": "Westerly",
+        "facility_name": "Westerly Health Center ",
+        "cases_avg": 3.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Greene",
+        "facility_name": "Woodpecker Hill Health Center ",
+        "cases_avg": 17.0,
+        "fatalities_avg": 0.0
+    },
+    {
+        "city_town": "Woonsocket",
+        "facility_name": "Woonsocket Health Center ",
+        "cases_avg": 92.0,
+        "fatalities_avg": 22.0
+    }
+]
