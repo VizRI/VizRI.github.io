@@ -1,0 +1,34 @@
+{
+    "in-person": [
+        {
+            "id": "in-person-student-total",
+            "name": "Est. Total Student Cases",
+            "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=264100583\">RIDOH Trends Sheet</a>",
+            "source_detail": "\"Total deaths\"",
+            "source_desc": "Shows the total number of new reported deaths between the 2 most recent reported dates by RIDOH."
+        },
+        {
+            "id": "in-person-staff-total",
+            "name": "Est. Total Staff Cases",
+            "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=264100583\">RIDOH Trends Sheet</a>",
+            "source_detail": "\"Total deaths\"",
+            "source_desc": "Shows the total number of new reported deaths between the 2 most recent reported dates by RIDOH."
+        }
+    ],
+    "virtual": [
+        {
+            "id": "virtual-student-total",
+            "name": "Est. Total Student Cases",
+            "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=264100583\">RIDOH Trends Sheet</a>",
+            "source_detail": "\"Total deaths\"",
+            "source_desc": "Shows the total number of new reported deaths between the 2 most recent reported dates by RIDOH."
+        },
+        {
+            "id": "virtual-staff-total",
+            "name": "Est. Total Staff Cases",
+            "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=264100583\">RIDOH Trends Sheet</a>",
+            "source_detail": "\"Total deaths\"",
+            "source_desc": "Shows the total number of new reported deaths between the 2 most recent reported dates by RIDOH."
+        }
+    ]
+}

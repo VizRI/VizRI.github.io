@@ -120,30 +120,97 @@
     }
 </script>    
 <div class="col p-3">
-    <div class='mt-4 mb-4'>
-        <div class='btn-toolbar pull-right'>
-          <div class='btn-group'>
-            <button type='button'
-            onclick="showModal(this)"
-            class='btn btn-outline-info'
-            data-toggle="modal" 
-            data-title="Hospital: Intensive Care"
-            data-src="<a href='https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937'>RIDOH Trends Sheet</a>"
-            data-details='"Currently in ICU"'
-            data-desc="Shows the total number of people currently in intensive care as a blue bar. The orange line is the 7-day moving average of people in an icu bed."
-            data-target="#daily-update-src">Source</button>
-          </div>
-        </div>
-        <h2>Hospital: Intensive Care</h2>
-    </div>
-    <div class="row">
-        <div class="col-xl-12 chart-container">
-            <div class="card mb-4">
-                <div class="card-body p-0">
-                    <img src="https://raw.githubusercontent.com/SmirkyGraphs/ri-covid19-updates/master/figures/hospital_icu_daily_ma.png" class="img-fluid" alt="Responsive image">
+    <h2 class="mt-4 mb-4">In Person</h2>
+    <div class="m-stats-cards row">
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Est. Total Student Cases"
+                        data-src="&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=264100583&#34;&gt;RIDOH Trends Sheet&lt;/a&gt;"
+                        data-details="&#34;Total deaths&#34;"
+                        data-desc="Shows the total number of new reported deaths between the 2 most recent reported dates by RIDOH."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Est. Total Student Cases</h5>
+                <div>
+                    <span class="card-title h1 mb-0">3,582</span>
+                    <span class="diff font-weight-bold mb-0">( +165 )</span>
                 </div>
             </div>
         </div>
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Est. Total Staff Cases"
+                        data-src="&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=264100583&#34;&gt;RIDOH Trends Sheet&lt;/a&gt;"
+                        data-details="&#34;Total deaths&#34;"
+                        data-desc="Shows the total number of new reported deaths between the 2 most recent reported dates by RIDOH."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Est. Total Staff Cases</h5>
+                <div>
+                    <span class="card-title h1 mb-0">1,797</span>
+                    <span class="diff font-weight-bold mb-0">( +95 )</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <h2 class="mt-4 mb-4">Virtual</h2>
+    <div class="m-stats-cards row">
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Est. Total Student Cases"
+                        data-src="&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=264100583&#34;&gt;RIDOH Trends Sheet&lt;/a&gt;"
+                        data-details="&#34;Total deaths&#34;"
+                        data-desc="Shows the total number of new reported deaths between the 2 most recent reported dates by RIDOH."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Est. Total Student Cases</h5>
+                <div>
+                    <span class="card-title h1 mb-0">3,922</span>
+                    <span class="diff font-weight-bold mb-0">( +545 )</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Est. Total Staff Cases"
+                        data-src="&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=264100583&#34;&gt;RIDOH Trends Sheet&lt;/a&gt;"
+                        data-details="&#34;Total deaths&#34;"
+                        data-desc="Shows the total number of new reported deaths between the 2 most recent reported dates by RIDOH."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Est. Total Staff Cases</h5>
+                <div>
+                    <span class="card-title h1 mb-0">357</span>
+                    <span class="diff font-weight-bold mb-0">( +45 )</span>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
 
