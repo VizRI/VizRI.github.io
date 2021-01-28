@@ -51,6 +51,13 @@ $(document).ready(function () {
             { data: "cases_avg", className: "text-right" },
             { data: "fatalities_avg", className: "text-right" }
         ]
-    });    
+    });   
+    
+    $("#myTable").DataTable({
+        "searching": false,
+        "paging": false,
+        "info": false
+    });
     
 });
+
