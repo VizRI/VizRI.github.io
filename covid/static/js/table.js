@@ -53,10 +53,15 @@ $(document).ready(function () {
         ]
     });   
     
-    $("#myTable").DataTable({
+    $("#schoolsTable").DataTable({
         "searching": false,
         "paging": false,
-        "info": false
+        "info": false,
+        columns: [
+            { data: "school" },    
+            { data: "cases", className: "text-right" },
+            { data: "new-cases", className: "text-right" }
+        ]
     });
     
 });
