@@ -29,6 +29,13 @@
             "source_desc": "Shows a count of how many in-person/hybrid schools have \"Fewer than five\" or 0 staff cases. The number to the right in parentheses is the change from the prior week."
         },
         {
+            "id": "in-person-new-schools",
+            "name": "New Schools",
+            "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=594871904\">RIDOH Cases by School/Style Sheet</a>",
+            "source_detail": "\"School\"",
+            "source_desc": "Shows the total count of new schools that appeared in this weeks table that didn't exist. For a full list of the new schools follow <a href=\"https://ivizri.com/covid/schools/new-schools\">this link</a>"
+        },
+        {
             "id": "in-person-total-schools",
             "name": "Total Schools",
             "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=594871904\">RIDOH Cases by School/Style Sheet</a>",
@@ -78,6 +85,13 @@
             "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=594871904\">RIDOH Cases by School/Style Sheet</a>",
             "source_detail": "\"School\"<br>\"Cumulative Staff Cases\"",
             "source_desc": "Shows a count of how many virtual schools have \"Fewer than five\" or 0 staff cases. The number to the right in parentheses is the change from the prior week."
+        },
+        {
+            "id": "virtual-new-schools",
+            "name": "New Schools",
+            "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=594871904\">RIDOH Cases by School/Style Sheet</a>",
+            "source_detail": "\"School\"",
+            "source_desc": "Shows the total count of new virtual schools that appeared in this weeks table that didn't exist. For a full list of the new schools follow <a href=\"https://ivizri.com/covid/schools/new-schools\">this link</a>"
         },
         {
             "id": "virtual-total-schools",

@@ -102,82 +102,89 @@
 </div>
         </div>
         
-<!-- Modal -->
-<div class="modal fade" id="daily-update-src" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">""</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right mb-0">Source:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalSource" class="mb-0"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right">Columns:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalDetails" class="mb-0">""</p>
-                    </div>
-                </div>
-                <hr class="m-1">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right">Description:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalDesc" class="mb-0">""</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function showModal(m) {
-        document.getElementById("modalTitle").innerHTML = m.getAttribute("data-title");
-        document.getElementById("modalSource").innerHTML = m.getAttribute("data-src");
-        document.getElementById("modalDetails").innerHTML = m.getAttribute("data-details");
-        document.getElementById("modalDesc").innerHTML = m.getAttribute("data-desc");
-    }
-</script>    
 <div class="col p-3">
-    <div class='mt-4 mb-4'>
-        <div class='btn-toolbar pull-right'>
-          <div class='btn-group'>
-            <button type='button'
-            onclick="showModal(this)"
-            class='btn btn-outline-info'
-            data-toggle="modal" 
-            data-title="Daily Positive Labs"
-            data-src="<a href='https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937'>RIDOH Trends Sheet</a>"
-            data-details='"Daily number of positive tests (may count people more than once)"'
-            data-desc="Shows the total number of daily positive labs as a blue bar. The orange line is the 7-day moving average of positive labs."
-            data-target="#daily-update-src">Source</button>
-          </div>
-        </div>
-        <h2>Daily Positive Labs</h2>
+    <h2 class="mt-4 mb-4">Staff - Virtual Cases</h2>
+    <div>
+        <p class="float-left mb-0">Source for table & details shown <a href="#source">below</a>.</p>
+        <p class="float-right mb-0"><small>last updated: </small>1/27/2021</h3>
     </div>
-    <div class="row">
-        <div class="col-xl-12 chart-container">
-            <div class="card mb-4">
-                <div class="card-body p-0">
-                    <img src="https://raw.githubusercontent.com/SmirkyGraphs/ri-covid19-updates/master/figures/test_daily_positive.png" class="img-fluid" alt="Responsive image">
-                </div>
-            </div>
-        </div>
-    </div>
+    <table id="schoolsTable" class="table table-striped mb-2">
+        <thead>
+            <tr>
+                
+                <th>School</th>
+                
+                <th>Staff Cases</th>
+                
+                <th>New Staff Cases</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+    <tr>
+      <td>Charles E. Shea High School</td>
+      <td>7</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Coventry High School</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Cranston High School East</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>East Providence High School</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Hugh B. Bain Middle School</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>John F. Deering Middle School</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Joseph Jenks Middle School</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Pothier-Citizens Elementary Campus</td>
+      <td>7</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>The Learning Community Charter School</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>West Warwick Senior High School</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Woonsocket High School</td>
+      <td>7</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+    </table>
+    <p id="source">        
+        Note: All schools with "fewer than 5" or 0 cumulative cases are excluded from the table shown above. 
+        Values shown are the average between the "low to high" values in the RIDOH sheet (example, 5 to 9 = 7). 
+        The "New Cases" is the difference between last weeks average and this weeks average with "fewer than 5" replaced with 0's. 
+        You may click the columns to choose your sorting method. Data source used is the
+        <a href="https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=594871904">RIDOH Cases by School/Style Sheet</a>.
+    </p>
 </div>
 
     </div>

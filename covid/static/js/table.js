@@ -57,12 +57,13 @@ $(document).ready(function () {
         "searching": false,
         "paging": false,
         "info": false,
+        "order": [[ 1, "desc" ]],
         columns: [
             { data: "school" },    
             { data: "cases", className: "text-right" },
             { data: "new-cases", className: "text-right" }
-        ]
+        ],
     });
-    
+   
 });
 

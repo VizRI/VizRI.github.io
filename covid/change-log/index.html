@@ -102,83 +102,36 @@
 </div>
         </div>
         
-<!-- Modal -->
-<div class="modal fade" id="daily-update-src" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">""</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right mb-0">Source:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalSource" class="mb-0"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right">Columns:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalDetails" class="mb-0">""</p>
-                    </div>
-                </div>
-                <hr class="m-1">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right">Description:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalDesc" class="mb-0">""</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="col-md-6 offset-1 p-3">
+    <h2 class="mt-4 mb-4">Change Log</h2>
+    <p>All notable changes to this project will be documented here.</p>
+    <hr>
+    <div>
+        <h4 class="mt-4 mb-4">2021-02-01 - Schools Update</h4>
+        <h5 class="mt-4">Added</h5>
+        <ul>
+            <li><a href="/covid/schools/">Schools weekly update</a> page highlighting cases & number of schools with under 5 cases.</li>
+            <li>Tables for student and staff cases in in-person/hybrid schools.</li>
+            <li>Tables for student and staff cases in virtual schools.</li>
+        </ul>
+        <h5 class="mt-4">Changes</h5>
+        <ul>
+            <li>Daily update sources to be more uniform with the naming of values.</li>
+            <li>Added column names from RIDOH sheet to sources information modals.</li>
+        </ul>
+        <hr>
+        <h4 class="mt-4 mb-4">2021-01-13 - Project Release</h4>
+        <h5 class="mt-4">Added</h5>
+        <ul>
+            <li>Daily update page tracking important information & deaths.</li>
+            <li>Current totals page tracking totals for various metrics.</li>
+            <li>Deaths graphs showing daily deaths and change overtime.</li>
+            <li>Testing graphs showing positive cases since March 2020.</li>
+            <li>Hospitalized graphs showing admissions and icu/vent numbers.</li>
+        </ul>
     </div>
 </div>
 
-<script>
-    function showModal(m) {
-        document.getElementById("modalTitle").innerHTML = m.getAttribute("data-title");
-        document.getElementById("modalSource").innerHTML = m.getAttribute("data-src");
-        document.getElementById("modalDetails").innerHTML = m.getAttribute("data-details");
-        document.getElementById("modalDesc").innerHTML = m.getAttribute("data-desc");
-    }
-</script>    
-<div class="col p-3">
-    <div class='mt-4 mb-4'>
-        <div class='btn-toolbar pull-right'>
-          <div class='btn-group'>
-            <button type='button'
-            onclick="showModal(this)"
-            class='btn btn-outline-info'
-            data-toggle="modal" 
-            data-title="Daily Positive Labs"
-            data-src="<a href='https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937'>RIDOH Trends Sheet</a>"
-            data-details='"Daily number of positive tests (may count people more than once)"'
-            data-desc="Shows the total number of daily positive labs as a blue bar. The orange line is the 7-day moving average of positive labs."
-            data-target="#daily-update-src">Source</button>
-          </div>
-        </div>
-        <h2>Daily Positive Labs</h2>
-    </div>
-    <div class="row">
-        <div class="col-xl-12 chart-container">
-            <div class="card mb-4">
-                <div class="card-body p-0">
-                    <img src="https://raw.githubusercontent.com/SmirkyGraphs/ri-covid19-updates/master/figures/test_daily_positive.png" class="img-fluid" alt="Responsive image">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
     </div>
 </div>

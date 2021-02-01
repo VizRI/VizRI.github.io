@@ -142,6 +142,11 @@ a[data-toggle=collapse] {
     text-indent: 10%;
 }
 
+.sub-item2 {
+    font-size: 0.8rem;
+    text-indent: 20%;
+}
+
 .card {
     background-color: #e0e0e05d !important;
     border-radius: 0 !important;
@@ -207,4 +212,20 @@ a[data-toggle=collapse] {
 
 .text-side {
     color: #333333 !important;
+}
+
+.last-updated {
+    font-size: 1.2rem;
+    text-align: right;
+}
+
+small{
+    font-size:.8rem;
+    padding-right:5px;
+    font-weight:500;
+}
+
+.table-sub-head {
+    font-size:.8rem;
+    font-weight:500;
 }
