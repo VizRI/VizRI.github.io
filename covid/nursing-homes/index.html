@@ -51,6 +51,7 @@
                 </ul>
             </li>
         </ul>
+        
 
         <ul class="list-unstyled components mb-3">
             <li>
@@ -95,7 +96,7 @@
             <li><a href="/covid/change-log/">Change Log</a></li>
         </ul>
         <ul class="list-unstyled components mb-5">
-            <div class="small text-side">Updated: 2/11/2021</div>
+            <div class="small text-side">Updated: 2/12/2021</div>
             <div class="small text-side">Designed by: SmirkyGraphs</div>
         </ul>
     </div>
@@ -165,7 +166,7 @@
                         data-title="Res. Covid Deaths"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
                         data-details="&#34;residents_total_covid_19&#34;&lt;br&gt;&#34;residents_weekly_covid_19&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior reported total deaths."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -186,7 +187,7 @@
                         data-title="Res. Covid Cases"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
                         data-details="&#34;residents_total_confirmed&#34;&lt;br&gt;&#34;residents_weekly_confirmed&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-desc="Number of residents with suspected or laboratory positive COVID-19 as reported by the provider. The number to the right in parentheses is the increase from the prior reported total cases."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -207,7 +208,7 @@
                         data-title="Staff Covid Deaths"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
                         data-details="&#34;staff_total_covid_19_deaths&#34;&lt;br&gt;&#34;staff_weekly_covid_19_deaths&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-desc="Staff and facility personnel with suspected or laboratory positive COVID-19 who died as reported by the provider. The number to the right in parentheses is the increase from the prior weeks total deaths."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -228,7 +229,7 @@
                         data-title="Staff Covid Cases"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
                         data-details="&#34;staff_total_confirmed_covid&#34;&lt;br&gt;&#34;staff_weekly_confirmed_covid&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-desc="Number of staff and facility personnel with laboratory positive COVID-19 as reported by the provider. The number to the right in parentheses is the increase from the prior weeks total cases."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -248,8 +249,8 @@
                         data-toggle="modal" 
                         data-title="Short Nursing Staff"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
-                        data-details="&#34;shortage_of_nursing_staff&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-details="&#34;provider_name&#34;&lt;br&gt;&#34;shortage_of_nursing_staff&#34;"
+                        data-desc="Percent of nursing homes that indicated staffing shortage of Nursing Staff: registered nurse, licensed practical nurse, vocational nurse as reported by the provider."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -269,8 +270,8 @@
                         data-toggle="modal" 
                         data-title="Short Clinical Staff"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
-                        data-details="&#34;shortage_of_clinical_staff&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-details="&#34;provider_name&#34;&lt;br&gt;&#34;shortage_of_clinical_staff&#34;"
+                        data-desc="Percent of nursing homes that indicated staffing shortage of Clinical Staff: physician, physician assistant, advanced practice nurse as reported by the provider."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -290,8 +291,8 @@
                         data-toggle="modal" 
                         data-title="Short Aides"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
-                        data-details="&#34;shortage_of_aides&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-details="&#34;provider_name&#34;&lt;br&gt;&#34;shortage_of_aides&#34;"
+                        data-desc="Percent of nursing homes that indicated staffing shortage of Aides: certified nursing assistant, nurse aide, medication aide, and medication technician as reported by the provider."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -311,8 +312,8 @@
                         data-toggle="modal" 
                         data-title="Short Other Staff"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
-                        data-details="&#34;shortage_of_other_staff&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-details="&#34;provider_name&#34;&lt;br&gt;&#34;shortage_of_other_staff&#34;"
+                        data-desc="Percent of nursing homes that indicated staffing shortage of Other staff or facility personnel, regardless of clinical responsibility or resident contact not included in the categories above (for example, environmental services) as reported by the provider."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -336,8 +337,8 @@
                         data-toggle="modal" 
                         data-title="N95 Masks"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
-                        data-details="&#34;one_week_supply_of_n95_masks&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-details="&#34;provider_name&#34;&lt;br&gt;&#34;one_week_supply_of_n95_masks&#34;"
+                        data-desc="Percent of nursing homes facilities that do not have enough supply of N95 masks for one week as reported by the provider."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -357,8 +358,8 @@
                         data-toggle="modal" 
                         data-title="Surgical Masks"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
-                        data-details="&#34;one_week_supply_of_surgical&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-details="&#34;provider_name&#34;&lt;br&gt;&#34;one_week_supply_of_surgical&#34;"
+                        data-desc="Percent of nursing homes facilities that do not have enough supply of surgical masks for one week as reported by the provider."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -378,8 +379,8 @@
                         data-toggle="modal" 
                         data-title="Eye Protection"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
-                        data-details="&#34;one_week_supply_of_eye&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-details="&#34;provider_name&#34;&lt;br&gt;&#34;one_week_supply_of_eye&#34;"
+                        data-desc="Percent of nursing homes facilities that do not have enough of eye protection, including face shields and goggles, for one week as reported by the provider."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -399,8 +400,8 @@
                         data-toggle="modal" 
                         data-title="Gowns"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
-                        data-details="&#34;one_week_supply_of_gowns&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-details="&#34;provider_name&#34;&lt;br&gt;&#34;one_week_supply_of_gowns&#34;"
+                        data-desc="Percent of nursing homes facilities that do not have enough of gowns for one week as reported by the provider."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -420,8 +421,8 @@
                         data-toggle="modal" 
                         data-title="Gloves"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
-                        data-details="&#34;one_week_supply_of_gloves&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-details="&#34;provider_name&#34;&lt;br&gt;&#34;one_week_supply_of_gloves&#34;"
+                        data-desc="Percent of nursing homes facilities that do not have enough of gloves for one week as reported by the provider."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>
@@ -441,8 +442,8 @@
                         data-toggle="modal" 
                         data-title="Hand Sanitizer"
                         data-src="&lt;a href=&#34;https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp&#34;&gt;CMS COVID-19 Nursing Home Dataset&lt;/a&gt;"
-                        data-details="&#34;one_week_supply_of_hand&#34;"
-                        data-desc="Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+                        data-details="&#34;provider_name&#34;&lt;br&gt;&#34;one_week_supply_of_hand&#34;"
+                        data-desc="Percent of nursing homes facilities that do not have enough of alcohol-based hand sanitizer for one week as reported by the provider."
                         data-target="#daily-update-src">
                     <i class="fa fa-info fa-lg"></i>
                 </button>

@@ -5,56 +5,56 @@
             "name": "Res. Covid Deaths",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
             "source_detail": "\"residents_total_covid_19\"<br>\"residents_weekly_covid_19\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior reported total deaths."
         },
         {
             "id": "resident-covid-cases",
             "name": "Res. Covid Cases",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
             "source_detail": "\"residents_total_confirmed\"<br>\"residents_weekly_confirmed\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 as reported by the provider. The number to the right in parentheses is the increase from the prior reported total cases."
         },
         {
             "id": "staff-covid-deaths",
             "name": "Staff Covid Deaths",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
             "source_detail": "\"staff_total_covid_19_deaths\"<br>\"staff_weekly_covid_19_deaths\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_desc": "Staff and facility personnel with suspected or laboratory positive COVID-19 who died as reported by the provider. The number to the right in parentheses is the increase from the prior weeks total deaths."
         },
         {
             "id": "staff-covid-cases",
             "name": "Staff Covid Cases",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
             "source_detail": "\"staff_total_confirmed_covid\"<br>\"staff_weekly_confirmed_covid\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_desc": "Number of staff and facility personnel with laboratory positive COVID-19 as reported by the provider. The number to the right in parentheses is the increase from the prior weeks total cases."
         },
         {
             "id": "nursing-shortage",
             "name": "Short Nursing Staff",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
-            "source_detail": "\"shortage_of_nursing_staff\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_detail": "\"provider_name\"<br>\"shortage_of_nursing_staff\"",
+            "source_desc": "Percent of nursing homes that indicated staffing shortage of Nursing Staff: registered nurse, licensed practical nurse, vocational nurse as reported by the provider."
         },
         {
             "id": "clinical-shortage",
             "name": "Short Clinical Staff",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
-            "source_detail": "\"shortage_of_clinical_staff\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_detail": "\"provider_name\"<br>\"shortage_of_clinical_staff\"",
+            "source_desc": "Percent of nursing homes that indicated staffing shortage of Clinical Staff: physician, physician assistant, advanced practice nurse as reported by the provider."
         },
         {
             "id": "aides-shortage",
             "name": "Short Aides",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
-            "source_detail": "\"shortage_of_aides\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_detail": "\"provider_name\"<br>\"shortage_of_aides\"",
+            "source_desc": "Percent of nursing homes that indicated staffing shortage of Aides: certified nursing assistant, nurse aide, medication aide, and medication technician as reported by the provider."
         },
         {
             "id": "other-shortage",
             "name": "Short Other Staff",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
-            "source_detail": "\"shortage_of_other_staff\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_detail": "\"provider_name\"<br>\"shortage_of_other_staff\"",
+            "source_desc": "Percent of nursing homes that indicated staffing shortage of Other staff or facility personnel, regardless of clinical responsibility or resident contact not included in the categories above (for example, environmental services) as reported by the provider."
         }
     ],
     "ppe": [
@@ -62,43 +62,43 @@
             "id": "n95-shortage",
             "name": "N95 Masks",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
-            "source_detail": "\"one_week_supply_of_n95_masks\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_detail": "\"provider_name\"<br>\"one_week_supply_of_n95_masks\"",
+            "source_desc": "Percent of nursing homes facilities that do not have enough supply of N95 masks for one week as reported by the provider."
         },
         {
             "id": "surgical-shortage",
             "name": "Surgical Masks",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
-            "source_detail": "\"one_week_supply_of_surgical\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_detail": "\"provider_name\"<br>\"one_week_supply_of_surgical\"",
+            "source_desc": "Percent of nursing homes facilities that do not have enough supply of surgical masks for one week as reported by the provider."
         },
         {
             "id": "eye-shortage",
             "name": "Eye Protection",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
-            "source_detail": "\"one_week_supply_of_eye\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_detail": "\"provider_name\"<br>\"one_week_supply_of_eye\"",
+            "source_desc": "Percent of nursing homes facilities that do not have enough of eye protection, including face shields and goggles, for one week as reported by the provider."
         },
         {
             "id": "gowns-shortage",
             "name": "Gowns",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
-            "source_detail": "\"one_week_supply_of_gowns\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_detail": "\"provider_name\"<br>\"one_week_supply_of_gowns\"",
+            "source_desc": "Percent of nursing homes facilities that do not have enough of gowns for one week as reported by the provider."
         },
         {
             "id": "gloves-shortage",
             "name": "Gloves",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
-            "source_detail": "\"one_week_supply_of_gloves\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_detail": "\"provider_name\"<br>\"one_week_supply_of_gloves\"",
+            "source_desc": "Percent of nursing homes facilities that do not have enough of gloves for one week as reported by the provider."
         },
         {
             "id": "hand-shortage",
             "name": "Hand Sanitizer",
             "source": "<a href=\"https://data.cms.gov/Special-Programs-Initiatives-COVID-19-Nursing-Home/COVID-19-Nursing-Home-Dataset/s2uc-8wxp\">CMS COVID-19 Nursing Home Dataset</a>",
-            "source_detail": "\"one_week_supply_of_hand\"",
-            "source_desc": "Number of residents with suspected or laboratory positive COVID-19 who died in the facility or another location. The number to the right in parentheses is the increase from the prior weeks total deaths."
+            "source_detail": "\"provider_name\"<br>\"one_week_supply_of_hand\"",
+            "source_desc": "Percent of nursing homes facilities that do not have enough of alcohol-based hand sanitizer for one week as reported by the provider."
         }
     ]
 }

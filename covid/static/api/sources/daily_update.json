@@ -1,0 +1,65 @@
+[
+    {
+        "id": "daily-deaths",
+        "name": "New Deaths",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=264100583\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Total deaths\"",
+        "source_desc": "Shows the total number of new reported deaths between the 2 most recent reported dates by RIDOH."
+    },
+    {
+        "id": "daily-admissions",
+        "name": "Hospitalized",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Currently hospitalized\"",
+        "source_desc": "Shows the total number of people currently hospitalized. The smaller number to the right in parentheses is the change in total from the prior reported day."
+    },
+    {
+        "id": "daily-icu",
+        "name": "Intensive Care",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Currently in ICU\"",
+        "source_desc": "Shows the total number of people currently in intensive care. The smaller number to the right in parentheses is the change in total from the prior reported day."
+    },
+    {
+        "id": "daily-vent",
+        "name": "On Ventilator",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Currently vented\"",
+        "source_desc": "Shows the total number of people currently on a ventilator. The smaller number to the right in parentheses is the change in total from the prior reported day."
+    },
+    {
+        "id": "daily-positive-labs",
+        "name": "New Positive Labs",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Daily number of positive tests (may count people more than once)\"",
+        "source_desc": "Shows the total number of new positive labs between the 2 most recent reported dates by RIDOH."
+    },
+    {
+        "id": "daily-labs-pct",
+        "name": "% Positive Labs",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Daily number of positive tests (may count people more than once)\",<br>\"Daily number of negative tests (may count people more than once)\"",
+        "source_desc": "[new poisitve labs]/([new poisitve labs] + [new negative labs])<br>This number is the percent positive of all tests and includes people who have been tested multiple times."
+    },
+    {
+        "id": "daily-positive-people",
+        "name": "New People: Positive",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"New people who tested positive (counts first positive lab per person)\"",
+        "source_desc": "This is the number of people who had their first positive test result on this day. This number removes duplicates by person and only includes people based on the first date of their first positive test."
+    },
+    {
+        "id": "daily-people-pct",
+        "name": "% New Positive",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"New people who tested positive (counts first positive lab per person)\",<br>\"New people who have only tested negative (counts first negative lab per person)\"",
+        "source_desc": "[new poisitve people]/([new poisitve people] + [new negative people])<br>This excludes people who have been tested multiple times and shows the daily percent positive of people who were only tested for the first time."
+    },
+    {
+        "id": "percent-tested-new",
+        "name": "Test",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"New people who tested positive (counts first positive lab per person)\",<br>\"New people who have only tested negative (counts first negative lab per person)\"",
+        "source_desc": "[new poisitve people]/([new poisitve people] + [new negative people])"
+    }
+]

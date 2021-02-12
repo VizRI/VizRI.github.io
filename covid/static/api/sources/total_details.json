@@ -1,0 +1,44 @@
+[
+    {
+        "id": "total-labs",
+        "name": "Total Labs",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Cumulative total tests completed (may count people more than once)\"<br>\"Cumulative negative tests (may count people more than once)\"",
+        "source_desc": "Shows the total number of labs done throughout the state. The number below is the total number of labs that came back negative."
+    },
+    {
+        "id": "total-pos-labs",
+        "name": "Total Positive Labs",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Cumulative positive tests (may count people more than once)\"<br>\"Cumulative total tests completed (may count people more than once)\"",
+        "source_desc": "Shows the total number of labs that have had positive results. The number below shows the percent of all labs that had positive results."
+    },
+    {
+        "id": "total-people-tested",
+        "name": "Total People Tested",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Cumulative people tested (one count per person)\"<br>\"Cumulative people who have only tested negative (counts first negative lab per person)\"",
+        "source_desc": "Shows the total number of unique people who have been tested. The number below represents how many people have only tested negative."
+    },
+    {
+        "id": "total-people-positive",
+        "name": "Total People Positive",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Cumulative people who tested positive (counts first positive lab per person)\"<br>\"Cumulative people tested (one count per person)\"",
+        "source_desc": "Shows the total number of unique people who have tested positive. The number below shows the percent of all people tested who have had a positive results."
+    },
+    {
+        "id": "total-deaths",
+        "name": "Total Deaths",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Total deaths\"<br>\"Cumulative hospital discharges\"",
+        "source_desc": "Shows the total number of current deaths in Rhode Island. The number below shows how many of those occured inside a hospital."
+    },
+    {
+        "id": "total-hosp-admittied",
+        "name": "Total Hospital Admitted",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Cumulative hospital admissions\",<br>\"Cumulative hospital discharges\"",
+        "source_desc": "Shows the total number of people admitted and discharged from a hospital."
+    }
+]
