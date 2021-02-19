@@ -47,22 +47,79 @@ $(document).ready(function () {
         ],
     });   
 
-    $("#nursingHome").DataTable({
+    $("#nursingHomeCases").DataTable({
         "searching": false,
         "paging": false,
         "info": false,
         "filter":   false,
-        "order": [[ 0, "asc" ]],
+        "order": [[ 0, "desc" ]],
         columnDefs: [
-            { orderable: true, className: 'reorder', targets: 0 },
-            { orderable: false, targets: '_all' }
-        ],
-        columns: [
-            { data: "week-end", type: "date" },    
-            { data: "all-deaths", className: "text-right" },
-            { data: "covid-deaths", className: "text-right" },
-            { data: "pct-covid", className: "text-right" }
+            { targets: [ 0 ], className: "dt-head-left reorder", orderable: true, type: "date" },
+            { targets: [ 1, 2 ], className: "dt-head-right dt-body-right", orderable: false }
         ]
     });   
+
+    $("#nursingHomeDeaths").DataTable({
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "filter":   false,
+        "order": [[ 0, "desc" ]],
+        columnDefs: [
+            { targets: [ 0 ], className: "dt-head-left reorder", orderable: true, type: "date" },
+            { targets: [ 1, 2, 3 ], className: "dt-head-right dt-body-right", orderable: false }
+        ]
+    });   
+    $("#nursingHomePPE").DataTable({
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "filter":   false,
+        "order": [[ 0, "desc" ]],
+        columnDefs: [
+            { targets: [ 0 ], className: "dt-head-left reorder", orderable: true, type: "date" },
+            { targets: [ 1, 2, 3, 4, 5, 6, 7 ], className: "dt-head-right dt-body-right", orderable: false }
+        ]
+    });   
+    $("#nursingHomeProvDeaths").DataTable({
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [[ 1, "desc" ]],
+        columnDefs: [
+            { targets: [ 0 ], className: "dt-head-left reorder", orderable: true },
+            { targets: [ 1, 2, 3, 4 ], className: "dt-head-right dt-body-right", orderable: true }
+        ]
+    });   
+    $("#nursingHomeProvPPE").DataTable({
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [[ 7, "desc" ]],
+        columnDefs: [
+            { targets: [ 0 ], className: "dt-head-left reorder", orderable: true },
+            { targets: [ 1, 2, 3, 4, 5, 6, 7 ], className: "dt-head-right dt-body-right", orderable: true }
+        ]
+    });
+    $("#nursingHomeProvStaff").DataTable({
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [[ 5, "desc" ]],
+        columnDefs: [
+            { targets: [ 0 ], className: "dt-head-left reorder", orderable: true },
+            { targets: [ 1, 2, 3, 4, 5 ], className: "dt-head-right dt-body-right", orderable: true }
+        ]
+    });
+    $("#nursingHomeProvPct").DataTable({
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [[ 3, "desc" ]],
+        columnDefs: [
+            { targets: [ 0 ], className: "dt-head-left reorder", orderable: true },
+            { targets: [ 1, 2, 3 ], className: "dt-head-right dt-body-right", orderable: true }
+        ]
+    });
 });
 

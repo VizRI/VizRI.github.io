@@ -133,82 +133,266 @@
 </div>
         </div>
         
-<!-- Modal -->
-<div class="modal fade" id="daily-update-src" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">""</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right mb-0">Source:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalSource" class="mb-0"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right">Columns:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalDetails" class="mb-0">""</p>
-                    </div>
-                </div>
-                <hr class="m-1">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right">Description:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalDesc" class="mb-0">""</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function showModal(m) {
-        document.getElementById("modalTitle").innerHTML = m.getAttribute("data-title");
-        document.getElementById("modalSource").innerHTML = m.getAttribute("data-src");
-        document.getElementById("modalDetails").innerHTML = m.getAttribute("data-details");
-        document.getElementById("modalDesc").innerHTML = m.getAttribute("data-desc");
-    }
-</script>    
 <div class="col p-3">
-    <div class='mt-4 mb-4'>
-        <div class='btn-toolbar pull-right'>
-          <div class='btn-group'>
-            <button type='button'
-            onclick="showModal(this)"
-            class='btn btn-outline-info'
-            data-toggle="modal" 
-            data-title="Hospital: Intensive Care"
-            data-src="<a href='https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937'>RIDOH Trends Sheet</a>"
-            data-details='"Currently in ICU"'
-            data-desc="Shows the total number of people currently in intensive care as a blue bar. The orange line is the 7-day moving average of people in an icu bed."
-            data-target="#daily-update-src">Source</button>
-          </div>
-        </div>
-        <h2>Hospital: Intensive Care</h2>
+    <h2 class="mt-4 mb-4">Nursing Home Deaths</h2>
+    <div>
+        
+        <p class="float-left mb-0">Source for table & details shown <a href="#source">below</a>.</p>
+        
+        <p class="float-right mb-0"><small>last updated: </small>2/07/2021</h3>
     </div>
-    <div class="row">
-        <div class="col-xl-12 chart-container">
-            <div class="card mb-4">
-                <div class="card-body p-0">
-                    <img src="https://raw.githubusercontent.com/SmirkyGraphs/ri-covid19-updates/master/figures/hospital_icu_daily_ma.png" class="img-fluid" alt="Responsive image">
-                </div>
-            </div>
-        </div>
-    </div>
+    <table id="nursingHomeDeaths" class="table table-striped mb-2">
+        <thead>
+            <tr>
+                
+                <th>Week Ending</th>
+                
+                <th>All Deaths</th>
+                
+                <th>COVID-19 Deaths</th>
+                
+                <th>% COVID-19</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+    <tr>
+      <td>05/24/2020</td>
+      <td>608</td>
+      <td>362</td>
+      <td>59.5%</td>
+    </tr>
+    <tr>
+      <td>05/31/2020</td>
+      <td>721</td>
+      <td>438</td>
+      <td>60.7%</td>
+    </tr>
+    <tr>
+      <td>06/07/2020</td>
+      <td>787</td>
+      <td>478</td>
+      <td>60.7%</td>
+    </tr>
+    <tr>
+      <td>06/14/2020</td>
+      <td>846</td>
+      <td>495</td>
+      <td>58.5%</td>
+    </tr>
+    <tr>
+      <td>06/21/2020</td>
+      <td>885</td>
+      <td>516</td>
+      <td>58.3%</td>
+    </tr>
+    <tr>
+      <td>06/28/2020</td>
+      <td>944</td>
+      <td>529</td>
+      <td>56.0%</td>
+    </tr>
+    <tr>
+      <td>07/05/2020</td>
+      <td>980</td>
+      <td>540</td>
+      <td>55.1%</td>
+    </tr>
+    <tr>
+      <td>07/12/2020</td>
+      <td>1007</td>
+      <td>548</td>
+      <td>54.4%</td>
+    </tr>
+    <tr>
+      <td>07/19/2020</td>
+      <td>1032</td>
+      <td>555</td>
+      <td>53.8%</td>
+    </tr>
+    <tr>
+      <td>07/26/2020</td>
+      <td>1056</td>
+      <td>559</td>
+      <td>52.9%</td>
+    </tr>
+    <tr>
+      <td>08/02/2020</td>
+      <td>1088</td>
+      <td>561</td>
+      <td>51.6%</td>
+    </tr>
+    <tr>
+      <td>08/09/2020</td>
+      <td>1112</td>
+      <td>564</td>
+      <td>50.7%</td>
+    </tr>
+    <tr>
+      <td>08/16/2020</td>
+      <td>1152</td>
+      <td>568</td>
+      <td>49.3%</td>
+    </tr>
+    <tr>
+      <td>08/23/2020</td>
+      <td>1177</td>
+      <td>566</td>
+      <td>48.1%</td>
+    </tr>
+    <tr>
+      <td>08/30/2020</td>
+      <td>1211</td>
+      <td>570</td>
+      <td>47.1%</td>
+    </tr>
+    <tr>
+      <td>09/06/2020</td>
+      <td>1243</td>
+      <td>574</td>
+      <td>46.2%</td>
+    </tr>
+    <tr>
+      <td>09/13/2020</td>
+      <td>1282</td>
+      <td>577</td>
+      <td>45.0%</td>
+    </tr>
+    <tr>
+      <td>09/20/2020</td>
+      <td>1310</td>
+      <td>579</td>
+      <td>44.2%</td>
+    </tr>
+    <tr>
+      <td>09/27/2020</td>
+      <td>1344</td>
+      <td>587</td>
+      <td>43.7%</td>
+    </tr>
+    <tr>
+      <td>10/04/2020</td>
+      <td>1379</td>
+      <td>591</td>
+      <td>42.9%</td>
+    </tr>
+    <tr>
+      <td>10/11/2020</td>
+      <td>1410</td>
+      <td>598</td>
+      <td>42.4%</td>
+    </tr>
+    <tr>
+      <td>10/18/2020</td>
+      <td>1451</td>
+      <td>612</td>
+      <td>42.2%</td>
+    </tr>
+    <tr>
+      <td>10/25/2020</td>
+      <td>1496</td>
+      <td>618</td>
+      <td>41.3%</td>
+    </tr>
+    <tr>
+      <td>11/01/2020</td>
+      <td>1522</td>
+      <td>622</td>
+      <td>40.9%</td>
+    </tr>
+    <tr>
+      <td>11/08/2020</td>
+      <td>1561</td>
+      <td>630</td>
+      <td>40.4%</td>
+    </tr>
+    <tr>
+      <td>11/15/2020</td>
+      <td>1608</td>
+      <td>642</td>
+      <td>39.9%</td>
+    </tr>
+    <tr>
+      <td>11/22/2020</td>
+      <td>1674</td>
+      <td>667</td>
+      <td>39.8%</td>
+    </tr>
+    <tr>
+      <td>11/29/2020</td>
+      <td>1729</td>
+      <td>698</td>
+      <td>40.4%</td>
+    </tr>
+    <tr>
+      <td>12/06/2020</td>
+      <td>1803</td>
+      <td>729</td>
+      <td>40.4%</td>
+    </tr>
+    <tr>
+      <td>12/13/2020</td>
+      <td>1916</td>
+      <td>798</td>
+      <td>41.6%</td>
+    </tr>
+    <tr>
+      <td>12/20/2020</td>
+      <td>2005</td>
+      <td>857</td>
+      <td>42.7%</td>
+    </tr>
+    <tr>
+      <td>12/27/2020</td>
+      <td>2083</td>
+      <td>900</td>
+      <td>43.2%</td>
+    </tr>
+    <tr>
+      <td>01/03/2021</td>
+      <td>2138</td>
+      <td>923</td>
+      <td>43.2%</td>
+    </tr>
+    <tr>
+      <td>01/10/2021</td>
+      <td>2211</td>
+      <td>950</td>
+      <td>43.0%</td>
+    </tr>
+    <tr>
+      <td>01/17/2021</td>
+      <td>2285</td>
+      <td>983</td>
+      <td>43.0%</td>
+    </tr>
+    <tr>
+      <td>01/24/2021</td>
+      <td>2343</td>
+      <td>1009</td>
+      <td>43.1%</td>
+    </tr>
+    <tr>
+      <td>01/31/2021</td>
+      <td>2390</td>
+      <td>1026</td>
+      <td>42.9%</td>
+    </tr>
+    <tr>
+      <td>02/07/2021</td>
+      <td>2432</td>
+      <td>1040</td>
+      <td>42.8%</td>
+    </tr>
+  </tbody>
+    </table>
+    <p id="source">
+        The Nursing Home COVID-19 Public File includes data reported by nursing homes to the CDC’s 
+        National Healthcare Safety Network (NHSN) system COVID-19 Long Term Care Facility Module, including Resident 
+        Impact, Facility Capacity, Staff & Personnel, and Supplies & Personal Protective Equipment, and Ventilator Capacity 
+        and Supplies Data Elements. Data source used is provided by Centers for Medicare & Medicaid Services: 
+        <a href="https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=594871904">CMS.gov</a>.
+    </p>
 </div>
 
     </div>

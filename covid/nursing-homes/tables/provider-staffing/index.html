@@ -133,82 +133,178 @@
 </div>
         </div>
         
-<!-- Modal -->
-<div class="modal fade" id="daily-update-src" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">""</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right mb-0">Source:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalSource" class="mb-0"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right">Columns:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalDetails" class="mb-0">""</p>
-                    </div>
-                </div>
-                <hr class="m-1">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right">Description:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalDesc" class="mb-0">""</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function showModal(m) {
-        document.getElementById("modalTitle").innerHTML = m.getAttribute("data-title");
-        document.getElementById("modalSource").innerHTML = m.getAttribute("data-src");
-        document.getElementById("modalDetails").innerHTML = m.getAttribute("data-details");
-        document.getElementById("modalDesc").innerHTML = m.getAttribute("data-desc");
-    }
-</script>    
 <div class="col p-3">
-    <div class='mt-4 mb-4'>
-        <div class='btn-toolbar pull-right'>
-          <div class='btn-group'>
-            <button type='button'
-            onclick="showModal(this)"
-            class='btn btn-outline-info'
-            data-toggle="modal" 
-            data-title="Hospital: Intensive Care"
-            data-src="<a href='https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937'>RIDOH Trends Sheet</a>"
-            data-details='"Currently in ICU"'
-            data-desc="Shows the total number of people currently in intensive care as a blue bar. The orange line is the 7-day moving average of people in an icu bed."
-            data-target="#daily-update-src">Source</button>
-          </div>
-        </div>
-        <h2>Hospital: Intensive Care</h2>
+    <h2 class="mt-4 mb-4">Staffing Shortage</h2>
+    <div>
+        
+        <p class="float-left mb-0">Source for table & details shown <a href="#source">below</a>.</p>
+        
+        <p class="float-right mb-0"><small>last updated: </small>2/07/2021</h3>
     </div>
-    <div class="row">
-        <div class="col-xl-12 chart-container">
-            <div class="card mb-4">
-                <div class="card-body p-0">
-                    <img src="https://raw.githubusercontent.com/SmirkyGraphs/ri-covid19-updates/master/figures/hospital_icu_daily_ma.png" class="img-fluid" alt="Responsive image">
-                </div>
-            </div>
-        </div>
-    </div>
+    <table id="nursingHomeProvStaff" class="table table-striped mb-2">
+        <thead>
+            <tr>
+                
+                <th>Provider</th>
+                
+                <th>Nursing Staff</th>
+                
+                <th>Clinical Staff</th>
+                
+                <th>Aides</th>
+                
+                <th>Other Staff</th>
+                
+                <th>Total Roles Short</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+    <tr>
+      <td>APPLE REHAB CLIPPER</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>BALLOULIFE COMMUNITIES</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>BAYBERRY COMMONS</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>CRA-MAR MEADOWS</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>CRYSTAL LAKE REHABILITATION AND CARE CENTER</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>ELMHURST REHABILITATION &amp; HEALTHCARE CENTER</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>EVERGREEN HOUSE HEALTH CENTER</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>HATTIE IDE CHAFFEE HOME</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>HEBERT NURSING HOME</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>JEANNE JUGAN RESIDENCE</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>KINGSTON CENTER FOR REHABILITATION AND HEALTH CARE</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>MOUNT ST RITA HEALTH CENTRE</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>OAK HILL HEALTH &amp; REHABILITATION CENTER</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>ROBERTS HEALTH CENTRE INC</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>SCALABRINI VILLA</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>TRINITY HEALTH AND REHABILITATION CENTER</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>WEST VIEW NURSING AND REHABILIATION CENTER</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+    </table>
+    <p id="source">
+        The Nursing Home COVID-19 Public File includes data reported by nursing homes to the CDC’s 
+        National Healthcare Safety Network (NHSN) system COVID-19 Long Term Care Facility Module, including Resident 
+        Impact, Facility Capacity, Staff & Personnel, and Supplies & Personal Protective Equipment, and Ventilator Capacity 
+        and Supplies Data Elements. Data source used is provided by Centers for Medicare & Medicaid Services: 
+        <a href="https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=594871904">CMS.gov</a>.
+    </p>
 </div>
 
     </div>

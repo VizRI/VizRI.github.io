@@ -1,0 +1,318 @@
+{
+    "weekly_deaths": {
+        "file": "yes",
+        "dataframe": {
+            "source": "weekly_deaths",
+            "pct_cols": [
+                "%_total_covid"
+            ],
+            "val_cols": [
+                "residents_total_all_deaths",
+                "residents_total_covid_19"
+            ]
+        },
+        "page_info": {
+            "table_title": "Nursing Home Deaths",
+            "table_id": "nursingHomeDeaths",
+            "source": "sample test source",
+            "table_headers": [
+                "Week Ending",
+                "All Deaths",
+                "COVID-19 Deaths",
+                "% COVID-19"
+            ]
+        }
+    },
+    "weekly_cases": {
+        "dataframe": {
+            "source": "weekly_cases",
+            "val_cols": [
+                "residents_total_confirmed",
+                "staff_total_confirmed_covid"
+            ]
+        },
+        "page_info": {
+            "table_title": "Nursing Home Cases",
+            "table_id": "nursingHomeCases",
+            "source": "sample test source",
+            "table_headers": [
+                "Week Ending",
+                "Resident Cases",
+                "Staff Cases"
+            ]
+        }
+    },
+    "weekly_capacity": {
+        "dataframe": {
+            "source": "weekly_capacity",
+            "cols": [
+                "week_ending",
+                "number_of_all_beds",
+                "total_number_of_occupied",
+                "percent_occupied"
+            ],
+            "val_cols": [
+                "number_of_all_beds",
+                "total_number_of_occupied"
+            ],
+            "pct_cols": [
+                "percent_occupied"
+            ]
+        },
+        "page_info": {
+            "table_title": "Nursing Home Capacity",
+            "table_id": "nursingHomeDeaths",
+            "source": "sample test source",
+            "table_headers": [
+                "Week Ending",
+                "All Beds",
+                "Occupied Beds",
+                "% Beds Occupied"
+            ]
+        }
+    },
+    "provider_deaths": {
+        "dataframe": {
+            "source": "provider_deaths",
+            "cols": [
+                "provider_name",
+                "residents_total_covid_19",
+                "residents_weekly_covid_19",
+                "staff_total_covid_19_deaths",
+                "staff_weekly_covid_19_deaths"
+            ],
+            "val_cols": [
+                "residents_total_covid_19",
+                "residents_weekly_covid_19",
+                "staff_total_covid_19_deaths",
+                "staff_weekly_covid_19_deaths"
+            ]
+        },
+        "page_info": {
+            "table_title": "Nursing Home Deaths",
+            "table_id": "nursingHomeProvDeaths",
+            "source": "sample test source",
+            "table_headers": [
+                "Provider",
+                "Resident Deaths",
+                "New Res. Deaths",
+                "Staff Deaths",
+                "New Staff Deaths"
+            ]
+        }
+    },
+    "provider_cases": {
+        "dataframe": {
+            "source": "provider_cases",
+            "cols": [
+                "provider_name",
+                "residents_total_confirmed",
+                "residents_weekly_confirmed",
+                "staff_total_confirmed_covid",
+                "staff_weekly_confirmed_covid"
+            ],
+            "val_cols": [
+                "residents_total_confirmed",
+                "residents_weekly_confirmed",
+                "staff_total_confirmed_covid",
+                "staff_weekly_confirmed_covid"
+            ]
+        },
+        "page_info": {
+            "table_title": "Nursing Home Cases",
+            "table_id": "nursingHomeProvDeaths",
+            "source": "sample test source",
+            "table_headers": [
+                "Provider",
+                "Resident Cases",
+                "New Res. Cases",
+                "Staff Cases",
+                "New Staff Cases"
+            ]
+        }
+    },
+    "provider_cases_rate": {
+        "dataframe": {
+            "source": "provider_cases",
+            "cols": [
+                "provider_name",
+                "total_number_of_occupied",
+                "residents_total_confirmed",
+                "total_resident_confirmed_covid_19_cases_per_1_000_residents"
+            ],
+            "val_cols": [
+                "total_number_of_occupied",
+                "residents_total_confirmed"
+            ]
+        },
+        "page_info": {
+            "table_title": "COVID-19 Cases Rate",
+            "table_id": "nursingHomeProvPct",
+            "source": "sample test source",
+            "table_headers": [
+                "Provider",
+                "Occupied Beds",
+                "COVID-19 Cases",
+                "Cases per 1k Res."
+            ]
+        }
+    },
+    "provider_death_rate": {
+        "dataframe": {
+            "source": "provider_deaths",
+            "cols": [
+                "provider_name",
+                "total_number_of_occupied",
+                "residents_total_covid_19",
+                "total_resident_covid_19_deaths_per_1_000_residents"
+            ],
+            "val_cols": [
+                "total_number_of_occupied",
+                "residents_total_covid_19"
+            ]
+        },
+        "page_info": {
+            "table_title": "COVID-19 Death Rate",
+            "table_id": "nursingHomeProvPct",
+            "source": "sample test source",
+            "table_headers": [
+                "Provider",
+                "Occupied Beds",
+                "COVID-19 Deaths",
+                "Deaths per 1k Res."
+            ]
+        }
+    },
+    "provider_deaths_pct_covid": {
+        "dataframe": {
+            "source": "provider_deaths",
+            "cols": [
+                "provider_name",
+                "residents_total_all_deaths",
+                "residents_total_covid_19",
+                "%_total_covid"
+            ],
+            "val_cols": [
+                "residents_total_all_deaths",
+                "residents_total_covid_19"
+            ],
+            "pct_cols": [
+                "%_total_covid"
+            ]
+        },
+        "page_info": {
+            "table_title": "Pct. Deaths: COVID-19",
+            "table_id": "nursingHomeProvPct",
+            "source": "sample test source",
+            "table_headers": [
+                "Provider",
+                "All Deaths",
+                "COVID-19 Deaths",
+                "% COVID-19"
+            ]
+        }
+    },
+    "provider_ppe": {
+        "dataframe": {
+            "source": "provider_ppe",
+            "drop_zero": "total_shortage",
+            "cols": [
+                "provider_name",
+                "one_week_supply_of_n95_masks",
+                "one_week_supply_of_surgical",
+                "one_week_supply_of_eye",
+                "one_week_supply_of_gowns",
+                "one_week_supply_of_gloves",
+                "one_week_supply_of_hand",
+                "total_shortage"
+            ],
+            "val_cols": [
+                "one_week_supply_of_n95_masks",
+                "one_week_supply_of_surgical",
+                "one_week_supply_of_eye",
+                "one_week_supply_of_gowns",
+                "one_week_supply_of_gloves",
+                "one_week_supply_of_hand",
+                "total_shortage"
+            ]
+        },
+        "page_info": {
+            "table_title": "PPE Shortage: 1 Week Supply",
+            "table_id": "nursingHomeProvPPE",
+            "source": "sample test source",
+            "table_headers": [
+                "Provider",
+                "N95 Masks",
+                "Surgical Masks",
+                "Eye Protection",
+                "Gowns",
+                "Gloves",
+                "Hand Sanatizer",
+                "Total Short"
+            ]
+        }
+    },
+    "provider_staffing": {
+        "dataframe": {
+            "source": "provider_staffing",
+            "drop_zero": "total_shortage",
+            "cols": [
+                "provider_name",
+                "shortage_of_nursing_staff",
+                "shortage_of_clinical_staff",
+                "shortage_of_aides",
+                "shortage_of_other_staff",
+                "total_shortage"
+            ],
+            "val_cols": [
+                "shortage_of_nursing_staff",
+                "shortage_of_clinical_staff",
+                "shortage_of_aides",
+                "shortage_of_other_staff",
+                "total_shortage"
+            ]
+        },
+        "page_info": {
+            "table_title": "Staffing Shortage",
+            "table_id": "nursingHomeProvStaff",
+            "source": "sample test source",
+            "table_headers": [
+                "Provider",
+                "Nursing Staff",
+                "Clinical Staff",
+                "Aides",
+                "Other Staff",
+                "Total Roles Short"
+            ]
+        }
+    },
+    "provider_capacity": {
+        "dataframe": {
+            "source": "provider_capacity",
+            "cols": [
+                "provider_name",
+                "number_of_all_beds",
+                "total_number_of_occupied",
+                "percent_occupied"
+            ],
+            "val_cols": [
+                "number_of_all_beds",
+                "total_number_of_occupied"
+            ],
+            "pct_cols": [
+                "percent_occupied"
+            ]
+        },
+        "page_info": {
+            "table_title": "Nursing Home Capacity",
+            "table_id": "nursingHomeProvPct",
+            "source": "sample test source",
+            "table_headers": [
+                "Provider",
+                "All Beds",
+                "Occupied Beds",
+                "% Beds Occupied"
+            ]
+        }
+    }
+}

@@ -133,82 +133,226 @@
 </div>
         </div>
         
-<!-- Modal -->
-<div class="modal fade" id="daily-update-src" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">""</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right mb-0">Source:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalSource" class="mb-0"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right">Columns:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalDetails" class="mb-0">""</p>
-                    </div>
-                </div>
-                <hr class="m-1">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="text-md-right">Description:</p>
-                    </div>
-                    <div class="col">
-                        <p id="modalDesc" class="mb-0">""</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function showModal(m) {
-        document.getElementById("modalTitle").innerHTML = m.getAttribute("data-title");
-        document.getElementById("modalSource").innerHTML = m.getAttribute("data-src");
-        document.getElementById("modalDetails").innerHTML = m.getAttribute("data-details");
-        document.getElementById("modalDesc").innerHTML = m.getAttribute("data-desc");
-    }
-</script>    
 <div class="col p-3">
-    <div class='mt-4 mb-4'>
-        <div class='btn-toolbar pull-right'>
-          <div class='btn-group'>
-            <button type='button'
-            onclick="showModal(this)"
-            class='btn btn-outline-info'
-            data-toggle="modal" 
-            data-title="Hospital: Intensive Care"
-            data-src="<a href='https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937'>RIDOH Trends Sheet</a>"
-            data-details='"Currently in ICU"'
-            data-desc="Shows the total number of people currently in intensive care as a blue bar. The orange line is the 7-day moving average of people in an icu bed."
-            data-target="#daily-update-src">Source</button>
-          </div>
-        </div>
-        <h2>Hospital: Intensive Care</h2>
+    <h2 class="mt-4 mb-4">Nursing Home Cases</h2>
+    <div>
+        
+        <p class="float-left mb-0">Source for table & details shown <a href="#source">below</a>.</p>
+        
+        <p class="float-right mb-0"><small>last updated: </small>2/07/2021</h3>
     </div>
-    <div class="row">
-        <div class="col-xl-12 chart-container">
-            <div class="card mb-4">
-                <div class="card-body p-0">
-                    <img src="https://raw.githubusercontent.com/SmirkyGraphs/ri-covid19-updates/master/figures/hospital_icu_daily_ma.png" class="img-fluid" alt="Responsive image">
-                </div>
-            </div>
-        </div>
-    </div>
+    <table id="nursingHomeCases" class="table table-striped mb-2">
+        <thead>
+            <tr>
+                
+                <th>Week Ending</th>
+                
+                <th>Resident Cases</th>
+                
+                <th>Staff Cases</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+    <tr>
+      <td>05/24/2020</td>
+      <td>1277</td>
+      <td>651</td>
+    </tr>
+    <tr>
+      <td>05/31/2020</td>
+      <td>1371</td>
+      <td>703</td>
+    </tr>
+    <tr>
+      <td>06/07/2020</td>
+      <td>1486</td>
+      <td>764</td>
+    </tr>
+    <tr>
+      <td>06/14/2020</td>
+      <td>1553</td>
+      <td>788</td>
+    </tr>
+    <tr>
+      <td>06/21/2020</td>
+      <td>1621</td>
+      <td>816</td>
+    </tr>
+    <tr>
+      <td>06/28/2020</td>
+      <td>1645</td>
+      <td>836</td>
+    </tr>
+    <tr>
+      <td>07/05/2020</td>
+      <td>1660</td>
+      <td>855</td>
+    </tr>
+    <tr>
+      <td>07/12/2020</td>
+      <td>1660</td>
+      <td>887</td>
+    </tr>
+    <tr>
+      <td>07/19/2020</td>
+      <td>1669</td>
+      <td>927</td>
+    </tr>
+    <tr>
+      <td>07/26/2020</td>
+      <td>1700</td>
+      <td>950</td>
+    </tr>
+    <tr>
+      <td>08/02/2020</td>
+      <td>1717</td>
+      <td>980</td>
+    </tr>
+    <tr>
+      <td>08/09/2020</td>
+      <td>1732</td>
+      <td>1001</td>
+    </tr>
+    <tr>
+      <td>08/16/2020</td>
+      <td>1757</td>
+      <td>1020</td>
+    </tr>
+    <tr>
+      <td>08/23/2020</td>
+      <td>1749</td>
+      <td>1037</td>
+    </tr>
+    <tr>
+      <td>08/30/2020</td>
+      <td>1790</td>
+      <td>1074</td>
+    </tr>
+    <tr>
+      <td>09/06/2020</td>
+      <td>1809</td>
+      <td>1094</td>
+    </tr>
+    <tr>
+      <td>09/13/2020</td>
+      <td>1852</td>
+      <td>1119</td>
+    </tr>
+    <tr>
+      <td>09/20/2020</td>
+      <td>1894</td>
+      <td>1149</td>
+    </tr>
+    <tr>
+      <td>09/27/2020</td>
+      <td>1960</td>
+      <td>1179</td>
+    </tr>
+    <tr>
+      <td>10/04/2020</td>
+      <td>2003</td>
+      <td>1201</td>
+    </tr>
+    <tr>
+      <td>10/11/2020</td>
+      <td>2029</td>
+      <td>1226</td>
+    </tr>
+    <tr>
+      <td>10/18/2020</td>
+      <td>2050</td>
+      <td>1250</td>
+    </tr>
+    <tr>
+      <td>10/25/2020</td>
+      <td>2067</td>
+      <td>1279</td>
+    </tr>
+    <tr>
+      <td>11/01/2020</td>
+      <td>2112</td>
+      <td>1335</td>
+    </tr>
+    <tr>
+      <td>11/08/2020</td>
+      <td>2237</td>
+      <td>1423</td>
+    </tr>
+    <tr>
+      <td>11/15/2020</td>
+      <td>2391</td>
+      <td>1584</td>
+    </tr>
+    <tr>
+      <td>11/22/2020</td>
+      <td>2543</td>
+      <td>1739</td>
+    </tr>
+    <tr>
+      <td>11/29/2020</td>
+      <td>2706</td>
+      <td>1909</td>
+    </tr>
+    <tr>
+      <td>12/06/2020</td>
+      <td>3024</td>
+      <td>2182</td>
+    </tr>
+    <tr>
+      <td>12/13/2020</td>
+      <td>3273</td>
+      <td>2376</td>
+    </tr>
+    <tr>
+      <td>12/20/2020</td>
+      <td>3492</td>
+      <td>2508</td>
+    </tr>
+    <tr>
+      <td>12/27/2020</td>
+      <td>3716</td>
+      <td>2673</td>
+    </tr>
+    <tr>
+      <td>01/03/2021</td>
+      <td>3860</td>
+      <td>2825</td>
+    </tr>
+    <tr>
+      <td>01/10/2021</td>
+      <td>4043</td>
+      <td>3016</td>
+    </tr>
+    <tr>
+      <td>01/17/2021</td>
+      <td>4180</td>
+      <td>3151</td>
+    </tr>
+    <tr>
+      <td>01/24/2021</td>
+      <td>4327</td>
+      <td>3258</td>
+    </tr>
+    <tr>
+      <td>01/31/2021</td>
+      <td>4387</td>
+      <td>3314</td>
+    </tr>
+    <tr>
+      <td>02/07/2021</td>
+      <td>4427</td>
+      <td>3341</td>
+    </tr>
+  </tbody>
+    </table>
+    <p id="source">
+        The Nursing Home COVID-19 Public File includes data reported by nursing homes to the CDC’s 
+        National Healthcare Safety Network (NHSN) system COVID-19 Long Term Care Facility Module, including Resident 
+        Impact, Facility Capacity, Staff & Personnel, and Supplies & Personal Protective Equipment, and Ventilator Capacity 
+        and Supplies Data Elements. Data source used is provided by Centers for Medicare & Medicaid Services: 
+        <a href="https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=594871904">CMS.gov</a>.
+    </p>
 </div>
 
     </div>

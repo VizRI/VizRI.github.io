@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Rhode Island COVID-19</title>
+
+    <link href= "/covid/static/main.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet"/>
+</head>
+<nav class="navbar fixed-top navbar-dark bg-dark">
+    <a href="https://ivizri.com" class="navbar-brand">ivizri.com</a>
+    <a data-toggle="collapse" href="#" data-target=".ravel" role="button" class="p-1">
+        <i class="fa fa-bars fa-lg"></i>
+    </a>
+</nav>
+<div class="container-fluid px-0 h-100">
+    <div class="row min-vh-100 collapse show no-gutters d-flex h-100 position-relative ravel">
+        <div class="p-0 h-100 text-white w-sidebar navbar-collapse collapse d-none d-md-flex sidebar ravel">
+            <!-- fixed sidebar -->
+<div class="sidenav position-fixed text-white h-100 w-sidebar p-4">
+    <div class="sidenav-content">
+        <ul class="list-unstyled components mt-5 mb-3">
+            <li class="active"><a href="/covid/">Daily Update</a></li>
+            <li class="active"><a href="/covid/totals/">Current Totals</a></li>
+        </ul>
+        <ul class="list-unstyled components mb-3">
+            <li>
+                <a href="#schoolsSubmenu" data-toggle="collapse" data-target="#schoolsSubmenu" aria-expanded="false"
+                    class="panel-title active">Schools</a>
+                <ul class="collapse list-unstyled" id="schoolsSubmenu">
+                    <li class="sub-item"><a href="/covid/schools/">Weekly Update</a></li>
+                    <li class="sub-item">
+                        <a href="#personSchoolsSubmenu" data-toggle="collapse" data-target="#personSchoolsSubmenu" aria-expanded="false"
+                        class="panel-title active">In Person</a>
+                        <ul class="collapse list-unstyled" id="personSchoolsSubmenu">
+                            <li class="sub-item2"><a href="/covid/schools/tables/student-inperson/">Student Cases</a></li>
+                            <li class="sub-item2"><a href="/covid/schools/tables/staff-inperson/">Staff Cases</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#virtualSchoolsSubmenu" data-toggle="collapse" data-target="#virtualSchoolsSubmenu" aria-expanded="false"
+                        class="panel-title active">Virtual</a>
+                        <ul class="collapse list-unstyled" id="virtualSchoolsSubmenu">
+                            <li class="sub-item2"><a href="/covid/schools/tables/student-virtual/">Student Cases</a></li>
+                            <li class="sub-item2"><a href="/covid/schools/tables/staff-virtual/">Staff Cases</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#nursingSubmenu" data-toggle="collapse" data-target="#nursingSubmenu" aria-expanded="false"
+                    class="panel-title active">Nursing Homes</a>
+                <ul class="collapse list-unstyled" id="nursingSubmenu">
+                    <li class="sub-item"><a href="/covid/nursing-homes/">Weekly Update</a></li>
+                    <li class="sub-item">
+                        <a href="#nursingHomeProv" data-toggle="collapse" data-target="#nursingHomeProv" aria-expanded="false"
+                        class="panel-title active">Provider</a>
+                        <ul class="collapse list-unstyled" id="nursingHomeProv">
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-deaths/">Deaths</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-deaths-pct-covid/">Deaths ( % )</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-death-rate/">Deaths ( Rate )</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-cases/">Cases</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-cases-rate/">Cases ( Rate )</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-capacity/">Capacity</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-ppe/">PPE Shortage</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-staffing/">Staff Shortage</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#nursingHomeWeekly" data-toggle="collapse" data-target="#nursingHomeWeekly" aria-expanded="false"
+                        class="panel-title active">Timeline</a>
+                        <ul class="collapse list-unstyled" id="nursingHomeWeekly">
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/weekly-deaths/">Deaths</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/weekly-cases/">Cases</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/weekly-capacity/">Capacity</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        
+
+        <ul class="list-unstyled components mb-3">
+            <li>
+                <a href="#deathsSubmenu" data-toggle="collapse" data-target="#deathsSubmenu" aria-expanded="false"
+                    class="panel-title active">Deaths</a>
+                <ul class="collapse list-unstyled" id="deathsSubmenu">
+                    <li class="sub-item"><a href="/covid/deaths/daily-deaths/">Daily Deaths</a></li>
+                    <li class="sub-item"><a href="/covid/deaths/deaths-revised-bar/">Deaths Revised (bar)</a></li>
+                    <li class="sub-item"><a href="/covid/deaths/deaths-revised-avg/">Deaths Revised (avg)</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#testSubmenu" data-toggle="collapse" data-target="#testSubmenu" aria-expanded="false"
+                    class="panel-title collapsed">Testing</a>
+                <ul class="collapse list-unstyled" id="testSubmenu">
+                    <li class="sub-item"><a href="/covid/testing/labs-positive/">Labs Positive</a></li>
+                    <li class="sub-item"><a href="/covid/testing/labs-positive-pct/">Labs Positive (&nbsp;%&nbsp;)</a>
+                    </li>
+                    <li class="sub-item"><a href="/covid/testing/people-positive/">People Positive</a></li>
+                    <li class="sub-item"><a href="/covid/testing/people-positive-pct/">People Positive
+                            (&nbsp;%&nbsp;)</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#hospSubmenu" data-toggle="collapse" data-target="#hospSubmenu" aria-expanded="false"
+                    class="panel-title collapsed">Hospitalized</a>
+                <ul class="collapse list-unstyled" id="hospSubmenu">
+                    <li class="sub-item"><a href="/covid/hospital/admissions/">Hospital Admissions</a></li>
+                    <li class="sub-item"><a href="/covid/hospital/intensive-care/">Intensive Care</a></li>
+                    <li class="sub-item"><a href="/covid/hospital/ventilator/">Ventilator</a></li>
+                </ul>
+            </li>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sidenav-footer">
+        <ul class="list-unstyled components mb-5">
+            <li><a href="/covid/about/">About</a></li>
+            <li><a href="https://twitter.com/RI_COVID19">Twitter Bot</a></li>
+            <li><a href="/covid/change-log/">Change Log</a></li>
+        </ul>
+        <ul class="list-unstyled components mb-5">
+            <div class="small text-side">Updated: 2/19/2021</div>
+            <div class="small text-side">Designed by: SmirkyGraphs</div>
+        </ul>
+    </div>
+</div>
+        </div>
+        
+<div class="col p-3">
+    <h2 class="mt-4 mb-4">Nursing Home Capacity</h2>
+    <div>
+        
+        <p class="float-left mb-0">Source for table & details shown <a href="#source">below</a>.</p>
+        
+        <p class="float-right mb-0"><small>last updated: </small>2/07/2021</h3>
+    </div>
+    <table id="nursingHomeProvPct" class="table table-striped mb-2">
+        <thead>
+            <tr>
+                
+                <th>Provider</th>
+                
+                <th>All Beds</th>
+                
+                <th>Occupied Beds</th>
+                
+                <th>% Beds Occupied</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+    <tr>
+      <td>ALPINE NURSING HOME INC</td>
+      <td>60</td>
+      <td>51</td>
+      <td>85.0%</td>
+    </tr>
+    <tr>
+      <td>APPLE REHAB CLIPPER</td>
+      <td>60</td>
+      <td>43</td>
+      <td>71.7%</td>
+    </tr>
+    <tr>
+      <td>APPLE REHAB WATCH HILL</td>
+      <td>60</td>
+      <td>38</td>
+      <td>63.3%</td>
+    </tr>
+    <tr>
+      <td>AVALON NURSING HOME INC</td>
+      <td>31</td>
+      <td>27</td>
+      <td>87.1%</td>
+    </tr>
+    <tr>
+      <td>BALLOULIFE COMMUNITIES</td>
+      <td>43</td>
+      <td>24</td>
+      <td>55.8%</td>
+    </tr>
+    <tr>
+      <td>BANNISTER CTR FOR REHABILITATION AND HEALTH CARE</td>
+      <td>161</td>
+      <td>94</td>
+      <td>58.4%</td>
+    </tr>
+    <tr>
+      <td>BAYBERRY COMMONS</td>
+      <td>110</td>
+      <td>79</td>
+      <td>71.8%</td>
+    </tr>
+    <tr>
+      <td>BERKSHIRE PLACE</td>
+      <td>220</td>
+      <td>156</td>
+      <td>70.9%</td>
+    </tr>
+    <tr>
+      <td>BETHANY HOME OF RHODE ISLAND</td>
+      <td>33</td>
+      <td>24</td>
+      <td>72.7%</td>
+    </tr>
+    <tr>
+      <td>BRENTWOOD NURSING HOME</td>
+      <td>96</td>
+      <td>74</td>
+      <td>77.1%</td>
+    </tr>
+    <tr>
+      <td>BRIARCLIFFE MANOR</td>
+      <td>122</td>
+      <td>98</td>
+      <td>80.3%</td>
+    </tr>
+    <tr>
+      <td>CEDAR CREST NURSING CENTRE INC</td>
+      <td>156</td>
+      <td>106</td>
+      <td>67.9%</td>
+    </tr>
+    <tr>
+      <td>CHARLESGATE NURSING CENTER</td>
+      <td>120</td>
+      <td>76</td>
+      <td>63.3%</td>
+    </tr>
+    <tr>
+      <td>CHERRY HILL MANOR</td>
+      <td>172</td>
+      <td>135</td>
+      <td>78.5%</td>
+    </tr>
+    <tr>
+      <td>CORTLAND PLACE</td>
+      <td>80</td>
+      <td>60</td>
+      <td>75.0%</td>
+    </tr>
+    <tr>
+      <td>CRA-MAR MEADOWS</td>
+      <td>41</td>
+      <td>20</td>
+      <td>48.8%</td>
+    </tr>
+    <tr>
+      <td>CRESTWOOD NURSING &amp; REHABILITATION CENTER, INC</td>
+      <td>64</td>
+      <td>40</td>
+      <td>62.5%</td>
+    </tr>
+    <tr>
+      <td>CRYSTAL LAKE REHABILITATION AND CARE CENTER</td>
+      <td>71</td>
+      <td>47</td>
+      <td>66.2%</td>
+    </tr>
+    <tr>
+      <td>EASTGATE NURSING &amp; REHABILITATION CENTER</td>
+      <td>68</td>
+      <td>50</td>
+      <td>73.5%</td>
+    </tr>
+    <tr>
+      <td>ELDERWOOD AT RIVERSIDE</td>
+      <td>0</td>
+      <td>0</td>
+      <td>nan%</td>
+    </tr>
+    <tr>
+      <td>ELDERWOOD OF SCALLOP SHELL AT WAKEFIELD</td>
+      <td>80</td>
+      <td>71</td>
+      <td>88.8%</td>
+    </tr>
+    <tr>
+      <td>ELMHURST REHABILITATION &amp; HEALTHCARE CENTER</td>
+      <td>206</td>
+      <td>181</td>
+      <td>87.9%</td>
+    </tr>
+    <tr>
+      <td>ELMWOOD NURSING AND REHABILITATION CENTER</td>
+      <td>70</td>
+      <td>52</td>
+      <td>74.3%</td>
+    </tr>
+    <tr>
+      <td>EVERGREEN HOUSE HEALTH CENTER</td>
+      <td>160</td>
+      <td>104</td>
+      <td>65.0%</td>
+    </tr>
+    <tr>
+      <td>FRIENDLY HOME INC THE</td>
+      <td>126</td>
+      <td>86</td>
+      <td>68.3%</td>
+    </tr>
+    <tr>
+      <td>GOLDEN CREST NURSING CENTRE</td>
+      <td>152</td>
+      <td>126</td>
+      <td>82.9%</td>
+    </tr>
+    <tr>
+      <td>GRACE BARKER NURSING CENTER</td>
+      <td>86</td>
+      <td>73</td>
+      <td>84.9%</td>
+    </tr>
+    <tr>
+      <td>GRAND ISLANDER CENTER</td>
+      <td>146</td>
+      <td>109</td>
+      <td>74.7%</td>
+    </tr>
+    <tr>
+      <td>GRANDVIEW CENTER</td>
+      <td>72</td>
+      <td>54</td>
+      <td>75.0%</td>
+    </tr>
+    <tr>
+      <td>GREENVILLE SKILLED NURSING AND REHABILITATION</td>
+      <td>131</td>
+      <td>89</td>
+      <td>67.9%</td>
+    </tr>
+    <tr>
+      <td>GREENWOOD CENTER</td>
+      <td>130</td>
+      <td>89</td>
+      <td>68.5%</td>
+    </tr>
+    <tr>
+      <td>HARRIS HEALTH CARE CENTER NORTH</td>
+      <td>32</td>
+      <td>30</td>
+      <td>93.8%</td>
+    </tr>
+    <tr>
+      <td>HARRIS HEALTH CENTER LLC</td>
+      <td>31</td>
+      <td>22</td>
+      <td>71.0%</td>
+    </tr>
+    <tr>
+      <td>HATTIE IDE CHAFFEE HOME</td>
+      <td>60</td>
+      <td>54</td>
+      <td>90.0%</td>
+    </tr>
+    <tr>
+      <td>HEATHERWOOD REHABILITATION &amp; HEALTH CARE CENTER</td>
+      <td>114</td>
+      <td>94</td>
+      <td>82.5%</td>
+    </tr>
+    <tr>
+      <td>HEBERT NURSING HOME</td>
+      <td>133</td>
+      <td>80</td>
+      <td>60.2%</td>
+    </tr>
+    <tr>
+      <td>HERITAGE HILLS NURSING &amp; REHABILITATION CENTER</td>
+      <td>100</td>
+      <td>64</td>
+      <td>64.0%</td>
+    </tr>
+    <tr>
+      <td>HOLIDAY RETIREMENT HOME INC</td>
+      <td>170</td>
+      <td>105</td>
+      <td>61.8%</td>
+    </tr>
+    <tr>
+      <td>HOPKINS MANOR LTD</td>
+      <td>200</td>
+      <td>119</td>
+      <td>59.5%</td>
+    </tr>
+    <tr>
+      <td>JEANNE JUGAN RESIDENCE</td>
+      <td>49</td>
+      <td>45</td>
+      <td>91.8%</td>
+    </tr>
+    <tr>
+      <td>JOHN CLARKE RETIREMENT CENTER THE</td>
+      <td>60</td>
+      <td>52</td>
+      <td>86.7%</td>
+    </tr>
+    <tr>
+      <td>KENT REGENCY CENTER</td>
+      <td>153</td>
+      <td>116</td>
+      <td>75.8%</td>
+    </tr>
+    <tr>
+      <td>KINGSTON CENTER FOR REHABILITATION AND HEALTH CARE</td>
+      <td>55</td>
+      <td>46</td>
+      <td>83.6%</td>
+    </tr>
+    <tr>
+      <td>LINN HEALTH AND REHABILITATION</td>
+      <td>73</td>
+      <td>65</td>
+      <td>89.0%</td>
+    </tr>
+    <tr>
+      <td>MANSION NURSING AND REHAB CENTER</td>
+      <td>63</td>
+      <td>52</td>
+      <td>82.5%</td>
+    </tr>
+    <tr>
+      <td>MORGAN HEALTH CENTER</td>
+      <td>120</td>
+      <td>69</td>
+      <td>57.5%</td>
+    </tr>
+    <tr>
+      <td>MOUNT ST RITA HEALTH CENTRE</td>
+      <td>98</td>
+      <td>72</td>
+      <td>73.5%</td>
+    </tr>
+    <tr>
+      <td>OAK HILL HEALTH &amp; REHABILITATION CENTER</td>
+      <td>129</td>
+      <td>118</td>
+      <td>91.5%</td>
+    </tr>
+    <tr>
+      <td>OAKLAND GROVE HEALTH CARE CENTER</td>
+      <td>178</td>
+      <td>123</td>
+      <td>69.1%</td>
+    </tr>
+    <tr>
+      <td>ORCHARD VIEW MANOR</td>
+      <td>166</td>
+      <td>113</td>
+      <td>68.1%</td>
+    </tr>
+    <tr>
+      <td>OVERLOOK NURSING AND REHABILITATION CENTER</td>
+      <td>100</td>
+      <td>70</td>
+      <td>70.0%</td>
+    </tr>
+    <tr>
+      <td>PAWTUCKET SKILLED NURSING &amp; REHABILITATION</td>
+      <td>154</td>
+      <td>85</td>
+      <td>55.2%</td>
+    </tr>
+    <tr>
+      <td>RESPIRATORY AND REHABILITATION CENTER OF RI</td>
+      <td>210</td>
+      <td>130</td>
+      <td>61.9%</td>
+    </tr>
+    <tr>
+      <td>RIVERVIEW HEALTHCARE COMMUNITY</td>
+      <td>190</td>
+      <td>149</td>
+      <td>78.4%</td>
+    </tr>
+    <tr>
+      <td>ROBERTS HEALTH CENTRE INC</td>
+      <td>66</td>
+      <td>55</td>
+      <td>83.3%</td>
+    </tr>
+    <tr>
+      <td>ROYAL MIDDLETOWN NURSING CENTER</td>
+      <td>50</td>
+      <td>27</td>
+      <td>54.0%</td>
+    </tr>
+    <tr>
+      <td>ROYAL OF WESTERLY NURSING CENTER</td>
+      <td>66</td>
+      <td>43</td>
+      <td>65.2%</td>
+    </tr>
+    <tr>
+      <td>SAINT ELIZABETH HOME EAST GREENWICH</td>
+      <td>168</td>
+      <td>114</td>
+      <td>67.9%</td>
+    </tr>
+    <tr>
+      <td>SAINT ELIZABETH MANOR EAST BAY</td>
+      <td>133</td>
+      <td>93</td>
+      <td>69.9%</td>
+    </tr>
+    <tr>
+      <td>SCALABRINI VILLA</td>
+      <td>120</td>
+      <td>62</td>
+      <td>51.7%</td>
+    </tr>
+    <tr>
+      <td>SCANDINAVIAN HOME INC</td>
+      <td>74</td>
+      <td>51</td>
+      <td>68.9%</td>
+    </tr>
+    <tr>
+      <td>SILVER CREEK MANOR</td>
+      <td>128</td>
+      <td>90</td>
+      <td>70.3%</td>
+    </tr>
+    <tr>
+      <td>SOUTH COUNTY NURSING &amp; REHABILITATION CENTER</td>
+      <td>120</td>
+      <td>62</td>
+      <td>51.7%</td>
+    </tr>
+    <tr>
+      <td>SOUTH KINGSTOWN NURSING AND REHAB CTR</td>
+      <td>96</td>
+      <td>86</td>
+      <td>89.6%</td>
+    </tr>
+    <tr>
+      <td>ST ANTOINE RESIDENCE</td>
+      <td>258</td>
+      <td>154</td>
+      <td>59.7%</td>
+    </tr>
+    <tr>
+      <td>ST CLARE HOME</td>
+      <td>60</td>
+      <td>53</td>
+      <td>88.3%</td>
+    </tr>
+    <tr>
+      <td>STEERE HOUSE NURSING AND REHABILITATION CTR</td>
+      <td>120</td>
+      <td>87</td>
+      <td>72.5%</td>
+    </tr>
+    <tr>
+      <td>SUMMIT COMMONS REHABILITATION AND HEALTH CARE CNT</td>
+      <td>130</td>
+      <td>84</td>
+      <td>64.6%</td>
+    </tr>
+    <tr>
+      <td>SUNNY VIEW NURSING HOME INC</td>
+      <td>57</td>
+      <td>51</td>
+      <td>89.5%</td>
+    </tr>
+    <tr>
+      <td>TOCKWOTTON ON THE WATERFRONT</td>
+      <td>52</td>
+      <td>49</td>
+      <td>94.2%</td>
+    </tr>
+    <tr>
+      <td>TRINITY HEALTH AND REHABILITATION CENTER</td>
+      <td>185</td>
+      <td>122</td>
+      <td>65.9%</td>
+    </tr>
+    <tr>
+      <td>VILLAGE HOUSE NURSING &amp; REHABILITATION CENTER</td>
+      <td>95</td>
+      <td>71</td>
+      <td>74.7%</td>
+    </tr>
+    <tr>
+      <td>WARREN SKILLED NURSING AND REHABILITATION</td>
+      <td>63</td>
+      <td>37</td>
+      <td>58.7%</td>
+    </tr>
+    <tr>
+      <td>WATERVIEW VILLA REHABILITATION AND HEALTH CARE CEN</td>
+      <td>132</td>
+      <td>93</td>
+      <td>70.5%</td>
+    </tr>
+    <tr>
+      <td>WEST SHORE HEALTH CENTER</td>
+      <td>145</td>
+      <td>89</td>
+      <td>61.4%</td>
+    </tr>
+    <tr>
+      <td>WEST VIEW NURSING AND REHABILIATION CENTER</td>
+      <td>119</td>
+      <td>79</td>
+      <td>66.4%</td>
+    </tr>
+    <tr>
+      <td>WESTERLY HEALTH CENTER</td>
+      <td>106</td>
+      <td>73</td>
+      <td>68.9%</td>
+    </tr>
+    <tr>
+      <td>WOODPECKER HILL HEALTH CENTER</td>
+      <td>41</td>
+      <td>0</td>
+      <td>0.0%</td>
+    </tr>
+    <tr>
+      <td>WOONSOCKET HEALTH CENTRE</td>
+      <td>150</td>
+      <td>111</td>
+      <td>74.0%</td>
+    </tr>
+  </tbody>
+    </table>
+    <p id="source">
+        The Nursing Home COVID-19 Public File includes data reported by nursing homes to the CDC’s 
+        National Healthcare Safety Network (NHSN) system COVID-19 Long Term Care Facility Module, including Resident 
+        Impact, Facility Capacity, Staff & Personnel, and Supplies & Personal Protective Equipment, and Ventilator Capacity 
+        and Supplies Data Elements. Data source used is provided by Centers for Medicare & Medicaid Services: 
+        <a href="https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=594871904">CMS.gov</a>.
+    </p>
+</div>
+
+    </div>
+</div>
+<footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>       
+    <script src="/covid/static/js/table.js"></script>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-106762433-4']);
+        _gaq.push(['_trackPageview']);
+    
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</footer>
+</html>

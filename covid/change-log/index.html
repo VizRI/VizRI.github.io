@@ -50,6 +50,36 @@
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="#nursingSubmenu" data-toggle="collapse" data-target="#nursingSubmenu" aria-expanded="false"
+                    class="panel-title active">Nursing Homes</a>
+                <ul class="collapse list-unstyled" id="nursingSubmenu">
+                    <li class="sub-item"><a href="/covid/nursing-homes/">Weekly Update</a></li>
+                    <li class="sub-item">
+                        <a href="#nursingHomeProv" data-toggle="collapse" data-target="#nursingHomeProv" aria-expanded="false"
+                        class="panel-title active">Provider</a>
+                        <ul class="collapse list-unstyled" id="nursingHomeProv">
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-deaths/">Deaths</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-deaths-pct-covid/">Deaths ( % )</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-death-rate/">Deaths ( Rate )</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-cases/">Cases</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-cases-rate/">Cases ( Rate )</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-capacity/">Capacity</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-ppe/">PPE Shortage</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/provider-staffing/">Staff Shortage</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#nursingHomeWeekly" data-toggle="collapse" data-target="#nursingHomeWeekly" aria-expanded="false"
+                        class="panel-title active">Timeline</a>
+                        <ul class="collapse list-unstyled" id="nursingHomeWeekly">
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/weekly-deaths/">Deaths</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/weekly-cases/">Cases</a></li>
+                            <li class="sub-item2"><a href="/covid/nursing-homes/tables/weekly-capacity/">Capacity</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
         </ul>
         
 
@@ -96,7 +126,7 @@
             <li><a href="/covid/change-log/">Change Log</a></li>
         </ul>
         <ul class="list-unstyled components mb-5">
-            <div class="small text-side">Updated: 2/15/2021</div>
+            <div class="small text-side">Updated: 2/19/2021</div>
             <div class="small text-side">Designed by: SmirkyGraphs</div>
         </ul>
     </div>
@@ -108,6 +138,29 @@
     <p>All notable changes to this project will be documented here.</p>
     <hr>
     <div>
+        <h4 class="mt-4 mb-4">2021-02-19 - Nursing Homes Update</h4>
+        <h5 class="mt-4">Added</h5>
+        <ul>
+            <li><a href="/covid/nursing-homes/">Nursing Home weekly update</a> data from CMS.gov highlighting cases & deaths in LTC facilities.</li>
+            <li>Tables for <a href="/covid/nursing-homes/tables/provider-deaths/">deaths</a>
+                normalized by both <a href="/covid/nursing-homes/tables/provider-deaths-pct-covid/">percent</a>
+                and <a href="/covid/nursing-homes/tables/provider-death-rate/">rate</a> (% and rate residents only).</li>
+            <li>Tables for <a href="/covid/nursing-homes/tables/provider-cases/">cases</a> of confirmed positive COVID-19
+                and <a href="/covid/nursing-homes/tables/provider-cases-rate/">rate</a> among residents.</li>
+            <li>Table showing <a href="/covid/nursing-homes/tables/provider-capacity/">capacity</a> of facilities
+                showing how many beds are occupied.</li>
+            <li>Tables for both <a href="/covid/nursing-homes/tables/provider-ppe/">PPE supplies</a>
+                    and <a href="/covid/nursing-homes/tables/provider-staffing/">staffing</a> shortages.</li>
+            <li>Timeline tables of <a href="/covid/nursing-homes/tables/weekly-deaths/">deaths</a>, 
+                    <a href="/covid/nursing-homes/tables/weekly-cases/">cases</a>
+                    and <a href="/covid/nursing-homes/tables/weekly-capacity/">capacity</a> by week-end.</li>
+        </ul>
+        <h5 class="mt-4">Changes</h5>
+        <ul>
+            <li>All tables should now start sorted by default highest to lowest of main metric.</li>
+            <li>Added date to the top right of all tables highlighting when the data is from.</li>
+        </ul>
+        <hr>
         <h4 class="mt-4 mb-4">2021-02-01 - Schools Update</h4>
         <h5 class="mt-4">Added</h5>
         <ul>
