@@ -56,10 +56,17 @@
         "source_desc": "[new poisitve people]/([new poisitve people] + [new negative people])<br>This excludes people who have been tested multiple times and shows the daily percent positive of people who were only tested for the first time."
     },
     {
-        "id": "percent-tested-new",
-        "name": "Test",
+        "id": "daily-vac-full",
+        "name": "New Fully Vaccinated",
         "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
-        "source_detail": "\"New people who tested positive (counts first positive lab per person)\",<br>\"New people who have only tested negative (counts first negative lab per person)\"",
-        "source_desc": "[new poisitve people]/([new poisitve people] + [new negative people])"
+        "source_detail": "\"Cumulative total number of people fully vaccinated\"",
+        "source_desc": "Shows the total number of new people fully vaccinated between the 2 most recent reported dates by RIDOH."
+    },
+    {
+        "id": "daily-vac-partial",
+        "name": "New Partially Vaccinated",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Cumulative total number of people at least partially vaccinated\"",
+        "source_desc": "Shows the total number of new people partially vaccinated between the 2 most recent reported dates by RIDOH."
     }
 ]

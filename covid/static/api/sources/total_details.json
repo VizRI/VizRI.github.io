@@ -40,5 +40,12 @@
         "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
         "source_detail": "\"Cumulative hospital admissions\",<br>\"Cumulative hospital discharges\"",
         "source_desc": "Shows the total number of people admitted and discharged from a hospital."
+    },
+    {
+        "id": "total-vaccinated",
+        "name": "Total Fully Vaccinated",
+        "source": "<a href=\"https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937\">RIDOH Trends Sheet</a>",
+        "source_detail": "\"Cumulative total number of people fully vaccinated\",<br>\"Cumulative total number of people at least partially vaccinated\"",
+        "source_desc": "Shows the total number of people who have been fully vaccinated and those who have been partially vaccinated."
     }
 ]
