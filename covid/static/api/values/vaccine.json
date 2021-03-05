@@ -1,0 +1,42 @@
+[
+    {
+        "id": "vaccine-dist",
+        "total": 5,
+        "change": ""
+    },
+    {
+        "id": "vaccine-admin",
+        "total": 148,
+        "change": "( +1 )"
+    },
+    {
+        "id": "vaccine-dose1",
+        "total": 23,
+        "change": "( +0 )"
+    },
+    {
+        "id": "vaccine-dose2",
+        "total": 16,
+        "change": "( +2 )"
+    },
+    {
+        "id": "vaccine-used-pct",
+        "total": "",
+        "change": ""
+    },
+    {
+        "id": "vaccine-admin-u18",
+        "total": "",
+        "change": ""
+    },
+    {
+        "id": "vaccine-dose1-pct",
+        "total": "",
+        "change": ""
+    },
+    {
+        "id": "vaccine-dose2-pct",
+        "total": "",
+        "change": ""
+    }
+]
