@@ -184,30 +184,177 @@
     }
 </script>    
 <div class="col p-3">
-    <div class='mt-4 mb-4'>
-        <div class='btn-toolbar pull-right'>
-          <div class='btn-group'>
-            <button type='button'
-            onclick="showModal(this)"
-            class='btn btn-outline-info'
-            data-toggle="modal" 
-            data-title="Daily Deaths"
-            data-src="<a href='https://docs.google.com/spreadsheets/d/1c2QrNMz8pIbYEKzMJL7Uh2dtThOJa2j1sSMwiDo5Gz4/edit#gid=1592746937'>RIDOH Trends Sheet</a>"
-            data-details='"Date of deaths"'
-            data-desc="Shows the daily number of deaths that occured on each date as a blue bar. The orange line shows the 7-day moving average of deaths."
-            data-target="#daily-update-src">Source</button>
-          </div>
-        </div>
-        <h2 class="mt-4 mb-4">Daily Deaths</h2>
-    </div>
-    <div class="row">
-        <div class="col-xl-12 chart-container">
-            <div class="card mb-4">
-                <div class="card-body p-0">
-                    <img src="https://raw.githubusercontent.com/SmirkyGraphs/ri-covid19-updates/master/figures/daily_deaths.png" class="img-fluid" alt="Responsive image">
+    <h2 class="mt-4 mb-4">CDC Vaccine Tracker</h2>
+    <div class="m-stats-cards row">
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Distributed"
+                        data-src="&lt;a href=&#34;https://covid.cdc.gov/covid-data-tracker/#vaccinations&#34;&gt;CDC Vaccine Tracker&lt;/a&gt;"
+                        data-details="&#34;Doses_Distributed&#34;"
+                        data-desc="The total number of vaccine doses that have been delivered. Doses delivered include those delivered to vaccine providers by the jurisdiction, retail pharmacies, long-term care facilities, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities in that state or territory."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Distributed</h5>
+                <div>
+                    <span class="card-title h1 mb-0">5</span>
+                    <span class="diff font-weight-bold mb-0"></span>
                 </div>
             </div>
         </div>
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Administered"
+                        data-src="&lt;a href=&#34;https://covid.cdc.gov/covid-data-tracker/#vaccinations&#34;&gt;CDC Vaccine Tracker&lt;/a&gt;"
+                        data-details="&#34;Administered_Dose1_Recip&#34;&lt;br&gt;&#34;Administered_Dose2_Recip&#34;"
+                        data-desc="(Administered_Dose1_Recip + Administered_Dose2_Recip)&lt;br&gt;Doses administered in jurisdictional partner clinics, retail pharmacies, long-term care facilities, Federal Emergency Management Agency (FEMA) and Health Resources and Services Administration (HRSA) partner sites, and federal entity facilities in that state or territory."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Administered</h5>
+                <div>
+                    <span class="card-title h1 mb-0">148</span>
+                    <span class="diff font-weight-bold mb-0">( +1 )</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Administered Dose 1"
+                        data-src="&lt;a href=&#34;https://covid.cdc.gov/covid-data-tracker/#vaccinations&#34;&gt;CDC Vaccine Tracker&lt;/a&gt;"
+                        data-details="&#34;Administered_Dose1_Recip&#34;"
+                        data-desc="Represents the total number of people who received at least 1 dose of COVID-19 vaccine. For this measure, CDCâ€™s COVID Data Tracker attributes each dose to the state or territory in which the person resides."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Administered Dose 1</h5>
+                <div>
+                    <span class="card-title h1 mb-0">23</span>
+                    <span class="diff font-weight-bold mb-0">( +0 )</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Administered Dose 2"
+                        data-src="&lt;a href=&#34;https://covid.cdc.gov/covid-data-tracker/#vaccinations&#34;&gt;CDC Vaccine Tracker&lt;/a&gt;"
+                        data-details="&#34;Administered_Dose2_Recip&#34;"
+                        data-desc="Represents the number of people who have received the second dose in a 2-dose COVID-19 vaccine series. For this measure, CDCâ€™s COVID Data Tracker attributes each dose to the state or territory in which the person resides."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Administered Dose 2</h5>
+                <div>
+                    <span class="card-title h1 mb-0">16</span>
+                    <span class="diff font-weight-bold mb-0">( +2 )</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Pct. Vaccine Used"
+                        data-src="&lt;a href=&#34;https://covid.cdc.gov/covid-data-tracker/#vaccinations&#34;&gt;CDC Vaccine Tracker&lt;/a&gt;"
+                        data-details="&#34;Doses_Distributed&#34;&lt;br&gt;&#34;Administered_Dose1_Recip&#34;&lt;br&gt;&#34;Administered_Dose2_Recip&#34;"
+                        data-desc="(Administered_Dose1_Recip + Administered_Dose2_Recip)/Doses_Distributed&lt;br&gt;The percentage of vaccine distributed to the state that has been administered to a person, calculated by adding dose1_recip + dose2_recip."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Pct. Vaccine Used</h5>
+                <div>
+                    <span class="card-title h1 mb-0">34</span>
+                    <span class="diff font-weight-bold mb-0"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Administered to Person &lt;18"
+                        data-src="&lt;a href=&#34;https://covid.cdc.gov/covid-data-tracker/#vaccinations&#34;&gt;CDC Vaccine Tracker&lt;/a&gt;"
+                        data-details="&#34;Administered_Dose1_Recip&#34;&lt;br&gt;&#34;Administered_Dose2_Recip&#34;&lt;br&gt;&#34;Administered_Dose1_Recip_18Plus&#34;&lt;br&gt;&#34;Administered_Dose2_Recip_18Plus&#34;"
+                        data-desc="total = (Administered_Dose1_Recip + Administered_Dose2_Recip)&lt;br&gt;total_18+ = (Administered_Dose1_Recip_18Plus + Administered_Dose2_Recip_18Plus)&lt;br&gt;under_18 = total - total_18+&lt;br&gt;Shows the total number of doses administered to someone under 18. Vaccine use is limited to those under 18, currently Emergency Use Authorization has been granted for use of the Pfizer-BioNTech vaccine among persons aged 16 and older and use of the Moderna vaccine among persons aged 18 and older."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Administered to Person &lt;18</h5>
+                <div>
+                    <span class="card-title h1 mb-0">34</span>
+                    <span class="diff font-weight-bold mb-0"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Pct. Administered 1 Dose"
+                        data-src="&lt;a href=&#34;https://covid.cdc.gov/covid-data-tracker/#vaccinations&#34;&gt;CDC Vaccine Tracker&lt;/a&gt;"
+                        data-details="&#34;Census2019&#34;&lt;br&gt;&#34;Administered_Dose1_Recip&#34;"
+                        data-desc="Represents the percent of people who received at least 1 dose of COVID-19 vaccine. This metric includes everyone who has received only 1 dose and those who received more than 1 dose. Calculation uses estimated population from Census 2019 estimates."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Pct. Administered 1 Dose</h5>
+                <div>
+                    <span class="card-title h1 mb-0">34</span>
+                    <span class="diff font-weight-bold mb-0"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="m-stats-cards-card-wrapper card-wrapper aggregate-card col-xl-3 col-md-6 mb-4">
+            <div class="card card-body text-center h-100 mb-0">
+                <button type="button" 
+                        onclick="showModal(this)"
+                        class="info btn pull-right"
+                        data-toggle="modal" 
+                        data-title="Pct. Administered 2 Doses"
+                        data-src="&lt;a href=&#34;https://covid.cdc.gov/covid-data-tracker/#vaccinations&#34;&gt;CDC Vaccine Tracker&lt;/a&gt;"
+                        data-details="&#34;Census2019&#34;&lt;br&gt;&#34;Administered_Dose2_Recip&#34;"
+                        data-desc="Represents the percent of people who received 2 doses of COVID-19 vaccine. This metric includes everyone who has received only 1 dose and those who received more than 1 dose. Calculation uses estimated population from Census 2019 estimates."
+                        data-target="#daily-update-src">
+                    <i class="fa fa-info fa-lg"></i>
+                </button>
+                <h5 class="card-title text-uppercase text-muted mb-0">Pct. Administered 2 Doses</h5>
+                <div>
+                    <span class="card-title h1 mb-0">34</span>
+                    <span class="diff font-weight-bold mb-0"></span>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
 

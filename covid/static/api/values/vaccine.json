@@ -21,22 +21,22 @@
     },
     {
         "id": "vaccine-used-pct",
-        "total": "",
+        "total": "34",
         "change": ""
     },
     {
         "id": "vaccine-admin-u18",
-        "total": "",
+        "total": "34",
         "change": ""
     },
     {
         "id": "vaccine-dose1-pct",
-        "total": "",
+        "total": "34",
         "change": ""
     },
     {
         "id": "vaccine-dose2-pct",
-        "total": "",
+        "total": "34",
         "change": ""
     }
 ]

@@ -1,0 +1,59 @@
+[
+    {
+        "id": "vaccine-dist",
+        "name": "Distributed",
+        "source": "<a href=\"https://covid.cdc.gov/covid-data-tracker/#vaccinations\">CDC Vaccine Tracker</a>",
+        "source_detail": "\"Doses_Distributed\"",
+        "source_desc": "The total number of vaccine doses that have been delivered. Doses delivered include those delivered to vaccine providers by the jurisdiction, retail pharmacies, long-term care facilities, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities in that state or territory."
+    },
+    {
+        "id": "vaccine-admin",
+        "name": "Administered",
+        "source": "<a href=\"https://covid.cdc.gov/covid-data-tracker/#vaccinations\">CDC Vaccine Tracker</a>",
+        "source_detail": "\"Administered_Dose1_Recip\"<br>\"Administered_Dose2_Recip\"",
+        "source_desc": "(Administered_Dose1_Recip + Administered_Dose2_Recip)<br>Doses administered in jurisdictional partner clinics, retail pharmacies, long-term care facilities, Federal Emergency Management Agency (FEMA) and Health Resources and Services Administration (HRSA) partner sites, and federal entity facilities in that state or territory."
+
+    },
+    {
+        "id": "vaccine-dose1",
+        "name": "Administered Dose 1",
+        "source": "<a href=\"https://covid.cdc.gov/covid-data-tracker/#vaccinations\">CDC Vaccine Tracker</a>",
+        "source_detail": "\"Administered_Dose1_Recip\"",
+        "source_desc": "Represents the total number of people who received at least 1 dose of COVID-19 vaccine. For this measure, CDC’s COVID Data Tracker attributes each dose to the state or territory in which the person resides."
+    },
+    {
+        "id": "vaccine-dose2",
+        "name": "Administered Dose 2",
+        "source": "<a href=\"https://covid.cdc.gov/covid-data-tracker/#vaccinations\">CDC Vaccine Tracker</a>",
+        "source_detail": "\"Administered_Dose2_Recip\"",
+        "source_desc": "Represents the number of people who have received the second dose in a 2-dose COVID-19 vaccine series. For this measure, CDC’s COVID Data Tracker attributes each dose to the state or territory in which the person resides."
+    },
+    {
+        "id": "vaccine-used-pct",
+        "name": "Pct. Vaccine Used",
+        "source": "<a href=\"https://covid.cdc.gov/covid-data-tracker/#vaccinations\">CDC Vaccine Tracker</a>",
+        "source_detail": "\"Doses_Distributed\"<br>\"Administered_Dose1_Recip\"<br>\"Administered_Dose2_Recip\"",
+        "source_desc": "(Administered_Dose1_Recip + Administered_Dose2_Recip)/Doses_Distributed<br>The percentage of vaccine distributed to the state that has been administered to a person, calculated by adding dose1_recip + dose2_recip."
+    },
+    {
+        "id": "vaccine-admin-u18",
+        "name": "Administered to Person <18",
+        "source": "<a href=\"https://covid.cdc.gov/covid-data-tracker/#vaccinations\">CDC Vaccine Tracker</a>",
+        "source_detail": "\"Administered_Dose1_Recip\"<br>\"Administered_Dose2_Recip\"<br>\"Administered_Dose1_Recip_18Plus\"<br>\"Administered_Dose2_Recip_18Plus\"",
+        "source_desc": "total = (Administered_Dose1_Recip + Administered_Dose2_Recip)<br>total_18+ = (Administered_Dose1_Recip_18Plus + Administered_Dose2_Recip_18Plus)<br>under_18 = total - total_18+<br>Shows the total number of doses administered to someone under 18. Vaccine use is limited to those under 18, currently Emergency Use Authorization has been granted for use of the Pfizer-BioNTech vaccine among persons aged 16 and older and use of the Moderna vaccine among persons aged 18 and older."
+    },
+    {
+        "id": "vaccine-dose1-pct",
+        "name": "Pct. Administered 1 Dose",
+        "source": "<a href=\"https://covid.cdc.gov/covid-data-tracker/#vaccinations\">CDC Vaccine Tracker</a>",
+        "source_detail": "\"Census2019\"<br>\"Administered_Dose1_Recip\"",
+        "source_desc": "Represents the percent of people who received at least 1 dose of COVID-19 vaccine. This metric includes everyone who has received only 1 dose and those who received more than 1 dose. Calculation uses estimated population from Census 2019 estimates."
+    },
+    {
+        "id": "vaccine-dose2-pct",
+        "name": "Pct. Administered 2 Doses",
+        "source": "<a href=\"https://covid.cdc.gov/covid-data-tracker/#vaccinations\">CDC Vaccine Tracker</a>",
+        "source_detail": "\"Census2019\"<br>\"Administered_Dose2_Recip\"",
+        "source_desc": "Represents the percent of people who received 2 doses of COVID-19 vaccine. This metric includes everyone who has received only 1 dose and those who received more than 1 dose. Calculation uses estimated population from Census 2019 estimates."
+    }
+]
