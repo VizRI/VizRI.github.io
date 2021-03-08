@@ -80,6 +80,25 @@
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="#vacSubmenu" data-toggle="collapse" data-target="#vacSubmenu" aria-expanded="false"
+                    class="panel-title active">Vaccinations</a>
+                <ul class="collapse list-unstyled" id="vacSubmenu">
+                    <li class="sub-item"><a href="/covid/vaccine/">CDC Update</a></li>
+                    <li class="sub-item"><a href="/covid/vaccine/ridoh-trend/">RIDOH Trend</a></li>
+                    <li class="sub-item">
+                        <a href="#vacStateRank" data-toggle="collapse" data-target="#vacStateRank" aria-expanded="false"
+                        class="panel-title active">State Rank</a>
+                        <ul class="collapse list-unstyled" id="vacStateRank">
+                            <li class="sub-item2"><a href="/covid/vaccine/state-rank/percent-used/">Vaccine Used (&nbsp;%&nbsp;)</a></li>
+                            <li class="sub-item2"><a href="/covid/vaccine/state-rank/one-dose/">1 Dose</a></li>
+                            <li class="sub-item2"><a href="/covid/vaccine/state-rank/one-dose-18plus/">1 Dose (&nbsp;18+&nbsp;)</a></li>
+                            <li class="sub-item2"><a href="/covid/vaccine/state-rank/two-dose/">2 Doses</a></li>
+                            <li class="sub-item2"><a href="/covid/vaccine/state-rank/two-dose-18plus/">2 Doses (&nbsp;18+&nbsp;)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
         </ul>
         
 
@@ -88,9 +107,10 @@
                 <a href="#deathsSubmenu" data-toggle="collapse" data-target="#deathsSubmenu" aria-expanded="false"
                     class="panel-title active">Deaths</a>
                 <ul class="collapse list-unstyled" id="deathsSubmenu">
+                    <li class="sub-item"><a href="/covid/deaths/new-deaths/">New Deaths</a></li>
                     <li class="sub-item"><a href="/covid/deaths/daily-deaths/">Daily Deaths</a></li>
-                    <li class="sub-item"><a href="/covid/deaths/deaths-revised-bar/">Deaths Revised (bar)</a></li>
-                    <li class="sub-item"><a href="/covid/deaths/deaths-revised-avg/">Deaths Revised (avg)</a></li>
+                    <li class="sub-item"><a href="/covid/deaths/deaths-revised-bar/">Deaths Revised (&nbsp;bar&nbsp;)</a></li>
+                    <li class="sub-item"><a href="/covid/deaths/deaths-revised-avg/">Deaths Revised (&nbsp;avg&nbsp;)</a></li>
                 </ul>
             </li>
 
@@ -99,11 +119,10 @@
                     class="panel-title collapsed">Testing</a>
                 <ul class="collapse list-unstyled" id="testSubmenu">
                     <li class="sub-item"><a href="/covid/testing/labs-positive/">Labs Positive</a></li>
-                    <li class="sub-item"><a href="/covid/testing/labs-positive-pct/">Labs Positive (&nbsp;%&nbsp;)</a>
-                    </li>
+                    <li class="sub-item"><a href="/covid/testing/labs-positive-pct/">Labs Positive (&nbsp;%&nbsp;)</a></li>
                     <li class="sub-item"><a href="/covid/testing/people-positive/">People Positive</a></li>
-                    <li class="sub-item"><a href="/covid/testing/people-positive-pct/">People Positive
-                            (&nbsp;%&nbsp;)</a></li>
+                    <li class="sub-item"><a href="/covid/testing/people-positive-pct/">People Positive (&nbsp;%&nbsp;)</a></li>
+                    <li class="sub-item"><a href="/covid/testing/new-people-tested/">New People Tested (&nbsp;%&nbsp;)</a></li>
                 </ul>
             </li>
             <li>
@@ -138,6 +157,25 @@
     <p>All notable changes to this project will be documented here.</p>
     <hr>
     <div>
+        <h4 class="mt-4 mb-4">2021-03-08 - Vaccine Update</h4>
+        <h5 class="mt-4">Added</h5>
+        <ul>
+            <li><a href="/covid/vaccine/">Vaccine daily update</a> data from CDC highlighting vaccination numbers.</li>
+            <li><a href="/covid/vaccine/ridoh-trend/">Vaccination trend</a> from RIDOH showing 1 and 2 doses administered and a 7-day moving average.</li>
+            <li>CDC <a href="/covid/vaccine/state-rank/percent-used/">Percent vaccine used</a> showing how much recieved vaccine each state has used.</li>
+            <li>CDC <a href="/covid/vaccine/state-rank/one-dose/">1 Dose</a> showing how RI ranks compared to other states in people who have recieved 1 dose.</li>
+            <li>CDC <a href="/covid/vaccine/state-rank/two-dose/">2 Doses</a> showing how RI ranks compared to other states in people who have recieved 2 doses.</li>
+            <li>CDC <a href="/covid/vaccine/state-rank/one-dose-18plus/">1 Dose (18 plus)</a> showing how RI ranks compared to other states in people 18+ who have recieved 1 dose.</li>
+            <li>CDC <a href="/covid/vaccine/state-rank/two-dose-18plus/">2 Dose (18 plus)</a> showing how RI ranks compared to other states in people 18+ who have recieved 2 doses.</li>
+        </ul>
+        <h5 class="mt-4">Changes</h5>
+        <ul>
+            <li>RIDOH vaccine numbers now appear in Daily Update showing new partially and fully vaccinated.</li>
+            <li>RIDOH vaccine numbers now appear in Current Totals showing total partially and fully vaccinated.</li>
+            <li>Added a new graph <a href="/covid/deaths/new-deaths/">new deaths</a> highlighting just today's deaths.</li>
+            <li>Added a new graph <a href="/covid/testing/new-people-tested/">new people tested</a> showing what % of tests are first time takers.</li>
+        </ul>
+        <hr>
         <h4 class="mt-4 mb-4">2021-02-19 - Nursing Homes Update</h4>
         <h5 class="mt-4">Added</h5>
         <ul>
