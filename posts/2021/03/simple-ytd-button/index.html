@@ -120,7 +120,7 @@
 <h3>Step 1 - Create a parameter</h3>
 <p>To start, create a parameter named "button" it will be a string parameter with 2 list values "Full" and "YTD". The default value will be "Full" which will show all data possible, 2020 will have 12 months and 2021 will have 2.</p>
 <p><center><img src='https://ivizri.com/images/2021/simple-ytd-button/button-param.png'></img></center></p>
-<h3>Step 2 - Create YTD filter</h3>
+<h3>Step 2 - Create YTD Filter</h3>
 <div class="highlight"><pre><span></span>// Named YTD Filter
 if [button] = &quot;YTD&quot; THEN
 if MAKEDATE(
@@ -134,7 +134,7 @@ END
 
 
 <p>This filter will be controlled by the button and toggled on/off. What this calculation does by using <code>YEAR({MAX([Date])})</code> is move all years to match the year of your most recent date, then using <code>&lt;= {MAX([Date])}</code> will filter to show all years up to the most recent date. So for our example data, will show all years only up to and including February, if we have data up to 2/18/2021 we would get all years data up to 2/18/{year}for each year. </p>
-<h3>Step 3 - Create toggleable button</h3>
+<h3>Step 3 - Create Toggle Button</h3>
 <p>We need a working button, so go ahead and make a new sheet. We will need to create a new calculation to show the text of our button named "Toggle". </p>
 <div class="highlight"><pre><span></span>// named Toggle
 IF [button] = &quot;Full&quot; THEN &quot;YTD&quot;
@@ -144,7 +144,7 @@ ELSE &quot;Full&quot; END
 
 <p>In this new sheet, pull in Toggle to details and text on the marks card, add any prefix you want or special formatting. Lastly add YTD Filter to the filters card and tick "show".</p>
 <p><center><img src='https://ivizri.com/images/2021/simple-ytd-button/toggle-mark-format.png'></img></center></p>
-<h3>Step 4 - Create the dashboard</h3>
+<h3>Step 4 - Create the Dashboard</h3>
 <p>Create a sheet, pull your [Date] to columns (should default to year), and your value to rows changing the marks to a bar graph. Pull your "YTD Filter" calculation to the Filters pane and tick "show".</p>
 <p>Create a dashboard, pull in your bar graph sheet, and your toggle button sheet. Go to <code>Dashboard -&gt; Action -&gt; Add action -&gt; Change parameter</code>. Select your button sheet, action run on Select, the parameter is button and the field Toggle. You can choose 2 options for clearing the selection, "keep" will require 2 clicks for each toggle otherwise "set value to" "Full" will require only one click.</p>
 <p><center><img src='https://ivizri.com/images/2021/simple-ytd-button/param-action.png'></img></center></p>
