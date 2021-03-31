@@ -113,13 +113,13 @@
                 </div>
                 <hr>
 <p>This tutorial will walk you through creating a button to swap back and forth between showing the full years worth of data, and showing all years filtered to the most recent date in your dataset. This can be useful when trying to see how the current year compares with prior years when not yet occurring dates aren't included. </p>
-<p><center><img src='https://i.imgur.com/yKV7wEv.gifv' style="width: 75%;"></img></center></p>
+<p><center><img src='https://i.imgur.com/yKV7wEv.gif'></img></center></p>
 <p>The dataset I'll be using is the NICS firearms background checks. The data I use is extracted from the PDF's from <a href="https://github.com/BuzzFeedNews/nics-firearm-background-checks">BuzzFeedNews</a>, I pivoted &amp; cleaned the data up for use in Tableau which you can find <a href="https://raw.githubusercontent.com/SmirkyGraphs/Python-Notebooks/master/nics-background-checks/data/clean/nics-firearm-clean.csv">here</a> (filter for the state you want i'm using RI). Feel free to use your own, the import part is it had a <code>[Date] (mm/dd/yyyy)</code> field and a <code>[Value]</code> that we want to graph.</p>
-<p><center><img src='https://ivizri.com/images/2021/simple-ytd-tutorial/data.png' style="width: 75%;"></img></center></p>
+<p><center><img src='https://ivizri.com/images/2021/simple-ytd-button/data.png' style="width: 75%;"></img></center></p>
 <p>Simply dropping <code>[Date]</code> into columns and your <code>[Value]</code> into rows will cause a mismatch of time periods. As you can see from the image above, for 2021 we only have 2 months worth of data opposed to all prior years having 12 months. My goal for this dashboard was to highlight the massive increase that came with 2020, however I wanted to be able to also see if this trend was continuing into 2021 as well.</p>
 <h3>Step 1 - Create a parameter</h3>
 <p>To start, create a parameter named "button" it will be a string parameter with 2 list values "Full" and "YTD". The default value will be "Full" which will show all data possible, 2020 will have 12 months and 2021 will have 2.</p>
-<p><center><img src='https://ivizri.com/images/2021/simple-ytd-tutorial/button-param.png'></img></center></p>
+<p><center><img src='https://ivizri.com/images/2021/simple-ytd-button/button-param.png'></img></center></p>
 <h3>Step 2 - Create YTD filter</h3>
 <div class="highlight"><pre><span></span>// Named YTD Filter
 if [button] = &quot;YTD&quot; THEN
@@ -143,11 +143,11 @@ ELSE &quot;Full&quot; END
 
 
 <p>In this new sheet, pull in Toggle to details and text on the marks card, add any prefix you want or special formatting. Lastly add YTD Filter to the filters card and tick "show".</p>
-<p><center><img src='https://ivizri.com/images/2021/simple-ytd-tutorial/toggle-mark-format.png'></img></center></p>
+<p><center><img src='https://ivizri.com/images/2021/simple-ytd-button/toggle-mark-format.png'></img></center></p>
 <h3>Step 4 - Create the dashboard</h3>
 <p>Create a sheet, pull your [Date] to columns (should default to year), and your value to rows changing the marks to a bar graph. Pull your "YTD Filter" calculation to the Filters pane and tick "show".</p>
 <p>Create a dashboard, pull in your bar graph sheet, and your toggle button sheet. Go to <code>Dashboard -&gt; Action -&gt; Add action -&gt; Change parameter</code>. Select your button sheet, action run on Select, the parameter is button and the field Toggle. You can choose 2 options for clearing the selection, "keep" will require 2 clicks for each toggle otherwise "set value to" "Full" will require only one click.</p>
-<p><center><img src='https://ivizri.com/images/2021/simple-ytd-tutorial/param-action.png'></img></center></p>
+<p><center><img src='https://ivizri.com/images/2021/simple-ytd-button/param-action.png'></img></center></p>
             </div>           
             <!-- /.entry-content -->
         </article>
