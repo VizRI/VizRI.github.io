@@ -1,0 +1,43 @@
+.table {
+    margin-top: 2em !important;
+    margin-bottom: 2em !important;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0 !important;
+    color: black !important;
+    text-align: right;
+    background-color: transparent !important;
+}
+
+.table > tr {
+    text-align: right !important;
+    vertical-align: middle !important;
+    padding: 0.5em 0.5em !important;
+    line-height: normal !important;
+    white-space: normal !important;
+    max-width: none !important;
+    border: none !important;
+}
+
+.table > tbody {
+    display: table-row-group !important;
+    vertical-align: middle !important;
+    border-color: inherit !important;
+}
+
+.table > thead {
+    border-bottom: 1px solid black !important;
+    text-align: right;
+    vertical-align: bottom !important;
+}
+
+.table > thead > tr {
+    border: none;
+}
+
+.table > thead > tr > th {
+    text-align: right !important;
+    font-weight: bold !important;
+}
