@@ -20,10 +20,10 @@ function getColor(d) {
 function PolyStyle(feature) {
     return {
         fillColor: getColor(feature.properties.seconds),
-        fillOpacity: 0.5,
+        fillOpacity: 0.8,
         weight: 2,
         color: getColor(feature.properties.seconds),
-        opacity: 0.1
+        opacity: 0.2
     };
 }
 
@@ -43,15 +43,26 @@ var map = L.map('map')
 
 mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
 
-L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; ' + mapLink + ' Contributors',
-    maxZoom: 18,
-    minZoom: 10,
-}).addTo(map);
+
 
 addGeoJson("http://127.0.0.1:8000/data/rhode_island.geojson", RiStyle);
-addGeoJson("http://127.0.0.1:8000/data/seconds_900.geojson", PolyStyle);
-addGeoJson("http://127.0.0.1:8000/data/seconds_600.geojson", PolyStyle);
-addGeoJson("http://127.0.0.1:8000/data/seconds_300.geojson", PolyStyle);
-addGeoJson("http://127.0.0.1:8000/data/seconds_150.geojson", PolyStyle);
+addGeoJson("http://127.0.0.1:8000/data/dunkin_distance.geojson", PolyStyle);
+
+var legend = L.control({position: 'bottomright'});
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [150, 300, 600, 900],
+        labels = ['2.5 mins', '5 mins', '10 mins', '15 mins'];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(grades[i]) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(map);
