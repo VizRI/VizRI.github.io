@@ -12,6 +12,10 @@
     background-color: transparent !important;
 }
 
+.table > th {
+    text-align: right !important;
+}
+
 .table > tr {
     text-align: right !important;
     vertical-align: middle !important;
