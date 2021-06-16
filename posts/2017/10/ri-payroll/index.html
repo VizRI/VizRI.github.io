@@ -117,7 +117,7 @@
 <p><center><h3>Getting the Data</h3></center></p>
 <p>Looking into the states payroll was quite the adventure, you can download the full data 2011-2018 (up to Oct 6th) over at <a href="http://www.transparency.ri.gov/payroll/">RI's Transparency Portal</a>. It contains 137,998 records from 49 different departments and 3,849 unique job titles. The data consists of 5 payment columns these are regular, overtime, total, other and annual pay. Records prior to 2016 don't contain annual salary amounts.</p>
 <p>Viewing the titles, it doesn't take long to notice they're a disaster (with a 30 char limit). 7,343 records are missing a title, most state college employees are listed as "non classified", some titles prior to 2016 bleed into their own cell shifting all the values right 1 or 2 extra cells, multiple different abbreviations for the same title, some titles tagging the department on the end, a few misspelled and the changing of formats throughout different years. However after some time spent cleaning the data in excel I got it down to 2,489 titles and 2,246 broad titles. For an example of the issues here is the same title "Chf Strategic Plan Mont &amp; Eval" 7 different ways.</p>
-<p><center><img src="https://i.imgur.com/lRhel3v.png" </img></center></p>
+<p><center>&lt;img src="https://i.imgur.com/lRhel3v.png" </img></center></p>
 <p><center><h3>Cleaning the Data</h3></center></p>
 <p>One thing I was interested in was how employees pay changed over time and the progression of their careers. Having the annual salary only for 2016+ that's the furthest back I can go. This was pretty difficult because the only identifying information is first name, last name and middle initial. 31,852 have no middle initial and 56 of those... have numbers for the middle initial. I created a id column by combining year,first,last,mi example (2017 HURLEY DANIEL S) which works for the most part only resulting in 361 duplicates which I dealt with manually. A lot of the duplicates end up being really small payments usually under $1,000. I then used vlookup to join 2016 and 2017 data for people with the same id, so if 2 people had the same first, last and mi it may have cause some errors in the raise and title change raises sections of the viz.</p>
 <p><center><h3>Results</h3></center></p>
@@ -162,6 +162,11 @@
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="../../../../posts/2021/06/2021q1-ri-political-expenditures/">
+                            2021Q1 - RI Political Expenditures
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="../../../../posts/2021/06/national-donut-day-political-spending/">
                             National Donut Day - Political Spending
                         </a>
@@ -179,11 +184,6 @@
                     <li class="list-group-item">
                         <a href="../../../../posts/2021/04/governors-office-transition/">
                             Governor's Office Transition
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="../../../../posts/2021/04/401gives-2021-summary/">
-                            401Gives 2021 Summary
                         </a>
                     </li>
                 </ul>

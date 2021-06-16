@@ -129,7 +129,7 @@
 <hr>
 <h2>Step 3: Pyton Code</h2>
 <p>I assume you have your own data, so I'm going to make a basic sample DataFrame.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">pygsheets</span>
 
 <span class="c1"># sample dataframe</span>
@@ -143,10 +143,9 @@
 <span class="n">wb</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;[YOUR GOOGLE SHEET FILE NAME]&#39;</span><span class="p">)</span>
 
 <span class="c1"># open the sheet by name</span>
-<span class="n">sheet</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">worksheet_by_title</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;[YOUR SHEET NAME]&#39;</span><span class="p">)</span>
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">worksheet_by_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[YOUR SHEET NAME]&#39;</span><span class="p">)</span>
 <span class="n">sheet</span><span class="o">.</span><span class="n">set_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Simply replace the creds with your service file, the [YOUR GOOGLE SHEET] with the workbook name and [YOUR SHEET NAME] with the sheet tab name, the (1,1) is where the dataframe will begin, so A1. Obviously re-running all this code would accomplish nothing... As the sample data is hard-coded and will never change. However assuming your reading from a csv, excel or loading data from a database it would write over the existing data showing the new info. If for some reason your new data is smaller then your existing data make sure to add <code>sheet.clear()</code> prior to the <code>set_dataframe</code> or some of the old data would still exist.</p>
 <hr>
@@ -159,12 +158,12 @@
 <p><img src='https://imgur.com/tVFsJNa.png'></img></p>
 <p>I've run into an issue when joining data, if you use a geojson/shapefile layer and join a google sheet to it. You don't get the option to automatically update the google sheet. I'm not sure if this happens with other file formats but a possible solution could be a blend rather than a join.</p>
 <p>This still requires you to run the code on your own, however if you're on a Mac you can look into using CRON to schedule a python script. On Windows you can use the windows task scheduler to use a timed based trigger to run your python script. Personally the data I used this for updates once a day at 12pm so I just added some code to sleep my program till 12:05pm.</p>
-<div class="highlight"><pre><span></span># wait till 12:05 then continue
-target = pd.datetime.now().replace(hour=12).replace(minute=5)
-while pd.datetime.now() &lt; target:
-    print(f&quot;[status] waiting for 12pm&quot;, end=&#39;\r&#39;)
-    time.sleep(60)
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">wait</span><span class="w"> </span><span class="n">till</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="mi">05</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="k">continue</span><span class="w"></span>
+<span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="nc">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="nf">replace</span><span class="p">(</span><span class="k">hour</span><span class="o">=</span><span class="mi">12</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="k">minute</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
+<span class="k">while</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="nc">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">target</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;[status] waiting for 12pm&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">end</span><span class="o">=</span><span class="s1">&#39;\r&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nc">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
             </div>           
             <!-- /.entry-content -->
         </article>
@@ -187,6 +186,11 @@ while pd.datetime.now() &lt; target:
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="../../../../posts/2021/06/2021q1-ri-political-expenditures/">
+                            2021Q1 - RI Political Expenditures
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="../../../../posts/2021/06/national-donut-day-political-spending/">
                             National Donut Day - Political Spending
                         </a>
@@ -204,11 +208,6 @@ while pd.datetime.now() &lt; target:
                     <li class="list-group-item">
                         <a href="../../../../posts/2021/04/governors-office-transition/">
                             Governor's Office Transition
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="../../../../posts/2021/04/401gives-2021-summary/">
-                            401Gives 2021 Summary
                         </a>
                     </li>
                 </ul>

@@ -121,26 +121,24 @@
 <p>To start, create a parameter named "button" it will be a string parameter with 2 list values "Full" and "YTD". The default value will be "Full" which will show all data possible, 2020 will have 12 months and 2021 will have 2.</p>
 <p><center><img src='https://ivizri.com/images/2021/simple-ytd-button/button-param.png'></img></center></p>
 <h3>Step 2 - Create YTD Filter</h3>
-<div class="highlight"><pre><span></span>// Named YTD Filter
-if [button] = &quot;YTD&quot; THEN
-if MAKEDATE(
-    YEAR({MAX([Date])}),
-    MONTH([Date]),
-    DAY([Date])
-) &lt;= {MAX([Date])} then &quot;show&quot; end
-ELSE &quot;show&quot;
-END
-</pre></div>
-
+<div class="highlight"><pre><span></span><code><span class="o">//</span><span class="w"> </span><span class="n">Named</span><span class="w"> </span><span class="n">YTD</span><span class="w"> </span><span class="k">Filter</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="n">button</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;YTD&quot;</span><span class="w"> </span><span class="k">THEN</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="n">MAKEDATE</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="nf">YEAR</span><span class="p">(</span><span class="err">{</span><span class="nf">MAX</span><span class="p">(</span><span class="o">[</span><span class="n">Date</span><span class="o">]</span><span class="p">)</span><span class="err">}</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="nf">MONTH</span><span class="p">(</span><span class="o">[</span><span class="n">Date</span><span class="o">]</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="nf">DAY</span><span class="p">(</span><span class="o">[</span><span class="n">Date</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+<span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="err">{</span><span class="nf">MAX</span><span class="p">(</span><span class="o">[</span><span class="n">Date</span><span class="o">]</span><span class="p">)</span><span class="err">}</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="ss">&quot;show&quot;</span><span class="w"> </span><span class="k">end</span><span class="w"></span>
+<span class="k">ELSE</span><span class="w"> </span><span class="ss">&quot;show&quot;</span><span class="w"></span>
+<span class="k">END</span><span class="w"></span>
+</code></pre></div>
 
 <p>This filter will be controlled by the button and toggled on/off. What this calculation does by using <code>YEAR({MAX([Date])})</code> is move all years to match the year of your most recent date, then using <code>&lt;= {MAX([Date])}</code> will filter to show all years up to the most recent date. So for our example data, will show all years only up to and including February, if we have data up to 2/18/2021 we would get all years data up to 2/18/{year}for each year. </p>
 <h3>Step 3 - Create Toggle Button</h3>
 <p>We need a working button, so go ahead and make a new sheet. We will need to create a new calculation to show the text of our button named "Toggle". </p>
-<div class="highlight"><pre><span></span>// named Toggle
-IF [button] = &quot;Full&quot; THEN &quot;YTD&quot;
-ELSE &quot;Full&quot; END
-</pre></div>
-
+<div class="highlight"><pre><span></span><code><span class="o">//</span><span class="w"> </span><span class="n">named</span><span class="w"> </span><span class="n">Toggle</span><span class="w"></span>
+<span class="k">IF</span><span class="w"> </span><span class="o">[</span><span class="n">button</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;Full&quot;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="ss">&quot;YTD&quot;</span><span class="w"></span>
+<span class="k">ELSE</span><span class="w"> </span><span class="ss">&quot;Full&quot;</span><span class="w"> </span><span class="k">END</span><span class="w"></span>
+</code></pre></div>
 
 <p>In this new sheet, pull in Toggle to details and text on the marks card, add any prefix you want or special formatting. Lastly add YTD Filter to the filters card and tick "show".</p>
 <p><center><img src='https://ivizri.com/images/2021/simple-ytd-button/toggle-mark-format.png'></img></center></p>
@@ -170,6 +168,11 @@ ELSE &quot;Full&quot; END
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="../../../../posts/2021/06/2021q1-ri-political-expenditures/">
+                            2021Q1 - RI Political Expenditures
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="../../../../posts/2021/06/national-donut-day-political-spending/">
                             National Donut Day - Political Spending
                         </a>
@@ -187,11 +190,6 @@ ELSE &quot;Full&quot; END
                     <li class="list-group-item">
                         <a href="../../../../posts/2021/04/governors-office-transition/">
                             Governor's Office Transition
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="../../../../posts/2021/04/401gives-2021-summary/">
-                            401Gives 2021 Summary
                         </a>
                     </li>
                 </ul>

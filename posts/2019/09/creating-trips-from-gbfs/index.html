@@ -139,7 +139,7 @@
 <p>I had some AWS credit from awhile back that i've been searching for a project to use it twords and figured this would be a good oportunity. I chose to use a lambda script to feed the json data from the gbfs feed directly into an S3 bucket to store it for future use. Heres a flowchart of what this process looks like.</p>
 <p><img alt="flowgraph" src="https://i.imgur.com/ftHB7sX.png"></p>
 <p>The code would be triggered every 5 minutes from a CloudWatch Cron trigger running 24/7. The code only required Python standard library so theres no packaging involved, this was the code used, it will require you setup IAM permissions to allow the lambda function to put objects into your bucket.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">boto3</span>
 <span class="kn">import</span> <span class="nn">botocore</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
@@ -151,8 +151,8 @@
 
     <span class="n">timestamp</span> <span class="o">=</span> <span class="n">vehicles_data</span><span class="p">[</span><span class="s1">&#39;last_updated&#39;</span><span class="p">]</span>
 
-    <span class="n">vehicles_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">vehicles_data</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>  
-    <span class="n">vehicles_file</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;{vehicle_type}/{vehicle_type}_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span>
+    <span class="n">vehicles_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">vehicles_data</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  
+    <span class="n">vehicles_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">vehicle_type</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">vehicle_type</span><span class="si">}</span><span class="s1">_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span>
 
     <span class="k">return</span> <span class="n">vehicles_data</span><span class="p">,</span> <span class="n">vehicles_file</span>
 
@@ -171,22 +171,20 @@
 
     <span class="c1"># Uploaded File</span>
     <span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">)</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">Key</span><span class="o">=</span><span class="n">bikes_file</span><span class="p">,</span> <span class="n">Body</span><span class="o">=</span><span class="n">bikes_data</span><span class="p">)</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Lastly in the AWS process, you can get retrieve all the files from your bucket easily using the <a href="https://aws.amazon.com/cli/">AWS CLI</a> command.</p>
-<div class="highlight"><pre><span></span>aws s3 sync s3://{YOUR BUCKET NAME} {YOUR FILE PATH}
-</pre></div>
-
+<div class="highlight"><pre><span></span><code>aws s3 sync s3://{YOUR BUCKET NAME} {YOUR FILE PATH}
+</code></pre></div>
 
 <h3>Making Trips from Data Collected</h3>
 <p>The first step in making trip data is to combine all your downloaded files into a pandas dataframe.</p>
-<div class="highlight"><pre><span></span><span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="highlight"><pre><span></span><code><span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;{YOUR FILE PATH}/*.json&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
 
     <span class="c1"># load files &amp; get timestamp</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;records&#39;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;records&#39;</span><span class="p">)</span>
     <span class="n">timestamp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;last_updated&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># flatten json data into table &amp; add timestamp</span>
@@ -197,54 +195,49 @@
     <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Next we will need to order the data by <code>bike_id</code> so we can compare the rows to see changes<br>
 aswell as convert the timestamp to a understandable format.</p>
-<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;US/Eastern&#39;</span><span class="p">))</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Now, we can use pandas <code>.shift()</code> to compare each row to the one below it. Most importantly we first make sure the bike_id is the same, then we use <code>.ne()</code> <em>not equal</em> to check if lat OR lng has changed. This will create a TRUE value for every time the value has changed, which would be the "end" of a trip, then we can simply look for that true value and create the "start".</p>
-<div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span>  \
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span>  \
           <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span>          \
           <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())))</span>        \
           <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">()))</span>
 
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> \
-            <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="bp">True</span><span class="p">)</span>
+            <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;trip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;start&#39;</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;trip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;end&#39;</span>
-</pre></div>
-
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;trip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;start&#39;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;trip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;end&#39;</span>
+</code></pre></div>
 
 <p>However this is an issue when a bike would be re-rented within the 5 min causing a single record to be both a start, and a stop location. To solve this we create a copy of every row that needs to be duplicated and append it back into the dataframe.</p>
-<div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;dupe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;dupe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
          <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span>
        <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bike_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
        <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trip&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;end&#39;</span><span class="p">)</span>
        <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;end&#39;</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="n">dupe</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;dupe&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">dupe</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;dupe&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">dupe</span><span class="p">[</span><span class="s1">&#39;trip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;start&#39;</span>
 
 <span class="c1"># merge rows that needed to be duplicated</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dupe</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-</pre></div>
-
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dupe</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
 
 <p>To create a unique ID number for each trip we can use a groupby with <code>.cumcount()</code></p>
-<div class="highlight"><pre><span></span><span class="c1"># adding a trip_id to join start &amp; stop data</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># adding a trip_id to join start &amp; stop data</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;trip_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;trip&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Finally to create the actual trips, we remove all the extra fat (which is 90% of our rows) and pivot the dataframe on the trip, and trip_id level.</p>
-<div class="highlight"><pre><span></span><span class="n">trips</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span>
+<div class="highlight"><pre><span></span><code><span class="n">trips</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;trip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span>
 <span class="n">trips</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;trip&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;trip_id&#39;</span><span class="p">)</span>
 
 <span class="n">col_one</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
@@ -252,12 +245,11 @@ aswell as convert the timestamp to a understandable format.</p>
 <span class="n">trips</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">col_one</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">col_two</span>
 
 <span class="n">trips</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Now you end up all the information for every time a bike has moved the basic trip data. Link provided below for the full code which includes more like filtering out the errors specified at the top of this post.</p>
-<p><hr>
-Useful Links</p>
+<hr>
+<p>Useful Links</p>
 <p><a href="https://github.com/SmirkyGraphs/pvd-bike-share">Full Code - My Github</a></p>
 <p><a href="https://www.graphhopper.com/open-source/">Graphhopper Routing Engine</a></p>
 <p><a href="https://mds.bird.co/gbfs/providence/free_bikes">Bird gbfs data</a></p>
@@ -284,6 +276,11 @@ Useful Links</p>
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="../../../../posts/2021/06/2021q1-ri-political-expenditures/">
+                            2021Q1 - RI Political Expenditures
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="../../../../posts/2021/06/national-donut-day-political-spending/">
                             National Donut Day - Political Spending
                         </a>
@@ -301,11 +298,6 @@ Useful Links</p>
                     <li class="list-group-item">
                         <a href="../../../../posts/2021/04/governors-office-transition/">
                             Governor's Office Transition
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="../../../../posts/2021/04/401gives-2021-summary/">
-                            401Gives 2021 Summary
                         </a>
                     </li>
                 </ul>
