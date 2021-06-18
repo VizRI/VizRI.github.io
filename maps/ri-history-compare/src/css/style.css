@@ -79,6 +79,9 @@ html, body, #map {
   .title-background {
     display: none;
   }
+  #attribtuion {
+    display: none;
+  }
 }
 
 .select-box {
@@ -146,6 +149,24 @@ hr {
   height: 50px;
   z-index: 1000;
   border: 2px solid rgba(0,0,0,0.6);
+}
+
+#attribution {
+  right: 0;
+  bottom: 0;
+  float: right;
+  position: absolute;
+  display: block;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 1000;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  padding: 6px 8px;
+  font-family: 'Open Sans', 'Helvetica Neue', 'Segoe UI', 'Calibri', 'Arial', sans-serif;
+}
+
+.attribution-text {
+  font-size: 12px;
 }
 
 .toggle-btn {
