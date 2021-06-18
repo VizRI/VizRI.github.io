@@ -75,15 +75,6 @@ html, body, #map {
   width: 550px;
 }
 
-@media only screen and (max-width: 800px) {
-  .title-background {
-    display: none;
-  }
-  #attribution {
-    display: none;
-  }
-}
-
 .select-box {
   position: relative;
   display: block;
@@ -192,6 +183,15 @@ hr {
     display: none;
   }
   .title-background {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .title-background {
+    display: none;
+  }
+  #attribution {
     display: none;
   }
 }
