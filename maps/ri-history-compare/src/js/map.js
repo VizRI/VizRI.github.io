@@ -4,7 +4,7 @@ function swapLayer() {
 
     var newLayer = L.esri.tiledMapLayer({
         url: document.getElementById("image-year").value,
-        attribution: 'Tiles provided by: <a href="https://www.rigis.org/">RIGIS</a>'
+        attribution: 'Tiles: <a href="https://www.rigis.org/">RIGIS</a> | Designed by: <a href="https://twitter.com/SmirkyGraphs">SmirkyGraphs</a>'
     })
 
     rightLayer = newLayer
